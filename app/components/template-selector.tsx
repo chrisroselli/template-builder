@@ -22,7 +22,7 @@ export const TemplateSelector = memo(function TemplateSelector({
         </SelectTrigger>
         <SelectContent>
           {templates.map((template) => (
-            <SelectItem key={template.id} value={template.id}>
+            <SelectItem key={template.id} value={template.name}>
               {template.name}
             </SelectItem>
           ))}

@@ -7,47 +7,105 @@ import { TemplateSelector } from "./template-selector";
 import { ComponentList } from "./component-list";
 import { ComponentOptions } from "./component-options";
 import { OutputTabs } from "./output-tabs";
-import { templates, componentOptions } from "@/app/lib/template-data";
 import { processTemplate } from "@/app/lib/template-processor";
-import type { SelectedComponent } from "@/app/lib/types";
+import {SelectedComponent, Template} from "@/app/lib/types";
 
-interface Pets {
-  id: number;
-  name: string;
-  owner: string;
-}
 
 export function TemplateBuilder() {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("");
   const [selectedComponents, setSelectedComponents] = useState<SelectedComponent[]>([]);
-  const [pets, setPets] = useState<Pets[]>([]);
+  const [templateData, setTemplateData] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const templates = templateData.map((t) => ({
+    id: t.id,
+    name: t.name,
+    before_borders: t.before_borders,
+    borders: t.borders,
+    template_css: t.template_css,
+    inline_css: t.inline_css,
+    index_file: t.index_file,
+    components: t.components
+  }));
+
   const template = useMemo(() =>
-      templates.find(t => t.id === selectedTemplate),
-    [selectedTemplate]
+      templates.find(t => t.name === selectedTemplate),
+    [selectedTemplate, templates]
   );
+
+  const componentOptions = useMemo(() => [
+    {
+      id: "header",
+      name: "Header",
+      placeholder: "{{header}}",
+      options: [
+        { id: "default", name: "Default Header", code: "defaultHeader" },
+        { id: "slim", name: "Slim", code: "" },
+        { id: "bold", name: "Bold", code: "" },
+      ]
+    },
+    {
+      id: "hero",
+      name: "Hero",
+      placeholder: "{{hero}}",
+      options: [
+        { id: "static", name: "Static Hero", code: "staticHero" },
+        { id: "slider", name: "Slider", code: "" },
+        { id: "form", name: "Form", code: "" },
+      ]
+    },
+    {
+      id: "services",
+      name: "Services section",
+      placeholder: "{{services}}",
+      options: [
+        { id: "two", name: "Two Columns", code: "" },
+        { id: "three", name: "Three Columns", code: "" },
+        { id: "four", name: "Four Columns", code: "" },
+      ]
+    },
+    {
+      id: "reviews",
+      name: "Reviews section",
+      placeholder: "{{reviews}}",
+      options: [
+        { id: "vertSlider", name: "Vertical Slider", code: "" },
+        { id: "horizSlider", name: "Horizontal Slider", code: "" }
+      ]
+    },
+    {
+      id: "footer",
+      name: "Footer",
+      placeholder: "{{footer}}",
+      options: [
+        { id: "default", name: "Default Footer", code: "defaultFooter" },
+        { id: "slim", name: "Slim", code: "" }
+      ]
+    }
+  ]
+    ,[]);
 
   const outputs = useMemo(() => {
     if (!template) {
       return {
-        beforeBorders: "",
+        before_borders: "",
         borders: "",
-        templateCSS: "",
-        inlineCSS: "",
-        indexFile: ""
+        template_css: "",
+        inline_css: "",
+        index_file: ""
       };
     }
 
     return {
-      beforeBorders: processTemplate(template.beforeBordersFile, componentOptions, selectedComponents),
-      borders: processTemplate(template.bordersFile, componentOptions, selectedComponents),
-      templateCSS: processTemplate(template.templateCSS, componentOptions, selectedComponents),
-      inlineCSS: processTemplate(template.inlineCSS, componentOptions, selectedComponents),
-      indexFile: processTemplate(template.indexFile, componentOptions, selectedComponents)
+      before_borders: processTemplate(template.before_borders, componentOptions, selectedComponents),
+      borders: processTemplate(template.borders, componentOptions, selectedComponents),
+      template_css: processTemplate(template.template_css, componentOptions, selectedComponents),
+      inline_css: processTemplate(template.inline_css, componentOptions, selectedComponents),
+      index_file: processTemplate(template.index_file, componentOptions, selectedComponents),
+      components: processTemplate(template.components, componentOptions, selectedComponents)
     };
-  }, [template, selectedComponents]);
+  }, [template, componentOptions, selectedComponents]);
 
   const handleTemplateChange = useCallback((value: string) => {
     setSelectedTemplate(value);
@@ -85,7 +143,8 @@ export function TemplateBuilder() {
           throw new Error('Failed to fetch data');
         }
         const result = await response.json();
-        setPets(result.data);
+        console.log(result.data)
+        setTemplateData(result.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -115,12 +174,6 @@ export function TemplateBuilder() {
   return (
     <div className="space-y-6">
       <Card className="w-full mx-auto">
-        {pets.map((pet) => (
-          <div key={pet.id}>
-            <p>{pet.name}</p>
-            <p className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{pet.owner}</p>
-          </div>
-        ))}
         <CardHeader>
           <CardTitle>Template Builder</CardTitle>
         </CardHeader>
@@ -157,13 +210,13 @@ export function TemplateBuilder() {
         </CardContent>
       </Card>
 
-      {outputs.beforeBorders && (
+      {selectedTemplate && (
         <OutputTabs
-          beforeBordersOutput={outputs.beforeBorders}
+          beforeBordersOutput={outputs.before_borders}
           bordersOutput={outputs.borders}
-          templateCSSOutput={outputs.templateCSS}
-          inlineCSSOutput={outputs.inlineCSS}
-          indexFileOutput={outputs.indexFile}
+          templateCSSOutput={outputs.template_css}
+          inlineCSSOutput={outputs.inline_css}
+          indexFileOutput={outputs.index_file}
         />
       )}
     </div>

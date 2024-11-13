@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="WS-243.21565.180">
+    <data-source name="verceldb@ep-delicate-math-a4q2is87-pooler.us-east-1.aws.neon.tech" uuid="071e9ba4-5505-4066-9f40-2347d0f286d4">
+      <database-info product="PostgreSQL" version="16.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="16.4" exact-driver-version="42.6">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>default</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="verceldb">
+            <node kind="schema" qname="public" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>

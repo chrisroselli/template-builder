@@ -1,11 +1,12 @@
 export interface Template {
   id: string;
   name: string;
-  beforeBordersFile: string;
-  bordersFile: string;
-  templateCSS: string;
-  inlineCSS: string;
-  indexFile: string;
+  before_borders: string;
+  borders: string;
+  template_css: string;
+  inline_css: string;
+  index_file: string;
+  components: string;
 }
 
 export interface ComponentOption {

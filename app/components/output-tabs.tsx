@@ -11,12 +11,12 @@ interface OutputTabsProps {
 }
 
 export const OutputTabs = memo(function OutputTabs({
-                                                     beforeBordersOutput,
-                                                     bordersOutput,
-                                                     templateCSSOutput,
-                                                     inlineCSSOutput,
-                                                     indexFileOutput
-                                                   }: OutputTabsProps) {
+  beforeBordersOutput,
+  bordersOutput,
+  templateCSSOutput,
+  inlineCSSOutput,
+  indexFileOutput
+}: OutputTabsProps) {
   return (
     <Tabs defaultValue="before-borders" className="w-full">
       <TabsList className="grid w-full grid-cols-5">
