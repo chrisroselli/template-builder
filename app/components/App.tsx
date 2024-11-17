@@ -1,18 +1,63 @@
 'use client'
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import TemplateBuilder from './TemplateBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
 import {Layers, LayoutGrid, PlusCircle} from 'lucide-react';
 import HomePageBuilder from "./HomePageBuilder";
+import {Template} from "../types/types";
 
 
 function App() {
   const [activeView, setActiveView] = useState<'template' | 'home' | 'manager' | 'creator'>('template');
 
+  const [templateData, setTemplateData] = useState<Template[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/data');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const result = await response.json();
+        console.log(result.data)
+        setTemplateData(result.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-red-500">Error: {error}</div>
+      </div>
+    );
+  }
+  console.log(templateData)
   return (
     <div className="min-h-screen bg-gray-50">
-
+      <ul>
+        {templateData.map(d => (
+          <li key={d.id}>{d.name}</li>
+        ))}
+      </ul>
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between h-16">
