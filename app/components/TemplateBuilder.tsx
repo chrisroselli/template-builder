@@ -3,7 +3,7 @@ import {Code, Copy, Download} from 'lucide-react';
 import {templates} from '../data/templates';
 import {TemplatePreview} from './Previews';
 import CodeView from './CodeView';
-import type {Types} from '../types/types.ts';
+import type {Types} from '../types/types';
 
 export default function TemplateBuilder() {
   const [selectedHeader, setSelectedHeader] = useState('');

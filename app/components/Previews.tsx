@@ -1,4 +1,4 @@
-import type { TemplatePreviewProps, HomepagePreviewProps } from '../types/types.ts';
+import type {HomepagePreviewProps, TemplatePreviewProps} from '../types/types';
 
 export function TemplatePreview({ header, footer, css }: TemplatePreviewProps) {
   return (

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Eye, Save } from 'lucide-react';
-import type { Types } from '../types/types.ts';
+import React, {useState} from 'react';
+import {Eye, Save} from 'lucide-react';
+import type {Types} from '../types/types';
 
 type ComponentType = 'headers' | 'features' | 'footers' | 'ctas';
 
