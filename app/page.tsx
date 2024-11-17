@@ -1,9 +1,9 @@
-import { TemplateBuilder } from "@/app/components/template-builder";
+import App from "@/app/components/App";
 
 export default function Home() {
   return (
     <main className="container mx-auto p-4">
-      <TemplateBuilder />
+      <App />
     </main>
   );
 }
