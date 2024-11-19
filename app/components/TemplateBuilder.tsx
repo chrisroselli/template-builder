@@ -96,21 +96,21 @@ export default function TemplateBuilder() {
           <div className="flex space-x-4 mb-6">
             <button
               onClick={() => setShowPreview(!showPreview)}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light"
             >
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
             <button
               onClick={copyToClipboard}
-              className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+              className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"
             >
               <Copy className="w-4 h-4 mr-2"/>
               Copy Code
             </button>
             <button
               onClick={downloadTemplate}
-              className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"
             >
               <Download className="w-4 h-4 mr-2"/>
               Download
