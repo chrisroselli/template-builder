@@ -1,15 +1,15 @@
 'use client'
 import {useEffect, useState} from 'react';
 import TemplateBuilder from './TemplateBuilder';
+import PageBuilder from './PageBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
-import {Layers, LayoutGrid, PlusCircle} from 'lucide-react';
-import HomePageBuilder from "./HomePageBuilder";
+import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
 import {Template} from "../types/types";
 
 
 function App() {
-  const [activeView, setActiveView] = useState<'template' | 'home' | 'manager' | 'creator'>('template');
+  const [activeView, setActiveView] = useState<'template' | 'page' | 'manager' | 'creator'>('template');
 
   const [templateData, setTemplateData] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,11 +53,6 @@ function App() {
   console.log(templateData)
   return (
     <div className="min-h-screen bg-gray-50">
-      <ul>
-        {templateData.map(d => (
-          <li key={d.id}>{d.name}</li>
-        ))}
-      </ul>
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between h-16">
@@ -71,19 +66,19 @@ function App() {
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  <LayoutGrid className="w-4 h-4 mr-2"/>
+                  <PanelsTopLeft className="w-4 h-4 mr-2"/>
                   Template Builder
                 </button>
                 <button
-                  onClick={() => setActiveView('home')}
+                  onClick={() => setActiveView('page')}
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    activeView === 'home'
+                    activeView === 'page'
                       ? 'border-blue-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  <LayoutGrid className="w-4 h-4 mr-2"/>
-                  Home Page Builder
+                  <PanelTop className="w-4 h-4 mr-2"/>
+                  Page Builder
                 </button>
                 <button
                   onClick={() => setActiveView('manager')}
@@ -93,7 +88,7 @@ function App() {
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  <Layers className="w-4 h-4 mr-2"/>
+                  <LayoutDashboard className="w-4 h-4 mr-2"/>
                   Component Manager
                 </button>
                 <button
@@ -115,13 +110,18 @@ function App() {
 
       {activeView === 'template' ? (
         <TemplateBuilder/>
-      ) : activeView === 'home' ? (
-        <HomePageBuilder/>
+      ) : activeView === 'page' ? (
+        <PageBuilder/>
       ) : activeView === 'manager' ? (
         <ComponentManager/>
       ) : (
         <ComponentCreator/>
       )}
+      <ul>
+        {templateData.map(d => (
+          <li key={d.id}>{d.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }

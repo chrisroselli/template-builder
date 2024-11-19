@@ -18,7 +18,7 @@ export interface TemplatePreviewProps {
   css: string;
 }
 
-export interface HomepagePreviewProps {
+export interface PagePreviewProps {
   feature: string;
   cta: string;
   css: string;

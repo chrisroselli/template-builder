@@ -1,4 +1,4 @@
-import type {HomepagePreviewProps, TemplatePreviewProps} from '../types/types';
+import type {PagePreviewProps, TemplatePreviewProps} from '../types/types';
 
 export function TemplatePreview({ header, footer, css }: TemplatePreviewProps) {
   return (
@@ -10,7 +10,7 @@ export function TemplatePreview({ header, footer, css }: TemplatePreviewProps) {
   );
 }
 
-export function HomePagePreview({ feature, cta, css }: HomepagePreviewProps) {
+export function PagePreview({ feature, cta, css }: PagePreviewProps) {
   return (
     <div className="border rounded-lg overflow-hidden">
       <style>{css}</style>

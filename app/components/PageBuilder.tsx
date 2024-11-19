@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import {Code, Copy, Download} from 'lucide-react';
 import {templates} from '../data/templates';
-import {HomePagePreview} from './Previews';
 import CodeView from './CodeView';
 import type {Types} from '../types/types';
+import {PagePreview} from "@/app/components/Previews";
 
-export default function HomePageBuilder() {
+export default function PageBuilder() {
   const [selectedFeature, setSelectedFeature] = useState('');
   const [selectedCta, setSelectedCta] = useState('');
   const [showPreview, setShowPreview] = useState(true);
@@ -63,7 +63,7 @@ export default function HomePageBuilder() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Home Page Builder</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-6"> Page Builder</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
@@ -122,7 +122,7 @@ export default function HomePageBuilder() {
           </div>
 
           {showPreview ? (
-            <HomePagePreview
+            <PagePreview
               feature={findTemplate(templates.features, selectedFeature)?.code || ''}
               cta={findTemplate(templates.ctas, selectedCta)?.code || ''}
               css={combinedCSS}
