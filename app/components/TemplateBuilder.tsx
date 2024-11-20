@@ -16,7 +16,7 @@ export default function TemplateBuilder() {
   const generateFullTemplate = () => {
     const header = findTemplate(templates.headers, selectedHeader);
     const footer = findTemplate(templates.footers, selectedFooter);
-
+    console.log(header?.code)
     const combinedCSS = [header?.css, footer?.css]
       .filter(Boolean)
       .join('\n\n');

@@ -19,7 +19,8 @@ export interface TemplatePreviewProps {
 }
 
 export interface PagePreviewProps {
-  feature: string;
+  hero: string;
+  services: string;
   cta: string;
   css: string;
 }

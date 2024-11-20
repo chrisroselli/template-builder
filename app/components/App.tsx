@@ -1,48 +1,15 @@
 'use client'
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import TemplateBuilder from './TemplateBuilder';
 import PageBuilder from './PageBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
+import {PageRow} from "@/app/types/database";
 
-interface ExampleData {
-  id: number;
-  data: {
-    name: string;
-    age: number;
-    skills: string[];
-  };
-}
 
-function App() {
+function App( { data }: { data: PageRow[] }) {
   const [activeView, setActiveView] = useState<'template' | 'page' | 'manager' | 'creator'>('template');
-
-  const [data, setData] = useState<ExampleData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch('/api/data');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result: ExampleData[] = await response.json();
-        setData(result);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -104,22 +71,12 @@ function App() {
       {activeView === 'template' ? (
         <TemplateBuilder/>
       ) : activeView === 'page' ? (
-        <PageBuilder/>
+        <PageBuilder data={data}/>
       ) : activeView === 'manager' ? (
         <ComponentManager/>
       ) : (
         <ComponentCreator/>
       )}
-      <h1>Data from PostgreSQL</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            <p>Name: {item.data.name}</p>
-            <p>Age: {item.data.age}</p>
-            <p>Skills: {item.data.skills.join(', ')}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

@@ -1,19 +1,10 @@
 import {sql} from '@vercel/postgres';
 import {NextResponse} from 'next/server';
-
-// Define the data structure for a row
-interface ExampleRow {
-  id: number;
-  data: {
-    name: string;
-    age: number;
-    skills: string[];
-  };
-}
+import {PageRow} from '@/app/types/database';
 
 export async function GET() {
   try {
-    const { rows } = await sql<ExampleRow>`SELECT * FROM example`;
+    const { rows } = await sql<PageRow>`SELECT * FROM pages`;
     return NextResponse.json(rows);
   } catch (error) {
     console.error('Database error:', error);

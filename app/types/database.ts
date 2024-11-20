@@ -1,10 +1,12 @@
-export interface ExampleData {
+export interface PageData {
+  id: string;
   name: string;
-  age: number;
-  skills: string[];
+  html: string;
+  css: string;
 }
 
-export interface ExampleRow {
+export interface PageRow {
   id: number;
-  data: ExampleData;
+  comp_type: string;
+  data: PageData;
 }
