@@ -5,52 +5,45 @@ import PageBuilder from './PageBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
-import {Template} from "../types/types";
 
+interface ExampleData {
+  id: number;
+  data: {
+    name: string;
+    age: number;
+    skills: string[];
+  };
+}
 
 function App() {
   const [activeView, setActiveView] = useState<'template' | 'page' | 'manager' | 'creator'>('template');
 
-  const [templateData, setTemplateData] = useState<Template[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<ExampleData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
         const response = await fetch('/api/data');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const result = await response.json();
-        console.log(result.data)
-        setTemplateData(result.data);
+        const result: ExampleData[] = await response.json();
+        setData(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
-    };
+    }
 
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-      </div>
-    );
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-red-500">Error: {error}</div>
-      </div>
-    );
-  }
-  console.log(templateData)
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm">
@@ -111,15 +104,20 @@ function App() {
       {activeView === 'template' ? (
         <TemplateBuilder/>
       ) : activeView === 'page' ? (
-        <PageBuilder data={templateData}/>
+        <PageBuilder/>
       ) : activeView === 'manager' ? (
         <ComponentManager/>
       ) : (
         <ComponentCreator/>
       )}
+      <h1>Data from PostgreSQL</h1>
       <ul>
-        {templateData.map(d => (
-          <li key={d.id}>{d.name}</li>
+        {data.map((item) => (
+          <li key={item.id}>
+            <p>Name: {item.data.name}</p>
+            <p>Age: {item.data.age}</p>
+            <p>Skills: {item.data.skills.join(', ')}</p>
+          </li>
         ))}
       </ul>
     </div>

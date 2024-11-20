@@ -11,9 +11,9 @@
 16389||-9223372036854775808|T|G
 16389||16384|T|G
 16389||16387|T|G</Grants>
-      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
+      <IntrospectionStateNumber>37893</IntrospectionStateNumber>
       <ServerVersion>16.5</ServerVersion>
-      <StartupTime>1732048958</StartupTime>
+      <StartupTime>1732071176</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -813,7 +813,7 @@ false Zulu
 13187||10|C|G
 13187||-9223372036854775808|U|G
 13187||10|U|G</Grants>
-      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
+      <IntrospectionStateNumber>37893</IntrospectionStateNumber>
       <ObjectId>16389</ObjectId>
       <OwnerName>default</OwnerName>
     </database>
@@ -4252,13 +4252,21 @@ false Zulu
     <schema id="266" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-11-19.20:43:59</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>37893</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-11-20.02:58:17</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>523</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
-    <sequence id="267" parent="266" name="templates_id_seq">
+    <sequence id="267" parent="266" name="example_id_seq">
+      <ObjectId>90112</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>37891</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <OwnerName>default</OwnerName>
+    </sequence>
+    <sequence id="268" parent="266" name="templates_id_seq">
       <ObjectId>40960</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
@@ -4266,13 +4274,50 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>default</OwnerName>
     </sequence>
-    <table id="268" parent="266" name="templates">
+    <table id="269" parent="266" name="example">
+      <ObjectId>90113</ObjectId>
+      <StateNumber>37891</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>default</OwnerName>
+    </table>
+    <table id="270" parent="266" name="templates">
       <ObjectId>40961</ObjectId>
       <StateNumber>34826</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>default</OwnerName>
     </table>
-    <column id="269" parent="268" name="id">
+    <column id="271" parent="269" name="id">
+      <DefaultExpression>nextval(&apos;example_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>37891</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <SequenceId>90112</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="272" parent="269" name="data">
+      <Position>2</Position>
+      <StateNumber>37891</StateNumber>
+      <StoredType>jsonb|0s</StoredType>
+      <TypeId>3802</TypeId>
+    </column>
+    <index id="273" parent="269" name="example_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>90119</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>37891</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="274" parent="269" name="example_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>90120</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>37891</StateNumber>
+      <UnderlyingIndexId>90119</UnderlyingIndexId>
+    </key>
+    <column id="275" parent="270" name="id">
       <DefaultExpression>nextval(&apos;templates_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4281,50 +4326,50 @@ false Zulu
       <SequenceId>40960</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="270" parent="268" name="name">
+    <column id="276" parent="270" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="271" parent="268" name="before_borders">
+    <column id="277" parent="270" name="before_borders">
       <Position>3</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="272" parent="268" name="borders">
+    <column id="278" parent="270" name="borders">
       <Position>4</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="273" parent="268" name="template_css">
+    <column id="279" parent="270" name="template_css">
       <Position>5</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="274" parent="268" name="inline_css">
+    <column id="280" parent="270" name="inline_css">
       <Position>6</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="275" parent="268" name="index_file">
+    <column id="281" parent="270" name="index_file">
       <Position>7</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="276" parent="268" name="components">
+    <column id="282" parent="270" name="components">
       <Position>9</Position>
       <StateNumber>34826</StateNumber>
       <StoredType>jsonb|0s</StoredType>
       <TypeId>3802</TypeId>
     </column>
-    <index id="277" parent="268" name="templates_pkey">
+    <index id="283" parent="270" name="templates_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>40967</ObjectId>
@@ -4333,7 +4378,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="278" parent="268" name="templates_pkey">
+    <key id="284" parent="270" name="templates_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>40968</ObjectId>
       <Primary>1</Primary>
