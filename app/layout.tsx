@@ -33,8 +33,9 @@ export default function RootLayout({
       <Image
       src="/img/th-marketing-logo-2021.svg"
       alt="Treehouse Marketing Logo"
+      priority={true}
       width={200}
-      height={500}
+      height={96}
     />
     </div>
       <div className="max-w-7xl mx-auto my-4">

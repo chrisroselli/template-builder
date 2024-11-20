@@ -2,10 +2,12 @@ import {useState} from 'react';
 import {Code, Copy, Download} from 'lucide-react';
 import {templates} from '../data/templates';
 import CodeView from './CodeView';
-import type {Types} from '../types/types';
+import type {Template, Types} from '../types/types';
 import {PagePreview} from "@/app/components/Previews";
 
-export default function PageBuilder() {
+interface PageBuilderProps {data?: Template[]}
+
+export default function PageBuilder({data}: PageBuilderProps) {
   const [selectedFeature, setSelectedFeature] = useState('');
   const [selectedCta, setSelectedCta] = useState('');
   const [showPreview, setShowPreview] = useState(true);
@@ -43,7 +45,7 @@ export default function PageBuilder() {
   };
 
   const downloadTemplate = () => {
-    const blob = new Blob([generateFullTemplate()], { type: 'text/html' });
+    const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -68,15 +70,15 @@ export default function PageBuilder() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Features</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Hero</label>
               <select
                 className="w-full border border-gray-300 rounded-lg p-2"
                 onChange={(e) => setSelectedFeature(e.target.value)}
                 value={selectedFeature}
               >
                 <option value="">Select features</option>
-                {templates.features.map((feature, index) => (
-                  <option key={index} value={feature.code}>{feature.name}</option>
+                {data?.map((d) => (
+                  <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
             </div>

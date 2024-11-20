@@ -111,7 +111,7 @@ function App() {
       {activeView === 'template' ? (
         <TemplateBuilder/>
       ) : activeView === 'page' ? (
-        <PageBuilder/>
+        <PageBuilder data={templateData}/>
       ) : activeView === 'manager' ? (
         <ComponentManager/>
       ) : (

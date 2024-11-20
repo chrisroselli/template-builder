@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G
-16389||-9223372036854775808|c|G
+      <Grants>16389||-9223372036854775808|c|G
 16389||16384|c|G
 16389||16387|c|G
 16389||16384|C|G
@@ -19,9 +11,9 @@
 16389||-9223372036854775808|T|G
 16389||16384|T|G
 16389||16387|T|G</Grants>
-      <IntrospectionStateNumber>26625</IntrospectionStateNumber>
-      <ServerVersion>16.4</ServerVersion>
-      <StartupTime>1731515902</StartupTime>
+      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
+      <ServerVersion>16.5</ServerVersion>
+      <StartupTime>1732048958</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -821,7 +813,7 @@ false Zulu
 13187||10|C|G
 13187||-9223372036854775808|U|G
 13187||10|U|G</Grants>
-      <IntrospectionStateNumber>26625</IntrospectionStateNumber>
+      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
       <ObjectId>16389</ObjectId>
       <OwnerName>default</OwnerName>
     </database>
@@ -4260,8 +4252,8 @@ false Zulu
     <schema id="266" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>26625</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-11-13.16:39:32</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>34827</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-11-19.20:43:59</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>523</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4276,7 +4268,7 @@ false Zulu
     </sequence>
     <table id="268" parent="266" name="templates">
       <ObjectId>40961</ObjectId>
-      <StateNumber>26624</StateNumber>
+      <StateNumber>34826</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>default</OwnerName>
     </table>
@@ -4327,8 +4319,8 @@ false Zulu
       <TypeId>25</TypeId>
     </column>
     <column id="276" parent="268" name="components">
-      <Position>8</Position>
-      <StateNumber>26624</StateNumber>
+      <Position>9</Position>
+      <StateNumber>34826</StateNumber>
       <StoredType>jsonb|0s</StoredType>
       <TypeId>3802</TypeId>
     </column>
