@@ -1,11 +1,11 @@
 import {useState} from 'react';
-import {Code} from 'lucide-react';
+import {Code, Copy, Download} from 'lucide-react';
 import {PageData, PageRow} from "@/app/types/types";
 import {PagePreview} from "@/app/components/Previews";
 import CodeView from "@/app/components/CodeView";
 
 
-export default function PageBuilder( { data }: { data: PageRow[] }) {
+export default function PageBuilder({ data }: { data: PageRow[] }) {
   const [selectedHero, setSelectedHero] = useState('');
   const [selectedServices, setSelectedServices] = useState('');
   const [showPreview, setShowPreview] = useState(true);
@@ -33,21 +33,21 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
     `;
   };
 
-  // const copyToClipboard = () => {
-  //   navigator.clipboard.writeText(generateFullTemplate());
-  // };
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(generateFullTemplate());
+  };
 
-  // const downloadTemplate = () => {
-  //   const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
-  //   const url = URL.createObjectURL(blob);
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'template.html';
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   document.body.removeChild(a);
-  //   URL.revokeObjectURL(url);
-  // };
+  const downloadTemplate = () => {
+    const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'template.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const combinedCSS = [
     findTemplate(compArr, selectedHero)?.css,
@@ -110,20 +110,20 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
-            {/*<button*/}
-            {/*  onClick={copyToClipboard}*/}
-            {/*  className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"*/}
-            {/*>*/}
-            {/*  <Copy className="w-4 h-4 mr-2"/>*/}
-            {/*  Copy Code*/}
-            {/*</button>*/}
-            {/*<button*/}
-            {/*  onClick={downloadTemplate}*/}
-            {/*  className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"*/}
-            {/*>*/}
-            {/*  <Download className="w-4 h-4 mr-2"/>*/}
-            {/*  Download*/}
-            {/*</button>*/}
+            <button
+              onClick={copyToClipboard}
+              className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"
+            >
+              <Copy className="w-4 h-4 mr-2"/>
+              Copy Code
+            </button>
+            <button
+              onClick={downloadTemplate}
+              className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"
+            >
+              <Download className="w-4 h-4 mr-2"/>
+              Download
+            </button>
           </div>
           {showPreview ? (
             <PagePreview

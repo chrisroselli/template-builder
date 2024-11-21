@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {templates} from '../data/templates';
 import CodeView from './CodeView';
 import {Code, Copy} from 'lucide-react';
+import {PageRow} from "@/app/types/types";
 
-type ComponentType = 'headers' | 'features' | 'footers' | 'ctas';
+type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 
-export default function ComponentManager() {
+export default function ComponentManager({ data }: { data: PageRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
+
+  const compArr = data.map(item => item.data)
 
   const copyToClipboard = (code: string, css: string = '') => {
     const fullCode = `
@@ -30,9 +32,10 @@ export default function ComponentManager() {
 
   const tabs: { id: ComponentType; label: string }[] = [
     { id: 'headers', label: 'Headers' },
-    { id: 'features', label: 'Features' },
+    { id: 'hero', label: 'Heros' },
+    { id: 'services', label: 'Services' },
     { id: 'footers', label: 'Footers' },
-    { id: 'ctas', label: 'CTAs' },
+
   ];
 
   return (
@@ -60,46 +63,48 @@ export default function ComponentManager() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {templates[activeTab].map((component, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold text-gray-800">{component.name}</h3>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => setShowCode(showCode === component.code ? null : component.code)}
-                      className="flex items-center px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    >
-                      <Code className="w-4 h-4 mr-1" />
-                      {showCode === component.code ? 'Hide Code' : 'View Code'}
-                    </button>
-                    <button
-                      onClick={() => copyToClipboard(component.code, component.css)}
-                      className="flex items-center px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
-                    >
-                      <Copy className="w-4 h-4 mr-1" />
-                      Copy
-                    </button>
+            {data
+              .filter((item) => item.comp_type === activeTab)
+              .map((item) => (
+                <div key={item.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800">{item.data.name}</h3>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => setShowCode(showCode === item.data.html ? null : item.data.html)}
+                        className="flex items-center px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                      >
+                        <Code className="w-4 h-4 mr-1" />
+                        {showCode === item.data.html ? 'Hide Code' : 'View Code'}
+                      </button>
+                      <button
+                        onClick={() => copyToClipboard(item.data.html, item.data.css)}
+                        className="flex items-center px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
+                      >
+                        <Copy className="w-4 h-4 mr-1" />
+                        Copy
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                {showCode === component.code ? (
-                  <div className="mb-4">
-                    <CodeView code={component.code} />
-                    {component.css && (
-                      <>
-                        <div className="text-sm font-medium text-gray-500 mt-4 mb-2">CSS</div>
-                        <CodeView code={component.css} />
-                      </>
-                    )}
-                  </div>
-                ) : (
-                  <div className="border rounded-lg overflow-hidden bg-white">
-                    <style>{component.css}</style>
-                    <div dangerouslySetInnerHTML={{ __html: component.code }} />
-                  </div>
-                )}
-              </div>
-            ))}
+                  {showCode === item.data.html ? (
+                    <div className="mb-4">
+                      <CodeView code={item.data.html} />
+                      {item.data.css && (
+                        <>
+                          <div className="text-sm font-medium text-gray-500 mt-4 mb-2">CSS</div>
+                          <CodeView code={item.data.css} />
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="border rounded-lg overflow-hidden bg-white">
+                      <style>{item.data.css}</style>
+                      <div dangerouslySetInnerHTML={{ __html: item.data.html }} />
+                    </div>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </div>

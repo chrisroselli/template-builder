@@ -73,7 +73,7 @@ function App( { data }: { data: PageRow[] }) {
       ) : activeView === 'page' ? (
         <PageBuilder data={data}/>
       ) : activeView === 'manager' ? (
-        <ComponentManager/>
+        <ComponentManager data={data}/>
       ) : (
         <ComponentCreator/>
       )}
