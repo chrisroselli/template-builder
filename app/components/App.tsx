@@ -5,7 +5,7 @@ import PageBuilder from './PageBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
-import {PageRow} from "@/app/types/database";
+import {PageRow} from "@/app/types/types";
 
 
 function App( { data }: { data: PageRow[] }) {

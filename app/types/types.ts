@@ -1,3 +1,16 @@
+export interface PageData {
+  id: string;
+  name: string;
+  html: string;
+  css: string;
+}
+
+export interface PageRow {
+  id: number;
+  comp_type: string;
+  data: PageData;
+}
+
 export interface Types {
   id: string;
   name: string;
@@ -19,8 +32,8 @@ export interface TemplatePreviewProps {
 }
 
 export interface PagePreviewProps {
-  hero: string;
-  services: string;
+  hero: PageData;
+  services: PageData;
   css: string;
 }
 

@@ -1,4 +1,4 @@
-import type {PagePreviewProps, TemplatePreviewProps} from '../types/types';
+import type {PagePreviewProps, TemplatePreviewProps} from "@/app/types/types";
 
 export function TemplatePreview({header, footer, css}: TemplatePreviewProps) {
   return (

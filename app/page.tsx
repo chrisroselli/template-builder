@@ -1,6 +1,6 @@
 import App from "@/app/components/App";
 import {sql} from '@vercel/postgres';
-import {PageRow} from '@/app/types/database';
+import {PageRow} from "@/app/types/types";
 
 
 const fetchData = async (): Promise<PageRow[]> => {

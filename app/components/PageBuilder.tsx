@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Code} from 'lucide-react';
-import {PageData, PageRow} from "@/app/types/database";
+import {PageData, PageRow} from "@/app/types/types";
 import {PagePreview} from "@/app/components/Previews";
 import CodeView from "@/app/components/CodeView";
 

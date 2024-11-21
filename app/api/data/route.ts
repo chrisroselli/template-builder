@@ -1,6 +1,6 @@
 import {sql} from '@vercel/postgres';
 import {NextResponse} from 'next/server';
-import {PageRow} from '@/app/types/database';
+import {PageRow} from "@/app/types/types";
 
 export async function GET() {
   try {
