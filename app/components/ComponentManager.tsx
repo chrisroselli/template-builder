@@ -9,8 +9,6 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
 
-  const compArr = data.map(item => item.data)
-
   const copyToClipboard = (code: string, css: string = '') => {
     const fullCode = `
 <!DOCTYPE html>
