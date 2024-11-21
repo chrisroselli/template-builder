@@ -21,7 +21,6 @@ export interface TemplatePreviewProps {
 export interface PagePreviewProps {
   hero: string;
   services: string;
-  cta: string;
   css: string;
 }
 

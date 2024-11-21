@@ -10,16 +10,14 @@ export function TemplatePreview({header, footer, css}: TemplatePreviewProps) {
   );
 }
 
-interface PagePreviewProps {hero?: string}
 
-interface PagePreviewProps {cta?: string}
+export function PagePreview({hero, services, css}: PagePreviewProps) {
 
-export function PagePreview({cta, css, hero}: PagePreviewProps) {
   return (
     <div className="border rounded-lg overflow-hidden">
       <style>{css}</style>
-      <div dangerouslySetInnerHTML={{__html: hero}}/>
-      <div dangerouslySetInnerHTML={{__html: cta}}/>
+      <div dangerouslySetInnerHTML={{__html: hero.html}}/>
+      <div dangerouslySetInnerHTML={{__html: services.html}}/>
     </div>
   );
 }

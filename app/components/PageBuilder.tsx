@@ -8,39 +8,29 @@ import CodeView from "@/app/components/CodeView";
 export default function PageBuilder( { data }: { data: PageRow[] }) {
   const [selectedHero, setSelectedHero] = useState('');
   const [selectedServices, setSelectedServices] = useState('');
-  // const [selectedCta, setSelectedCta] = useState('');
   const [showPreview, setShowPreview] = useState(true);
 
   const findTemplate = (selection: PageData[], selectedItem: string) => {
-    selection.find(item => item.data.name === selectedItem);
+    return selection.find(item => item.name === selectedItem);
   }
 
+  const compArr = data.map(item => item.data)
+
   const generateFullTemplate = () => {
-    const namesArr = []
-    data.forEach(item => {
-      namesArr.push(item.data.name)
-    })
-    const hero = findTemplate(namesArr, selectedHero);
-    // const services = findTemplate(templates.features, selectedServices);
+    const hero = findTemplate(compArr, selectedHero);
+    const services = findTemplate(compArr, selectedServices);
 
-    // const combinedCSS = [feature?.css, cta?.css]
-    //   .filter(Boolean)
-    //   .join('\n\n');
+    const combinedCSS = [hero?.css,services?.css]
+      .filter(Boolean)
+      .join('\n\n');
 
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated Template</title>
-    <style>
-      ${combinedCSS || ''}
+    return `<style>
+    ${combinedCSS}
     </style>
-</head>
-<body>
+
     ${hero?.html || ''}
-</body>
-</html>`;
+    ${services?.html || ''}
+    `;
   };
 
   // const copyToClipboard = () => {
@@ -59,10 +49,10 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
   //   URL.revokeObjectURL(url);
   // };
 
-  // const combinedCSS = [
-  //   findTemplate(templates.heros, selectedHero)?.css,
-  //   findTemplate(templates.ctas, selectedCta)?.css,
-  // ].filter(Boolean).join('\n\n');
+  const combinedCSS = [
+    findTemplate(compArr, selectedHero)?.css,
+    findTemplate(compArr, selectedServices)?.css,
+  ].filter(Boolean).join('\n\n');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -135,8 +125,8 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
           </div>
           {showPreview ? (
             <PagePreview
-              hero={findTemplate(templates.features, selectedHero)?.code || ''}
-              cta={findTemplate(templates.ctas, selectedCta)?.code || ''}
+              hero={findTemplate(compArr, selectedHero) || ''}
+              services={findTemplate(compArr, selectedServices) || ''}
               css={combinedCSS}
             />
           ) : (
