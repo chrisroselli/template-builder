@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Eye, Save} from 'lucide-react';
 import type {Types} from '../types/types';
 
-type ComponentType = 'headers' | 'features' | 'footers' | 'ctas';
+type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 
 export default function ComponentCreator() {
   const [componentType, setComponentType] = useState<ComponentType>('headers');
@@ -15,6 +15,7 @@ export default function ComponentCreator() {
     e.preventDefault();
     
     const newComponent: Types = {
+      componentType,
       id: "",
       name,
       code: html,
@@ -35,7 +36,7 @@ export default function ComponentCreator() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Create New Component</h1>
+          <h1 className="text-3xl font-bold text-primary mb-6">Create Component</h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -107,7 +108,7 @@ export default function ComponentCreator() {
 
               <button
                 type="submit"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light"
               >
                 <Save className="w-4 h-4 mr-2" />
                 Save Component

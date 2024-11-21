@@ -22,7 +22,7 @@ function App( { data }: { data: PageRow[] }) {
                   onClick={() => setActiveView('template')}
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                     activeView === 'template'
-                      ? 'border-blue-500 text-gray-900'
+                      ? 'border-primary-dark text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
@@ -33,7 +33,7 @@ function App( { data }: { data: PageRow[] }) {
                   onClick={() => setActiveView('page')}
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                     activeView === 'page'
-                      ? 'border-blue-500 text-gray-900'
+                      ? 'border-primary-dark text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
@@ -44,7 +44,7 @@ function App( { data }: { data: PageRow[] }) {
                   onClick={() => setActiveView('manager')}
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                     activeView === 'manager'
-                      ? 'border-blue-500 text-gray-900'
+                      ? 'border-primary-dark text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
@@ -55,7 +55,7 @@ function App( { data }: { data: PageRow[] }) {
                   onClick={() => setActiveView('creator')}
                   className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                     activeView === 'creator'
-                      ? 'border-blue-500 text-gray-900'
+                      ? 'border-primary-dark text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >

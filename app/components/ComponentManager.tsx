@@ -40,7 +40,7 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Component Manager</h1>
+          <h1 className="text-3xl font-bold text-primary mb-6">Component Manager</h1>
           
           <div className="border-b border-gray-200 mb-6">
             <nav className="flex space-x-8">
@@ -50,7 +50,7 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
                   onClick={() => setActiveTab(id)}
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === id
-                      ? 'border-blue-500 text-blue-600'
+                      ? 'border-primary-dark text-primary-dark'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
@@ -70,7 +70,7 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => setShowCode(showCode === item.data.html ? null : item.data.html)}
-                        className="flex items-center px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        className="flex items-center px-3 py-1 bg-primary-dark text-white rounded hover:bg-primary-light"
                       >
                         <Code className="w-4 h-4 mr-1" />
                         {showCode === item.data.html ? 'Hide Code' : 'View Code'}

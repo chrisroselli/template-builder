@@ -12,6 +12,7 @@ export interface PageRow {
 }
 
 export interface Types {
+  componentType: string;
   id: string;
   name: string;
   code: string;
@@ -35,15 +36,4 @@ export interface PagePreviewProps {
   hero: string;
   services: string;
   css: string;
-}
-
-export interface Template {
-  id: string;
-  name: string;
-  before_borders: string;
-  borders: string;
-  template_css: string;
-  inline_css: string;
-  index_file: string;
-  components: string;
 }
