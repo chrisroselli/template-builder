@@ -16,8 +16,8 @@ export function PagePreview({hero, services, css}: PagePreviewProps) {
   return (
     <div className="border rounded-lg overflow-hidden">
       <style>{css}</style>
-      <div dangerouslySetInnerHTML={{__html: hero.html}}/>
-      <div dangerouslySetInnerHTML={{__html: services.html}}/>
+      <div dangerouslySetInnerHTML={{__html: hero}}/>
+      <div dangerouslySetInnerHTML={{__html: services}}/>
     </div>
   );
 }

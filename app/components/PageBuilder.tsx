@@ -53,6 +53,8 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
     findTemplate(compArr, selectedHero)?.css,
     findTemplate(compArr, selectedServices)?.css,
   ].filter(Boolean).join('\n\n');
+  const hero = findTemplate(compArr, selectedHero)?.html;
+  const services = findTemplate(compArr, selectedServices)?.html;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -125,8 +127,8 @@ export default function PageBuilder( { data }: { data: PageRow[] }) {
           </div>
           {showPreview ? (
             <PagePreview
-              hero={findTemplate(compArr, selectedHero) || ''}
-              services={findTemplate(compArr, selectedServices) || ''}
+              hero={hero || ''}
+              services={services || ''}
               css={combinedCSS}
             />
           ) : (

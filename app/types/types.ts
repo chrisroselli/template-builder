@@ -32,8 +32,8 @@ export interface TemplatePreviewProps {
 }
 
 export interface PagePreviewProps {
-  hero: PageData;
-  services: PageData;
+  hero: string;
+  services: string;
   css: string;
 }
 
