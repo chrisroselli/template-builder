@@ -69,7 +69,7 @@ function App( { data }: { data: PageRow[] }) {
       </nav>
 
       {activeView === 'template' ? (
-        <TemplateBuilder/>
+        <TemplateBuilder data={data}/>
       ) : activeView === 'page' ? (
         <PageBuilder data={data}/>
       ) : activeView === 'manager' ? (
