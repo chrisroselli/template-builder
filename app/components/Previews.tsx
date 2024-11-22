@@ -1,9 +1,10 @@
 import type {PagePreviewProps, TemplatePreviewProps} from "@/app/types/types";
 
-export function TemplatePreview({header, footer, css}: TemplatePreviewProps) {
+export function TemplatePreview({template, header, footer}: TemplatePreviewProps) {
   return (
     <div className="border rounded-lg overflow-hidden">
-      <style>{css}</style>
+      {/*<style>{css}</style>*/}
+      <div dangerouslySetInnerHTML={{__html: template}}/>
       <div dangerouslySetInnerHTML={{__html: header}}/>
       <div dangerouslySetInnerHTML={{__html: footer}}/>
     </div>

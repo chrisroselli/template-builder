@@ -1,19 +1,19 @@
 import App from "@/app/components/App";
 import {sql} from '@vercel/postgres';
-import {PageRow} from "@/app/types/types";
-
-
-const fetchData = async (): Promise<PageRow[]> => {
-  const { rows } = await sql<PageRow>`SELECT * FROM pages`;
-  return rows;
-};
+import {PageRow, TemplateRow} from "@/app/types/types";
 
 export default async function Home() {
-  const data = await fetchData();
+  const [pageRows, templatesRows] = await Promise.all([
+    sql<PageRow>`SELECT * FROM pages`,
+    sql<TemplateRow>`SELECT * FROM templates`
+  ]);
+
+  const pages = pageRows.rows;
+  const templates = templatesRows.rows;
 
   return (
     <main className="container mx-auto p-4">
-      <App data={data}/>
+      <App pages={pages} templates={templates} />
     </main>
   );
 }

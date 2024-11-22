@@ -11,6 +11,14 @@ export interface PageRow {
   data: PageData;
 }
 
+export interface TemplateRow {
+  id: number;
+  name: string;
+  borders: string;
+  template_css: string;
+  comp_type: string;
+}
+
 export interface Types {
   componentType: string;
   id: string;
@@ -27,6 +35,7 @@ export interface TemplateSection {
 }
 
 export interface TemplatePreviewProps {
+  template: string;
   header: string;
   footer: string;
   css: string;

@@ -5,7 +5,7 @@ import {PagePreview} from "@/app/components/Previews";
 import CodeView from "@/app/components/CodeView";
 
 
-export default function PageBuilder({ data }: { data: PageRow[] }) {
+export default function PageBuilder({ pages }: { pages: PageRow[] }) {
   const [selectedHero, setSelectedHero] = useState('');
   const [selectedServices, setSelectedServices] = useState('');
   const [showPreview, setShowPreview] = useState(true);
@@ -14,7 +14,7 @@ export default function PageBuilder({ data }: { data: PageRow[] }) {
     return selection.find(item => item.name === selectedItem);
   }
 
-  const compArr = data.map(item => item.data)
+  const compArr = pages.map(item => item.data)
 
   const generateFullTemplate = () => {
     const hero = findTemplate(compArr, selectedHero);
@@ -70,7 +70,7 @@ export default function PageBuilder({ data }: { data: PageRow[] }) {
                 value={selectedHero}
               >
                 <option value="">Select Hero</option>
-                {data.map((d) => (d.comp_type === 'hero' &&
+                {pages.map((d) => (d.comp_type === 'hero' &&
                   <option key={d.id} value={d.data.name}>{d.data.name}</option>
                 ))}
               </select>
@@ -83,7 +83,7 @@ export default function PageBuilder({ data }: { data: PageRow[] }) {
                 value={selectedServices}
               >
                 <option value="">Select Services</option>
-                {data.map((d) => (d.comp_type === 'services' &&
+                {pages.map((d) => (d.comp_type === 'services' &&
                   <option key={d.id} value={d.data.name}>{d.data.name}</option>
                 ))}
               </select>

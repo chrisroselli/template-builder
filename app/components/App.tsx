@@ -5,10 +5,10 @@ import PageBuilder from './PageBuilder';
 import ComponentManager from './ComponentManager';
 import ComponentCreator from './ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
-import {PageRow} from "@/app/types/types";
+import {PageRow, TemplateRow} from "@/app/types/types";
 
 
-function App( { data }: { data: PageRow[] }) {
+function App( { pages, templates }: { pages: PageRow[], templates: TemplateRow[] } ) {
   const [activeView, setActiveView] = useState<'template' | 'page' | 'manager' | 'creator'>('template');
 
   return (
@@ -69,11 +69,11 @@ function App( { data }: { data: PageRow[] }) {
       </nav>
 
       {activeView === 'template' ? (
-        <TemplateBuilder data={data}/>
+        <TemplateBuilder templates={templates}/>
       ) : activeView === 'page' ? (
-        <PageBuilder data={data}/>
+        <PageBuilder pages={pages}/>
       ) : activeView === 'manager' ? (
-        <ComponentManager data={data}/>
+        <ComponentManager data={pages}/>
       ) : (
         <ComponentCreator/>
       )}
