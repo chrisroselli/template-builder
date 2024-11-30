@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {Code, Copy, Download} from 'lucide-react';
-import {PageData, PageRow} from "@/app/types/types";
+import {Code} from 'lucide-react';
+import {PageRow} from "@/app/types/types";
 import {PagePreview} from "@/app/components/Previews";
-import CodeView from "@/app/components/CodeView";
+import PageView from "@/app/components/PageView";
 
 
 export default function PageBuilder({ pages }: { pages: PageRow[] }) {
@@ -10,51 +10,30 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
   const [selectedServices, setSelectedServices] = useState('');
   const [showPreview, setShowPreview] = useState(true);
 
-  const findTemplate = (selection: PageData[], selectedItem: string) => {
+  const findTemplate = (selection: PageRow[], selectedItem: string) => {
     return selection.find(item => item.name === selectedItem);
   }
 
-  const compArr = pages.map(item => item.data)
+  const compArr = pages.map(item => item);
+  const hero = findTemplate(compArr, selectedHero);
+  const services = findTemplate(compArr, selectedServices);
 
-  const generateFullTemplate = () => {
-    const hero = findTemplate(compArr, selectedHero);
-    const services = findTemplate(compArr, selectedServices);
+  // const copyToClipboard = () => {
+  //   navigator.clipboard.writeText(generateFullTemplate());
+  // };
+  //
+  // const downloadTemplate = () => {
+  //   const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'template.html';
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  // };
 
-    const combinedCSS = [hero?.css,services?.css]
-      .filter(Boolean)
-      .join('\n\n');
-
-    return `<style>
-    ${combinedCSS}
-    </style>
-
-    ${hero?.html || ''}
-    ${services?.html || ''}
-    `;
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generateFullTemplate());
-  };
-
-  const downloadTemplate = () => {
-    const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'template.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const combinedCSS = [
-    findTemplate(compArr, selectedHero)?.css,
-    findTemplate(compArr, selectedServices)?.css,
-  ].filter(Boolean).join('\n\n');
-  const hero = findTemplate(compArr, selectedHero)?.html;
-  const services = findTemplate(compArr, selectedServices)?.html;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -71,7 +50,7 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
               >
                 <option value="">Select Hero</option>
                 {pages.map((d) => (d.comp_type === 'hero' &&
-                  <option key={d.id} value={d.data.name}>{d.data.name}</option>
+                  <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
             </div>
@@ -84,7 +63,7 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
               >
                 <option value="">Select Services</option>
                 {pages.map((d) => (d.comp_type === 'services' &&
-                  <option key={d.id} value={d.data.name}>{d.data.name}</option>
+                  <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
             </div>
@@ -110,29 +89,31 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
-            <button
-              onClick={copyToClipboard}
-              className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"
-            >
-              <Copy className="w-4 h-4 mr-2"/>
-              Copy Code
-            </button>
-            <button
-              onClick={downloadTemplate}
-              className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"
-            >
-              <Download className="w-4 h-4 mr-2"/>
-              Download
-            </button>
+            {/*<button*/}
+            {/*  onClick={copyToClipboard}*/}
+            {/*  className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"*/}
+            {/*>*/}
+            {/*  <Copy className="w-4 h-4 mr-2"/>*/}
+            {/*  Copy Code*/}
+            {/*</button>*/}
+            {/*<button*/}
+            {/*  onClick={downloadTemplate}*/}
+            {/*  className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"*/}
+            {/*>*/}
+            {/*  <Download className="w-4 h-4 mr-2"/>*/}
+            {/*  Download*/}
+            {/*</button>*/}
           </div>
           {showPreview ? (
             <PagePreview
-              hero={hero || ''}
-              services={services || ''}
-              css={combinedCSS}
+              hero={hero ?? { html: '', css: '' }}
+              services={services ?? { html: '', css: '' }}
             />
           ) : (
-            <CodeView code={generateFullTemplate()}/>
+            <PageView
+              hero={hero ?? { html: '', css: '' }}
+              services={services ?? { html: '', css: '' }}
+            />
           )}
         </div>
       </div>

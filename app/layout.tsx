@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+    <head>
+      <link rel="stylesheet" href="https://cdn.treehouseinternetgroup.com/cms_core/th-tools/template-builder/utils/css/flexbox-grid.css"/>
+    </head>
     <body
       className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary`}
     >

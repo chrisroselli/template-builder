@@ -60,23 +60,23 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
             </nav>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
             {data
               .filter((item) => item.comp_type === activeTab)
               .map((item) => (
                 <div key={item.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{item.data.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => setShowCode(showCode === item.data.html ? null : item.data.html)}
+                        onClick={() => setShowCode(showCode === item.html ? null : item.html)}
                         className="flex items-center px-3 py-1 bg-primary-dark text-white rounded hover:bg-primary-light"
                       >
                         <Code className="w-4 h-4 mr-1" />
-                        {showCode === item.data.html ? 'Hide Code' : 'View Code'}
+                        {showCode === item.html ? 'Hide Code' : 'View Code'}
                       </button>
                       <button
-                        onClick={() => copyToClipboard(item.data.html, item.data.css)}
+                        onClick={() => copyToClipboard(item.html, item.css)}
                         className="flex items-center px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
                       >
                         <Copy className="w-4 h-4 mr-1" />
@@ -85,20 +85,17 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
                     </div>
                   </div>
 
-                  {showCode === item.data.html ? (
+                  {showCode === item.html ? (
                     <div className="mb-4">
-                      <CodeView code={item.data.html} />
-                      {item.data.css && (
-                        <>
-                          <div className="text-sm font-medium text-gray-500 mt-4 mb-2">CSS</div>
-                          <CodeView code={item.data.css} />
-                        </>
-                      )}
+                      <div className="text-sm font-medium text-gray-500 mt-4 mb-2">HTML</div>
+                      <CodeView code={item.html}/>
+                      <div className="text-sm font-medium text-gray-500 mt-4 mb-2">CSS</div>
+                      <CodeView code={item.css}/>
                     </div>
                   ) : (
                     <div className="border rounded-lg overflow-hidden bg-white">
-                      <style>{item.data.css}</style>
-                      <div dangerouslySetInnerHTML={{ __html: item.data.html }} />
+                      <style>{item.css}</style>
+                      <div dangerouslySetInnerHTML={{ __html: item.html }} />
                     </div>
                   )}
                 </div>
