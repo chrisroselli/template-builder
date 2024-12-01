@@ -8,10 +8,10 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#48403e', // Base primary color
+          DEFAULT: '#48403e',
           default_light: '#61534f',
-          light: '#5d9147',  // Optional lighter shade
-          dark: '#4a8332',   // Optional darker shade
+          light: '#5d9147',
+          dark: '#4a8332',
         },
       },
     },

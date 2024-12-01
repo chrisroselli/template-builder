@@ -4,7 +4,6 @@ import {PageRow} from "@/app/types/types";
 import {PagePreview} from "@/app/components/Previews";
 import PageView from "@/app/components/PageView";
 
-
 export default function PageBuilder({ pages }: { pages: PageRow[] }) {
   const [selectedHero, setSelectedHero] = useState('');
   const [selectedServices, setSelectedServices] = useState('');
@@ -17,23 +16,6 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
   const compArr = pages.map(item => item);
   const hero = findTemplate(compArr, selectedHero);
   const services = findTemplate(compArr, selectedServices);
-
-  // const copyToClipboard = () => {
-  //   navigator.clipboard.writeText(generateFullTemplate());
-  // };
-  //
-  // const downloadTemplate = () => {
-  //   const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
-  //   const url = URL.createObjectURL(blob);
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'template.html';
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   document.body.removeChild(a);
-  //   URL.revokeObjectURL(url);
-  // };
-
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -67,19 +49,6 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
                 ))}
               </select>
             </div>
-            {/*<div>*/}
-            {/*  <label className="block text-sm font-medium text-gray-700 mb-2">Call to Action</label>*/}
-            {/*  <select*/}
-            {/*    className="w-full border border-gray-300 rounded-lg p-2"*/}
-            {/*    onChange={(e) => setSelectedCta(e.target.value)}*/}
-            {/*    value={selectedCta}*/}
-            {/*  >*/}
-            {/*    <option value="">Select CTA</option>*/}
-            {/*    {templates.ctas.map((cta, index) => (*/}
-            {/*      <option key={index} value={cta.code}>{cta.name}</option>*/}
-            {/*    ))}*/}
-            {/*  </select>*/}
-            {/*</div>*/}
           </div>
           <div className="flex space-x-4 mb-6">
             <button
@@ -89,20 +58,6 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
-            {/*<button*/}
-            {/*  onClick={copyToClipboard}*/}
-            {/*  className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"*/}
-            {/*>*/}
-            {/*  <Copy className="w-4 h-4 mr-2"/>*/}
-            {/*  Copy Code*/}
-            {/*</button>*/}
-            {/*<button*/}
-            {/*  onClick={downloadTemplate}*/}
-            {/*  className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"*/}
-            {/*>*/}
-            {/*  <Download className="w-4 h-4 mr-2"/>*/}
-            {/*  Download*/}
-            {/*</button>*/}
           </div>
           {showPreview ? (
             <PagePreview
