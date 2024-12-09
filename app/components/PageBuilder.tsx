@@ -52,8 +52,9 @@ export default function PageBuilder({ pages }: { pages: PageRow[] }) {
           </div>
           <div className="flex space-x-4 mb-6">
             <button
+              disabled={selectedHero === '' && selectedServices === ''}
               onClick={() => setShowPreview(!showPreview)}
-              className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light"
+              className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light disabled:hidden"
             >
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
