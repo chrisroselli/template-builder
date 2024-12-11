@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import CodeView from './CodeView';
-import {Code, Copy} from 'lucide-react';
+import ComponentView from './ComponentView';
+import {Code} from 'lucide-react';
 import {PageRow} from "@/app/types/types";
 
 type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
@@ -8,25 +8,6 @@ type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 export default function ComponentManager({ data }: { data: PageRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
-
-  const copyToClipboard = (code: string, css: string = '') => {
-    const fullCode = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Component</title>
-    <style>
-      ${css}
-    </style>
-</head>
-<body>
-    ${code}
-</body>
-</html>`;
-    navigator.clipboard.writeText(fullCode);
-  };
 
   const tabs: { id: ComponentType; label: string }[] = [
     { id: 'headers', label: 'Headers' },
@@ -75,22 +56,12 @@ export default function ComponentManager({ data }: { data: PageRow[] }) {
                         <Code className="w-4 h-4 mr-1" />
                         {showCode === item.html ? 'Hide Code' : 'View Code'}
                       </button>
-                      <button
-                        onClick={() => copyToClipboard(item.html, item.css)}
-                        className="flex items-center px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
-                      >
-                        <Copy className="w-4 h-4 mr-1" />
-                        Copy
-                      </button>
                     </div>
                   </div>
 
                   {showCode === item.html ? (
                     <div className="mb-4">
-                      <div className="text-sm font-medium text-gray-500 mt-4 mb-2">HTML</div>
-                      <CodeView code={item.html}/>
-                      <div className="text-sm font-medium text-gray-500 mt-4 mb-2">CSS</div>
-                      <CodeView code={item.css}/>
+                      <ComponentView html={item.html} css={item.css} />
                     </div>
                   ) : (
                     <div className="border rounded-lg overflow-hidden bg-white">

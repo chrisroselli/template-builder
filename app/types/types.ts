@@ -46,3 +46,7 @@ export interface PagePreviewProps {
     css: string;
   }
 }
+export interface CodeViewProps {
+  css: string,
+  html: string
+}

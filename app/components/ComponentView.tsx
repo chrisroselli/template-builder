@@ -1,24 +1,18 @@
-import type {PagePreviewProps} from "@/app/types/types";
 import {useState} from "react";
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import {atomOneDark} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import {Copy, Download} from "lucide-react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {CodeViewProps} from "@/app/types/types";
 
-export default function PageView({hero, services}: PagePreviewProps) {
+export default function CodeView({html, css}: CodeViewProps) {
   const [activeTab, setActiveTab] = useState<string>("css");
-  const combinedCSS = [hero?.css, services?.css]
-    .filter(Boolean)
-    .join('\n\n');
-  const combinedHTML = [hero?.html, services?.html]
-    .filter(Boolean)
-    .join('\n\n');
 
   const copyBtn = () => {
-    navigator.clipboard.writeText(activeTab === "css" ? combinedCSS : combinedHTML);
+    navigator.clipboard.writeText(activeTab === "css" ? css : html);
   }
 
   const downloadBtn = () => {
-    const blob = new Blob([activeTab === "css" ? combinedCSS : combinedHTML], {type: 'text/plain'});
+    const blob = new Blob([activeTab === "css" ? css : html], {type: 'text/plain'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -68,12 +62,12 @@ export default function PageView({hero, services}: PagePreviewProps) {
       <div className="text-sm">
         {activeTab === "css" && (
           <SyntaxHighlighter className="rounded-xl" language="css" style={atomOneDark}>
-            {combinedCSS}
+            {css}
           </SyntaxHighlighter>
         )}
         {activeTab === "html" && (
           <SyntaxHighlighter className="rounded-xl" language="htmlbars" style={atomOneDark}>
-            {combinedHTML}
+            {html}
           </SyntaxHighlighter>
         )}
       </div>
