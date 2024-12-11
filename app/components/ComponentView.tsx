@@ -10,7 +10,6 @@ export default function CodeView({html, css}: CodeViewProps) {
   const copyBtn = () => {
     navigator.clipboard.writeText(activeTab === "css" ? css : html);
   }
-
   const downloadBtn = () => {
     const blob = new Blob([activeTab === "css" ? css : html], {type: 'text/plain'});
     const url = URL.createObjectURL(blob);
@@ -22,6 +21,7 @@ export default function CodeView({html, css}: CodeViewProps) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+
 
   return (
     <div className="flex flex-col">
