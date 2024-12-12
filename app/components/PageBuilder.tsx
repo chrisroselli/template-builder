@@ -14,6 +14,7 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
   }
 
   const compArr = pageComps.map(item => item);
+
   const hero = findTemplate(compArr, selectedHero);
   const services = findTemplate(compArr, selectedServices);
 
