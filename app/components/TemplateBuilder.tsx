@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {Code, Copy, Download} from 'lucide-react';
-import {TemplateRow} from "@/app/types/types";
+import {TemplateCompRow, TemplateRow} from "@/app/types/types";
 import {TemplatePreview} from "@/app/components/Previews";
-import CodeView from "@/app/components/CodeView";
+import TemplateView from "@/app/components/TemplateView";
 
-export default function TemplateBuilder({ templates }: { templates: TemplateRow[] }) {
+export default function TemplateBuilder({ templates, templateComps }: { templates: TemplateRow[], templateComps: TemplateCompRow[] }) {
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [selectedHeader, setSelectedHeader] = useState('');
   const [selectedFooter, setSelectedFooter] = useState('');
@@ -13,7 +13,6 @@ export default function TemplateBuilder({ templates }: { templates: TemplateRow[
   const findTemplate = (selection: TemplateRow[], selectedItem: string) => {
     return selection.find(item => item.name === selectedItem);
   }
-
   // const compArr = templates.map(item => item.name)
 
   const generateFullTemplate = () => {
@@ -30,6 +29,7 @@ export default function TemplateBuilder({ templates }: { templates: TemplateRow[
     </style>
 
     ${template?.borders || ''}
+    ${header?.template_css || ''}
     ${header?.template_css || ''}
     ${footer?.template_css || ''}
 
@@ -90,8 +90,8 @@ export default function TemplateBuilder({ templates }: { templates: TemplateRow[
                   value={selectedHeader}
                 >
                   <option value="">Select Header</option>
-                  {templates.map((d) => (
-                    <option key={d.id} value={d.name}>{d.name}</option>
+                  {templateComps.map((d) => ( d.comp_type === 'header' &&
+                    <option key={d.id} value={d.label}>{d.name}</option>
                   ))}
                 </select>
               </div>
@@ -103,7 +103,7 @@ export default function TemplateBuilder({ templates }: { templates: TemplateRow[
                   value={selectedFooter}
                 >
                   <option value="">Select Footer</option>
-                  {templates.map((d) => (
+                  {templateComps.map((d) => ( d.comp_type === 'footer' &&
                     <option key={d.id} value={d.name}>{d.name}</option>
                   ))}
                 </select>
@@ -140,7 +140,7 @@ export default function TemplateBuilder({ templates }: { templates: TemplateRow[
                 css={combinedCSS}
               />
             ) : (
-              <CodeView code={generateFullTemplate()}/>
+              <TemplateView code={generateFullTemplate()}/>
             )}
           </div>
         </div>

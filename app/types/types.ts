@@ -1,17 +1,26 @@
-export interface PageRow {
-  id: number;
-  comp_type: string;
-  name: string;
-  html: string;
-  css: string;
-}
-
 export interface TemplateRow {
   id: number;
   name: string;
   borders: string;
   template_css: string;
+  label: string;
+}
+
+export interface TemplateCompRow {
+  id: number;
   comp_type: string;
+  name: string;
+  html: string;
+  css: string;
+  label: string;
+}
+export interface PageCompRow {
+  id: number;
+  comp_type: string;
+  name: string;
+  html: string;
+  css: string;
+  label: string;
 }
 
 export interface Types {

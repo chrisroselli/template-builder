@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import ComponentView from './ComponentView';
 import {Code} from 'lucide-react';
-import {PageRow} from "@/app/types/types";
+import {PageCompRow} from "@/app/types/types";
 
 type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 
-export default function ComponentManager({ data }: { data: PageRow[] }) {
+export default function ComponentManager({ data }: { data: PageCompRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
 
