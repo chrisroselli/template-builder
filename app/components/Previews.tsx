@@ -1,9 +1,10 @@
 import type {PagePreviewProps} from "@/app/types/types";
 
+// TODO: refactor
 export function PagePreview({hero, services}: PagePreviewProps) {
 
   return (
-    <div className="border rounded-lg overflow-hidden">
+    <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <style>{hero.css}{services.css}</style>
       <div dangerouslySetInnerHTML={{__html: hero.html}}/>
       <div dangerouslySetInnerHTML={{__html: services.html}}/>

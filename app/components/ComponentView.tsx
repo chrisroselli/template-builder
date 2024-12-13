@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {Copy, Download} from "lucide-react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -22,42 +22,43 @@ export default function CodeView({html, css}: CodeViewProps) {
     URL.revokeObjectURL(url);
   }
 
-
   return (
     <div className="flex flex-col">
-      <div className="flex items-center mb-2 border-b border-gray-200">
-        <button
-          className={`py-2 px-4 font-medium text-sm ${
-            activeTab === "css" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
-          }`}
-          onClick={() => setActiveTab("css")}
-        >
-          CSS
-        </button>
-        <button
-          className={`py-2 px-4 font-medium text-sm ${
-            activeTab === "html" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
-          }`}
-          onClick={() => setActiveTab("html")}
-        >
-          HTML
-        </button>
-      </div>
-      <div className="flex justify-end space-x-4 mb-2">
-        <button
-          onClick={copyBtn}
-          className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
-        >
-          <Copy className="w-4 h-4 mr-1"/>
-          Copy
-        </button>
-        <button
-          onClick={downloadBtn}
-          className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
-        >
-          <Download className="w-4 h-4 mr-1"/>
-          Download
-        </button>
+      <div className="flex justify-between mb-2 border-b border-gray-200">
+        <div className="flex justify-end space-x-4 mb-2">
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === "css" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
+            }`}
+            onClick={() => setActiveTab("css")}
+          >
+            CSS
+          </button>
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === "html" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
+            }`}
+            onClick={() => setActiveTab("html")}
+          >
+            HTML
+          </button>
+        </div>
+        <div className="flex justify-end space-x-4 mb-2">
+          <button
+            onClick={copyBtn}
+            className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
+          >
+            <Copy className="w-4 h-4 mr-1"/>
+            Copy
+          </button>
+          <button
+            onClick={downloadBtn}
+            className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
+          >
+            <Download className="w-4 h-4 mr-1"/>
+            Download
+          </button>
+        </div>
       </div>
       <div className="text-sm">
         {activeTab === "css" && (

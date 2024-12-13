@@ -51,9 +51,10 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
               </select>
             </div>
           </div>
+          //TODO: Fix it
           <div className="flex space-x-4 mb-6">
             <button
-              disabled={selectedHero === '' && selectedServices === ''}
+              disabled={selectedHero === ''}
               onClick={() => setShowPreview(!showPreview)}
               className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light disabled:hidden"
             >
@@ -61,7 +62,8 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
           </div>
-          {showPreview ? (
+          {selectedHero !== '' && (
+            showPreview ? (
             <PagePreview
               hero={hero ?? { html: '', css: '' }}
               services={services ?? { html: '', css: '' }}
@@ -71,7 +73,7 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
               hero={hero ?? { html: '', css: '' }}
               services={services ?? { html: '', css: '' }}
             />
-          )}
+          ))}
         </div>
       </div>
     </div>

@@ -10,10 +10,10 @@ export default function TemplatePreview({ template, css, data }: TemplateReplace
     setReplacedHtml(replaced);
   }, [template, data]);
 
-  const headerFix = `header { position: relative;`;
+  const headerFix = `header{position:relative;}main{margin:2rem 0;}`;
 
   return (
-    <div>
+    <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
     <style>{css}{headerFix}</style>
       <div dangerouslySetInnerHTML={{__html: replacedHtml }} />
     </div>
