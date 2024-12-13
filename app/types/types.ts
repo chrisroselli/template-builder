@@ -59,3 +59,8 @@ export interface CodeViewProps {
   css: string,
   html: string
 }
+
+export interface TemplateReplacerProps {
+  template: string;
+  data: Record<string, string>;
+}

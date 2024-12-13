@@ -1,25 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {replacePlaceholders} from '../utils/templateReplacer';
-import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import React, {useEffect, useState} from "react";
+import {TemplateReplacerProps} from '../types/types';
+import {replacePlaceholders} from "@/app/utils/templateReplacer";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-interface TemplateReplacerProps {
-  template: string;
-  data: Record<string, string>;
-}
-
-export function TemplateReplacer({ template, data }: TemplateReplacerProps) {
-  const [replacedHtml, setReplacedHtml] = useState(template);
-
-  useEffect(() => {
-    const replaced = replacePlaceholders(template, data);
-    setReplacedHtml(replaced);
-  }, [template, data]);
-  
-  return <div dangerouslySetInnerHTML={{ __html: replacedHtml }} />;
-}
-
-export function TemplateReplacerView({ template, data }: TemplateReplacerProps) {
+export default function TemplateCodeView({ template, data }: TemplateReplacerProps) {
   const [replacedHtml, setReplacedHtml] = useState(template);
   const [activeTab, setActiveTab] = useState<string>("borders");
 
@@ -57,6 +42,6 @@ export function TemplateReplacerView({ template, data }: TemplateReplacerProps) 
         )}
       </div>
     </div>
-      )
-      ;
-      }
+  )
+    ;
+}

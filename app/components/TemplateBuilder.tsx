@@ -1,7 +1,9 @@
 import {useState} from 'react';
 import {Code, Copy, Download} from 'lucide-react';
 import {TemplateCompRow, TemplateRow} from "@/app/types/types";
-import {TemplateReplacer, TemplateReplacerView} from "@/app/components/TemplateReplacer";
+import TemplatePreview from "@/app/components/TemplatePreview";
+import TemplateCodeView from "@/app/components/TemplateCodeView";
+// TODO: Root CSS variables color picker
 
 export default function TemplateBuilder({ templates, templateComps }: { templates: TemplateRow[], templateComps: TemplateCompRow[] }) {
   const [selectedTemplate, setSelectedTemplate] = useState('');
@@ -46,13 +48,16 @@ export default function TemplateBuilder({ templates, templateComps }: { template
   };
 
   const combinedCSS = [
-    findTemplate(templates, selectedHeader)?.template_css,
-    findTemplate(templates, selectedFooter)?.template_css,
+    findTemplate(templateComps, selectedFooter)?.css,
+    findTemplate(templateComps, selectedHeader)?.css
+
   ].filter(Boolean).join('\n\n');
-// Todo : add template css
+  console.log(combinedCSS)
+
   const template = findTemplate(templates, selectedTemplate)?.borders;
   const header = findTemplate(templateComps, selectedHeader)?.html;
   const footer = findTemplate(templateComps, selectedFooter)?.html;
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -127,9 +132,9 @@ export default function TemplateBuilder({ templates, templateComps }: { template
           </div>
           {selectedTemplate && (
             showPreview ? (
-            <TemplateReplacer template={template} data={{header: header, footer: footer}}/>
+            <TemplatePreview template={template} data={{header: header, footer: footer}}/>
           ) : (
-            <TemplateReplacerView template={template} data={{header: header, footer: footer}}/>
+            <TemplateCodeView template={template} data={{header: header, footer: footer}}/>
           ))}
         </div>
       </div>
