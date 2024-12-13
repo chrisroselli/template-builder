@@ -9,10 +9,12 @@ export default function TemplatePreview({ template, css, data }: TemplateReplace
     const replaced = replacePlaceholders(template, data);
     setReplacedHtml(replaced);
   }, [template, data]);
-  
+
+  const headerFix = `header { position: relative;`;
+
   return (
-    <div className="transform translate-x-0 translate-y-0">
-    <style>{css}</style>
+    <div>
+    <style>{css}{headerFix}</style>
       <div dangerouslySetInnerHTML={{__html: replacedHtml }} />
     </div>
   );

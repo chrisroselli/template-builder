@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Code, Copy, Download} from 'lucide-react';
+import {Code} from 'lucide-react';
 import {TemplateCompRow, TemplateRow} from "@/app/types/types";
 import TemplatePreview from "@/app/components/TemplatePreview";
 import TemplateCodeView from "@/app/components/TemplateCodeView";
@@ -14,49 +14,15 @@ export default function TemplateBuilder({ templates, templateComps }: { template
   const findTemplate = (selection: TemplateRow[], selectedItem: string) => {
     return selection.find(item => item.label === selectedItem);
   }
-  // const compArr = templates.map(item => item.name)
-
-  const generateFullTemplate = () => {
-    const template = findTemplate(templates, selectedTemplate);
-    const header = findTemplate(templateComps, selectedHeader);
-    const footer = findTemplate(templateComps, selectedFooter);
-
-    // const combinedCSS = [header?.css,footer?.css]
-    //   .filter(Boolean)
-    //   .join('\n\n');
-
-    return `
-    ${template?.borders || ''}
-
-    `;
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generateFullTemplate());
-  };
-
-  const downloadTemplate = () => {
-    const blob = new Blob([generateFullTemplate()], {type: 'text/html'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'template.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const combinedCSS = [
-    findTemplate(templateComps, selectedFooter)?.css,
-    findTemplate(templateComps, selectedHeader)?.css
-
-  ].filter(Boolean).join('\n\n');
 
   const template = findTemplate(templates, selectedTemplate)?.borders;
   const header = findTemplate(templateComps, selectedHeader)?.html;
   const footer = findTemplate(templateComps, selectedFooter)?.html;
 
+  const combinedCSS = [
+    findTemplate(templateComps, selectedHeader)?.css,
+    findTemplate(templateComps, selectedFooter)?.css
+  ].filter(Boolean).join('\n\n');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -77,8 +43,6 @@ export default function TemplateBuilder({ templates, templateComps }: { template
                 ))}
               </select>
             </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Header</label>
               <select
@@ -108,33 +72,20 @@ export default function TemplateBuilder({ templates, templateComps }: { template
           </div>
           <div className="flex space-x-4 mb-6">
             <button
+              disabled={selectedTemplate === '' || selectedHeader === '' || selectedFooter === ''}
               onClick={() => setShowPreview(!showPreview)}
-              className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light"
+              className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light disabled:hidden"
             >
               <Code className="w-4 h-4 mr-2"/>
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
-            <button
-              onClick={copyToClipboard}
-              className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-default_light"
-            >
-              <Copy className="w-4 h-4 mr-2"/>
-              Copy Code
-            </button>
-            <button
-              onClick={downloadTemplate}
-              className="flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"
-            >
-              <Download className="w-4 h-4 mr-2"/>
-              Download
-            </button>
           </div>
-          {selectedTemplate && (
+          {selectedTemplate !== '' && selectedHeader !== '' && selectedFooter !== '' && (
             showPreview ? (
-            <TemplatePreview template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
-          ) : (
-            <TemplateCodeView template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
-          ))}
+              <TemplatePreview template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
+            ) : (
+              <TemplateCodeView template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
+            ))}
         </div>
       </div>
     </div>
