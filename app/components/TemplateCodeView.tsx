@@ -4,10 +4,10 @@ import {replacePlaceholders} from "@/app/utils/templateReplacer";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-export default function TemplateCodeView({ template, data }: TemplateReplacerProps) {
+export default function TemplateCodeView({ template, data, css }: TemplateReplacerProps) {
   const [replacedHtml, setReplacedHtml] = useState(template);
   const [activeTab, setActiveTab] = useState<string>("borders");
-
+  console.log(data)
   useEffect(() => {
     const replaced = replacePlaceholders(template, data);
     setReplacedHtml(replaced);
@@ -38,7 +38,7 @@ export default function TemplateCodeView({ template, data }: TemplateReplacerPro
           <SyntaxHighlighter className="rounded-xl text-sm" language="htmlbars" style={atomOneDark}>{replacedHtml}</SyntaxHighlighter>
         )}
         {activeTab === "css" && (
-          <SyntaxHighlighter className="rounded-xl text-sm" language="htmlbars" style={atomOneDark}>{replacedHtml}</SyntaxHighlighter>
+          <SyntaxHighlighter className="rounded-xl text-sm" language="css" style={atomOneDark}>{css}</SyntaxHighlighter>
         )}
       </div>
     </div>

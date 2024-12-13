@@ -52,7 +52,6 @@ export default function TemplateBuilder({ templates, templateComps }: { template
     findTemplate(templateComps, selectedHeader)?.css
 
   ].filter(Boolean).join('\n\n');
-  console.log(combinedCSS)
 
   const template = findTemplate(templates, selectedTemplate)?.borders;
   const header = findTemplate(templateComps, selectedHeader)?.html;
@@ -132,9 +131,9 @@ export default function TemplateBuilder({ templates, templateComps }: { template
           </div>
           {selectedTemplate && (
             showPreview ? (
-            <TemplatePreview template={template} data={{header: header, footer: footer}}/>
+            <TemplatePreview template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
           ) : (
-            <TemplateCodeView template={template} data={{header: header, footer: footer}}/>
+            <TemplateCodeView template={template} css={combinedCSS} data={{header: header, footer: footer}}/>
           ))}
         </div>
       </div>
