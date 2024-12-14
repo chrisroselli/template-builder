@@ -51,7 +51,7 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
               </select>
             </div>
           </div>
-          //TODO: Fix it
+          {/*TODO: Fix it*/}
           <div className="flex space-x-4 mb-6">
             <button
               disabled={selectedHero === ''}

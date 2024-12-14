@@ -1,9 +1,9 @@
 'use client'
 import {useState} from 'react';
-import TemplateBuilder from './TemplateBuilder';
-import PageBuilder from './PageBuilder';
-import ComponentManager from './ComponentManager';
-import ComponentCreator from './ComponentCreator';
+import TemplateBuilder from './components/TemplateBuilder';
+import PageBuilder from './components/PageBuilder';
+import ComponentManager from './components/ComponentManager';
+import ComponentCreator from './components/ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
 import {PageCompRow, TemplateCompRow, TemplateRow} from "@/app/types/types";
 
@@ -73,9 +73,9 @@ function App( { templates, templateComps, pageComps }: { templates: TemplateRow[
       ) : activeView === 'page' ? (
         <PageBuilder pageComps={pageComps}/>
       ) : activeView === 'manager' ? (
-        <ComponentManager data={pageComps}/>
+        <ComponentManager pageComps={pageComps}/>
       ) : (
-        <ComponentCreator/>
+        <ComponentCreator pageComps={pageComps}/>
       )}
     </div>
   );
