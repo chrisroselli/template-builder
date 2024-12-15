@@ -22,7 +22,7 @@ function ErrorMessage({ message, error }: { message: string; error?: string }) {
     </div>
   );
 }
-
+// TODO: Set default component types
 export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow[] }) {
   const [isPending, startTransition] = useTransition();
   const [componentType, setComponentType] = useState('');
@@ -33,7 +33,8 @@ export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow
   const formRef = useRef<HTMLFormElement>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; content: string; error?: string } | null>(null);
   const router = useRouter();
-// TODO: reset all form fields
+  // TODO: reset all form fields
+  // TODO: Revise Success and Error messages
   async function handleSubmit(formData: FormData) {
     const result = await submitComponent(formData);
     if (result.success) {
