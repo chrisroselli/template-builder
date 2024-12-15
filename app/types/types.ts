@@ -21,6 +21,7 @@ export interface PageCompRow {
   html: string;
   css: string;
   label: string;
+  status: boolean;
 }
 
 export interface Types {

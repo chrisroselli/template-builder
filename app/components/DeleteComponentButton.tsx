@@ -3,13 +3,12 @@
 import {useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {deleteComponent} from "@/app/actions/componentActions";
-import {LoaderCircle, Trash2} from "lucide-react";
+import {LoaderCircle, PencilOff, Trash2} from "lucide-react";
 
-export function DeleteComponentButton({ id }: { id: number }) {
+export function DeleteComponentButton({ id, status }: { id: number, status: boolean }) {
   const [isPending, startTransition] = useTransition();
   const [isConfirming, setIsConfirming] = useState(false);
   const router = useRouter();
-
   const handleDelete = async () => {
     if (!isConfirming) {
       setIsConfirming(true);
@@ -58,10 +57,11 @@ export function DeleteComponentButton({ id }: { id: number }) {
   return (
     <button
       onClick={handleDelete}
-      className="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700"
+      disabled={status}
+      className="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700 disabled:opacity-50"
       aria-label="Delete component"
     >
-      <Trash2 className="w-4 h-4"/>
+      {status ? <PencilOff className="w-4 h-4"/> : <Trash2 className="w-4 h-4"/>}
     </button>
   );
 }

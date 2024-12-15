@@ -9,7 +9,7 @@ type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 export default function ComponentManager({ pageComps }: { pageComps: PageCompRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
-
+//TODO: Refactor
   const tabs: { id: ComponentType; label: string }[] = [
     { id: 'headers', label: 'Headers' },
     { id: 'hero', label: 'Heros' },
@@ -57,7 +57,7 @@ export default function ComponentManager({ pageComps }: { pageComps: PageCompRow
                         <Code className="w-4 h-4 mr-1"/>
                         {showCode === item.html ? 'Hide Code' : 'View Code'}
                       </button>
-                      <DeleteComponentButton id={item.id} />
+                      <DeleteComponentButton id={item.id} status={item.status} />
                     </div>
                   </div>
 

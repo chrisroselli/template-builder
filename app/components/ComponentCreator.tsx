@@ -1,7 +1,7 @@
 import React, {useRef, useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {Eye, Save} from 'lucide-react';
-import type {PageCompRow} from '../types/types';
+import type {PageCompRow, TemplateCompRow} from '../types/types';
 import {submitComponent} from '@/app/actions/componentActions';
 
 function SuccessMessage({ message }: { message: string }) {
@@ -22,8 +22,7 @@ function ErrorMessage({ message, error }: { message: string; error?: string }) {
     </div>
   );
 }
-// TODO: Set default component types
-export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow[] }) {
+export default function ComponentCreator({ pageComps, templateComps }: { pageComps: PageCompRow[], templateComps: TemplateCompRow[]} ) {
   const [isPending, startTransition] = useTransition();
   const [componentType, setComponentType] = useState('');
   const [name, setName] = useState('');
@@ -33,6 +32,7 @@ export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow
   const formRef = useRef<HTMLFormElement>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; content: string; error?: string } | null>(null);
   const router = useRouter();
+  // TODO: Combine components into one table
   // TODO: reset all form fields
   // TODO: Revise Success and Error messages
   async function handleSubmit(formData: FormData) {
@@ -49,6 +49,8 @@ export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow
       setMessage({ type: 'error', content: result.message, error: result.error });
     }
   }
+
+  const compTypes = [...new Set([...templateComps.map(d => d.comp_type), ...pageComps.map(d => d.comp_type)])]
 
   function toCapitalize(str: string) {
     if (!str) return '';
@@ -74,7 +76,7 @@ export default function ComponentCreator({ pageComps }: { pageComps: PageCompRow
                 value={componentType}
               >
                 <option value="">Select Component Type</option>
-                {[...new Set(pageComps.map(d => d.comp_type))].map((d) => (
+                {compTypes.map((d) => (
                   <option key={d} value={d}>{toCapitalize(d)}</option>
                 ))}
               </select>

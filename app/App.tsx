@@ -73,9 +73,9 @@ function App( { templates, templateComps, pageComps }: { templates: TemplateRow[
       ) : activeView === 'page' ? (
         <PageBuilder pageComps={pageComps}/>
       ) : activeView === 'manager' ? (
-        <ComponentManager pageComps={pageComps}/>
+        <ComponentManager pageComps={pageComps} templateComps={templateComps}/>
       ) : (
-        <ComponentCreator pageComps={pageComps}/>
+        <ComponentCreator pageComps={pageComps} templateComps={templateComps}/>
       )}
     </div>
   );
