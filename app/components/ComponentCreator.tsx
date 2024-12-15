@@ -2,7 +2,7 @@ import React, {useRef, useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {Eye, Save} from 'lucide-react';
 import type {PageCompRow} from '../types/types';
-import {submitComponent} from '@/app/actions/addComponent';
+import {submitComponent} from '@/app/actions/componentActions';
 
 function SuccessMessage({ message }: { message: string }) {
   return (

@@ -20,3 +20,27 @@ export async function submitComponent(formData: FormData) {
     return { success: false, message: 'Failed to insert component', error: error instanceof Error ? error.message : String(error) };
   }
 }
+
+export async function deleteComponent(id: number) {
+  try {
+    // Attempt to delete the component with the given id
+    const result = await sql`
+      DELETE FROM page_components
+      WHERE id = ${id}
+    `;
+
+    // Check if any row was actually deleted
+    if (result.rowCount === 0) {
+      return { success: false, message: 'Component not found' };
+    }
+    return { success: true, message: 'Component deleted successfully' };
+
+  } catch (error) {
+    console.error('Failed to delete component:', error);
+    return {
+      success: false,
+      message: 'Failed to delete component',
+      error: error instanceof Error ? error.message : String(error)
+    };
+  }
+}
