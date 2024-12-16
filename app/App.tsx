@@ -5,12 +5,11 @@ import PageBuilder from './components/PageBuilder';
 import ComponentManager from './components/ComponentManager';
 import ComponentCreator from './components/ComponentCreator';
 import {LayoutDashboard, PanelsTopLeft, PanelTop, PlusCircle} from 'lucide-react';
-import {PageCompRow, TemplateCompRow, TemplateRow} from "@/app/types/types";
+import {CompRow, TemplateRow} from "@/app/types/types";
 
 
-function App( { templates, templateComps, pageComps }: { templates: TemplateRow[], templateComps: TemplateCompRow[], pageComps: PageCompRow[]  } ) {
+function App( { templates, comps }: { templates: TemplateRow[], comps: CompRow[]  } ) {
   const [activeView, setActiveView] = useState<'template' | 'page' | 'manager' | 'creator'>('template');
-
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm">
@@ -69,13 +68,13 @@ function App( { templates, templateComps, pageComps }: { templates: TemplateRow[
       </nav>
 
       {activeView === 'template' ? (
-        <TemplateBuilder templates={templates} templateComps={templateComps}/>
+        <TemplateBuilder templates={templates} comps={comps}/>
       ) : activeView === 'page' ? (
-        <PageBuilder pageComps={pageComps}/>
+        <PageBuilder comps={comps}/>
       ) : activeView === 'manager' ? (
-        <ComponentManager pageComps={pageComps} templateComps={templateComps}/>
+        <ComponentManager comps={comps}/>
       ) : (
-        <ComponentCreator pageComps={pageComps} templateComps={templateComps}/>
+        <ComponentCreator comps={comps}/>
       )}
     </div>
   );

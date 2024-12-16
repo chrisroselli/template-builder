@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import ComponentView from './ComponentView';
 import {Code} from 'lucide-react';
-import {PageCompRow} from "@/app/types/types";
 import {DeleteComponentButton} from "@/app/components/DeleteComponentButton";
 
 type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
 
-export default function ComponentManager({ pageComps }: { pageComps: PageCompRow[] }) {
+export default function ComponentManager({ comps }: { comps: CompRow[] }) {
   const [activeTab, setActiveTab] = useState<ComponentType>('headers');
   const [showCode, setShowCode] = useState<string | null>(null);
 //TODO: Refactor
@@ -43,7 +42,7 @@ export default function ComponentManager({ pageComps }: { pageComps: PageCompRow
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
-            {pageComps
+            {comps
               .filter((item) => item.comp_type === activeTab)
               .map((item) => (
                 <div key={item.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">

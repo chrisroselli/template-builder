@@ -1,19 +1,19 @@
 import {useState} from 'react';
 import {Code} from 'lucide-react';
-import {PageCompRow} from "@/app/types/types";
+import {CompRow} from "@/app/types/types";
 import {PagePreview} from "@/app/components/Previews";
 import PageView from "@/app/components/PageView";
 
-export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] }) {
+export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   const [selectedHero, setSelectedHero] = useState('');
   const [selectedServices, setSelectedServices] = useState('');
   const [showPreview, setShowPreview] = useState(true);
 
-  const findTemplate = (selection: PageCompRow[], selectedItem: string) => {
+  const findTemplate = (selection: CompRow[], selectedItem: string) => {
     return selection.find(item => item.name === selectedItem);
   }
 
-  const compArr = pageComps.map(item => item);
+  const compArr = comps.map(item => item);
 
   const hero = findTemplate(compArr, selectedHero);
   const services = findTemplate(compArr, selectedServices);
@@ -32,7 +32,7 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
                 value={selectedHero}
               >
                 <option value="">Select Hero</option>
-                {pageComps.map((d) => (d.comp_type === 'hero' &&
+                {comps.map((d) => (d.comp_type === 'hero' &&
                   <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
@@ -45,7 +45,7 @@ export default function PageBuilder({ pageComps }: { pageComps: PageCompRow[] })
                 value={selectedServices}
               >
                 <option value="">Select Services</option>
-                {pageComps.map((d) => (d.comp_type === 'services' &&
+                {comps.map((d) => (d.comp_type === 'services' &&
                   <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>

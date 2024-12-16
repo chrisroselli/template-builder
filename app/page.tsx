@@ -1,21 +1,19 @@
 import App from "@/app/App";
 import {sql} from '@vercel/postgres';
-import {PageCompRow, TemplateCompRow, TemplateRow} from "@/app/types/types";
+import {CompRow, TemplateRow} from "@/app/types/types";
 
 export default async function Home() {
-  const [pageCompRows, templateCompRows, templatesRows] = await Promise.all([
-    sql<PageCompRow>`SELECT * FROM page_components`,
-    sql<TemplateCompRow>`SELECT * FROM template_components`,
+  const [compRows, templatesRows] = await Promise.all([
+    sql<CompRow>`SELECT * FROM components`,
     sql<TemplateRow>`SELECT * FROM templates`
   ]);
 
   const templates = templatesRows.rows;
-  const templateComps = templateCompRows.rows;
-  const pageComps = pageCompRows.rows;
+  const comps = compRows.rows;
 
   return (
     <main className="container mx-auto p-4">
-      <App templates={templates} templateComps={templateComps} pageComps={pageComps}  />
+      <App templates={templates} comps={comps}  />
     </main>
   );
 }

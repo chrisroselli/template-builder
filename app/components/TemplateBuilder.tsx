@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import {Code} from 'lucide-react';
-import {TemplateCompRow, TemplateRow} from "@/app/types/types";
+import {CompRow, TemplateRow} from "@/app/types/types";
 import TemplatePreview from "@/app/components/TemplatePreview";
 import TemplateCodeView from "@/app/components/TemplateCodeView";
 // TODO: Root CSS variables color picker
 
-export default function TemplateBuilder({ templates, templateComps }: { templates: TemplateRow[], templateComps: TemplateCompRow[] }) {
+export default function TemplateBuilder({ templates, comps }: { templates: TemplateRow[], comps: CompRow[] }) {
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [selectedHeader, setSelectedHeader] = useState('');
   const [selectedFooter, setSelectedFooter] = useState('');
@@ -15,13 +15,27 @@ export default function TemplateBuilder({ templates, templateComps }: { template
     return selection.find(item => item.label === selectedItem);
   }
 
-  const template = findTemplate(templates, selectedTemplate)?.borders;
-  const header = findTemplate(templateComps, selectedHeader)?.html;
-  const footer = findTemplate(templateComps, selectedFooter)?.html;
+  const findComp = (selection: CompRow[], selectedItem: string) => {
+    return selection.find(item => item.label === selectedItem);
+  }
+
+  const template = findTemplate(templates, selectedTemplate)?.borders ?? '';
+  if (template === undefined) {
+    throw new Error('Template component not found');
+  }
+
+  const header = findComp(comps, selectedHeader)?.html ?? '';
+  if (header === undefined) {
+    throw new Error('Header component not found');
+  }
+  const footer = findComp(comps, selectedFooter)?.html ?? '';
+  if (footer === undefined) {
+    throw new Error('Footer component not found');
+  }
 
   const combinedCSS = [
-    findTemplate(templateComps, selectedHeader)?.css,
-    findTemplate(templateComps, selectedFooter)?.css
+    findComp(comps, selectedHeader)?.css,
+    findComp(comps, selectedFooter)?.css
   ].filter(Boolean).join('\n\n');
 
   return (
@@ -51,7 +65,7 @@ export default function TemplateBuilder({ templates, templateComps }: { template
                 value={selectedHeader}
               >
                 <option value="">Select Header</option>
-                {templateComps.map((d) => (  d.comp_type === 'header' &&
+                {comps.map((d) => (  d.comp_type === 'header' &&
                   <option key={d.id} value={d.label}>{d.name}</option>
                 ))}
               </select>
@@ -64,7 +78,7 @@ export default function TemplateBuilder({ templates, templateComps }: { template
                 value={selectedFooter}
               >
                 <option value="">Select Footer</option>
-                {templateComps.map((d) => ( d.comp_type === 'footer' &&
+                {comps.map((d) => ( d.comp_type === 'footer' &&
                   <option key={d.id} value={d.label}>{d.name}</option>
                 ))}
               </select>

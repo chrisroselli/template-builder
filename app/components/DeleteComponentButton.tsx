@@ -3,7 +3,7 @@
 import {useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {deleteComponent} from "@/app/actions/componentActions";
-import {LoaderCircle, PencilOff, Trash2} from "lucide-react";
+import {LoaderCircle, Lock, Trash2} from "lucide-react";
 
 export function DeleteComponentButton({ id, status }: { id: number, status: boolean }) {
   const [isPending, startTransition] = useTransition();
@@ -61,7 +61,7 @@ export function DeleteComponentButton({ id, status }: { id: number, status: bool
       className="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700 disabled:opacity-50"
       aria-label="Delete component"
     >
-      {status ? <PencilOff className="w-4 h-4"/> : <Trash2 className="w-4 h-4"/>}
+      {status ? <Lock className="w-4 h-4"/> : <Trash2 className="w-4 h-4"/>}
     </button>
   );
 }

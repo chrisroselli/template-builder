@@ -6,15 +6,7 @@ export interface TemplateRow {
   label: string;
 }
 
-export interface TemplateCompRow {
-  id: number;
-  comp_type: string;
-  name: string;
-  html: string;
-  css: string;
-  label: string;
-}
-export interface PageCompRow {
+export interface CompRow {
   id: number;
   comp_type: string;
   name: string;
@@ -22,6 +14,7 @@ export interface PageCompRow {
   css: string;
   label: string;
   status: boolean;
+  type: string;
 }
 
 export interface Types {
@@ -30,13 +23,6 @@ export interface Types {
   name: string;
   code: string;
   css?: string;
-}
-
-export interface TemplateSection {
-  headers: Types[];
-  features: Types[];
-  footers: Types[];
-  ctas: Types[];
 }
 
 export interface TemplatePreviewProps {
@@ -63,5 +49,6 @@ export interface CodeViewProps {
 
 export interface TemplateReplacerProps {
   template: string;
+  css: string;
   data: Record<string, string>;
 }

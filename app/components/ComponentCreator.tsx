@@ -1,7 +1,7 @@
 import React, {useRef, useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {Eye, Save} from 'lucide-react';
-import type {PageCompRow, TemplateCompRow} from '../types/types';
+import type {CompRow, TemplateCompRow} from '../types/types';
 import {submitComponent} from '@/app/actions/componentActions';
 
 function SuccessMessage({ message }: { message: string }) {
@@ -22,7 +22,7 @@ function ErrorMessage({ message, error }: { message: string; error?: string }) {
     </div>
   );
 }
-export default function ComponentCreator({ pageComps, templateComps }: { pageComps: PageCompRow[], templateComps: TemplateCompRow[]} ) {
+export default function ComponentCreator({ comps, templateComps }: { comps: CompRow[], templateComps: TemplateCompRow[]} ) {
   const [isPending, startTransition] = useTransition();
   const [componentType, setComponentType] = useState('');
   const [name, setName] = useState('');
@@ -50,7 +50,7 @@ export default function ComponentCreator({ pageComps, templateComps }: { pageCom
     }
   }
 
-  const compTypes = [...new Set([...templateComps.map(d => d.comp_type), ...pageComps.map(d => d.comp_type)])]
+  const compTypes = [...new Set([...templateComps.map(d => d.comp_type), ...comps.map(d => d.comp_type)])]
 
   function toCapitalize(str: string) {
     if (!str) return '';

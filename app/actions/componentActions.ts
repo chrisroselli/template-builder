@@ -11,7 +11,7 @@ export async function submitComponent(formData: FormData) {
 
   try {
     await sql`
-        INSERT INTO page_components (comp_type, html, css, name, label)
+        INSERT INTO components (comp_type, html, css, name, label)
         VALUES (${type}, ${html}, ${css}, ${name}, ${label})
     `;
     return { success: true, message: 'Component inserted successfully' };
@@ -25,7 +25,7 @@ export async function deleteComponent(id: number) {
   try {
     // Attempt to delete the component with the given id
     const result = await sql`
-      DELETE FROM page_components
+      DELETE FROM components
       WHERE id = ${id}
     `;
 

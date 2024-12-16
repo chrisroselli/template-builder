@@ -19,9 +19,9 @@
 16389||-9223372036854775808|T|G
 16389||16384|T|G
 16389||16387|T|G</Grants>
-      <IntrospectionStateNumber>87042</IntrospectionStateNumber>
+      <IntrospectionStateNumber>90114</IntrospectionStateNumber>
       <ServerVersion>16.6</ServerVersion>
-      <StartupTime>1734294153</StartupTime>
+      <StartupTime>1734365671</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -821,7 +821,7 @@ false Zulu
 13187||10|C|G
 13187||-9223372036854775808|U|G
 13187||10|U|G</Grants>
-      <IntrospectionStateNumber>87042</IntrospectionStateNumber>
+      <IntrospectionStateNumber>90114</IntrospectionStateNumber>
       <ObjectId>16389</ObjectId>
       <OwnerName>default</OwnerName>
     </database>
@@ -4260,8 +4260,8 @@ false Zulu
     <schema id="266" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>87042</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-12-15.20:22:35</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>90114</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-12-16.16:16:39</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>523</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4274,15 +4274,7 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>default</OwnerName>
     </sequence>
-    <sequence id="268" parent="266" name="template_components_column_name_seq">
-      <ObjectId>106499</ObjectId>
-      <SequenceIdentity>1</SequenceIdentity>
-      <StartValue>1</StartValue>
-      <StateNumber>67596</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <OwnerName>default</OwnerName>
-    </sequence>
-    <sequence id="269" parent="266" name="templates_id_seq">
+    <sequence id="268" parent="266" name="templates_id_seq">
       <ObjectId>40960</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
@@ -4290,25 +4282,19 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>default</OwnerName>
     </sequence>
-    <table id="270" parent="266" name="page_components">
+    <table id="269" parent="266" name="components">
       <ObjectId>90113</ObjectId>
-      <StateNumber>87041</StateNumber>
+      <StateNumber>90113</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>default</OwnerName>
     </table>
-    <table id="271" parent="266" name="template_components">
-      <ObjectId>106496</ObjectId>
-      <StateNumber>68610</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>default</OwnerName>
-    </table>
-    <table id="272" parent="266" name="templates">
+    <table id="270" parent="266" name="templates">
       <ObjectId>40961</ObjectId>
       <StateNumber>68614</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>default</OwnerName>
     </table>
-    <column id="273" parent="270" name="id">
+    <column id="271" parent="269" name="id">
       <DefaultExpression>nextval(&apos;example_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4317,37 +4303,42 @@ false Zulu
       <SequenceId>90112</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="274" parent="270" name="comp_type">
+    <column id="272" parent="269" name="comp_type">
+      <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>40960</StateNumber>
+      <StateNumber>89106</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="275" parent="270" name="html">
+    <column id="273" parent="269" name="html">
+      <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>54276</StateNumber>
+      <StateNumber>89091</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="276" parent="270" name="css">
+    <column id="274" parent="269" name="css">
+      <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>54279</StateNumber>
+      <StateNumber>89092</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="277" parent="270" name="name">
+    <column id="275" parent="269" name="name">
+      <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>54297</StateNumber>
+      <StateNumber>89093</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="278" parent="270" name="label">
+    <column id="276" parent="269" name="label">
+      <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>68618</StateNumber>
+      <StateNumber>89098</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="279" parent="270" name="status">
+    <column id="277" parent="269" name="status">
       <DefaultExpression>false</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
@@ -4355,7 +4346,14 @@ false Zulu
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <index id="280" parent="270" name="example_pkey">
+    <column id="278" parent="269" name="type">
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StateNumber>89111</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="279" parent="269" name="example_pkey">
       <ColNames>id</ColNames>
       <ObjectId>90119</ObjectId>
       <Primary>1</Primary>
@@ -4363,68 +4361,13 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="281" parent="270" name="example_pkey">
+    <key id="280" parent="269" name="example_pkey">
       <ObjectId>90120</ObjectId>
       <Primary>1</Primary>
       <StateNumber>37891</StateNumber>
       <UnderlyingIndexId>90119</UnderlyingIndexId>
     </key>
-    <column id="282" parent="271" name="id">
-      <DefaultExpression>nextval(&apos;template_components_column_name_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>67599</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <SequenceId>106499</SequenceId>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="283" parent="271" name="name">
-      <Position>2</Position>
-      <StateNumber>67604</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="284" parent="271" name="html">
-      <Position>3</Position>
-      <StateNumber>67613</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="285" parent="271" name="css">
-      <Position>4</Position>
-      <StateNumber>67610</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="286" parent="271" name="comp_type">
-      <Position>5</Position>
-      <StateNumber>67616</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="287" parent="271" name="label">
-      <Position>6</Position>
-      <StateNumber>68610</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <index id="288" parent="271" name="template_components_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>106501</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>67613</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="289" parent="271" name="template_components_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>106502</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>67596</StateNumber>
-      <UnderlyingIndexId>106501</UnderlyingIndexId>
-    </key>
-    <column id="290" parent="272" name="id">
+    <column id="281" parent="270" name="id">
       <DefaultExpression>nextval(&apos;templates_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4433,32 +4376,32 @@ false Zulu
       <SequenceId>40960</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="291" parent="272" name="name">
+    <column id="282" parent="270" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="292" parent="272" name="borders">
+    <column id="283" parent="270" name="borders">
       <Position>4</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="293" parent="272" name="template_css">
+    <column id="284" parent="270" name="template_css">
       <Position>5</Position>
       <StateNumber>13313</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="294" parent="272" name="label">
+    <column id="285" parent="270" name="label">
       <Position>10</Position>
       <StateNumber>68614</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <index id="295" parent="272" name="templates_pkey">
+    <index id="286" parent="270" name="templates_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>40967</ObjectId>
@@ -4467,7 +4410,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="296" parent="272" name="templates_pkey">
+    <key id="287" parent="270" name="templates_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>40968</ObjectId>
       <Primary>1</Primary>
