@@ -1,8 +1,6 @@
 import type {PagePreviewProps} from "@/app/types/types";
 
-// TODO: refactor
-export function PagePreview({hero, services}: PagePreviewProps) {
-
+export default function PagePreview({hero, services}: PagePreviewProps) {
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <style>{hero.css}{services.css}</style>

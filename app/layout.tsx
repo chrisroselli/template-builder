@@ -32,7 +32,7 @@ export default function RootLayout({
     <body
       className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary`}
     >
-    <div className="w-full bg-white h-24 flex justify-left pl-5">
+    <div className="w-full bg-white h-24 flex justify-left items-center gap-4 pl-5">
       <Image
       src="/img/th-marketing-logo-2021.svg"
       alt="Treehouse Marketing Logo"
@@ -40,6 +40,7 @@ export default function RootLayout({
       width={200}
       height={96}
     />
+      <p className="text-primary font-bold text-xl border-l-2 border-primary pl-4">Site Build Tools</p>
     </div>
       <div className="max-w-7xl mx-auto my-4">
     {children}

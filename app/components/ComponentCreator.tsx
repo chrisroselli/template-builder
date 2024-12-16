@@ -1,7 +1,7 @@
 import React, {useRef, useState, useTransition} from 'react';
 import {useRouter} from 'next/navigation';
 import {Eye, Save} from 'lucide-react';
-import type {CompRow, TemplateCompRow} from '../types/types';
+import type {CompRow} from '../types/types';
 import {submitComponent} from '@/app/actions/componentActions';
 
 function SuccessMessage({ message }: { message: string }) {
@@ -22,7 +22,7 @@ function ErrorMessage({ message, error }: { message: string; error?: string }) {
     </div>
   );
 }
-export default function ComponentCreator({ comps, templateComps }: { comps: CompRow[], templateComps: TemplateCompRow[]} ) {
+export default function ComponentCreator({ comps }: { comps: CompRow[]} ) {
   const [isPending, startTransition] = useTransition();
   const [componentType, setComponentType] = useState('');
   const [name, setName] = useState('');
@@ -32,8 +32,6 @@ export default function ComponentCreator({ comps, templateComps }: { comps: Comp
   const formRef = useRef<HTMLFormElement>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; content: string; error?: string } | null>(null);
   const router = useRouter();
-  // TODO: Combine components into one table
-  // TODO: reset all form fields
   // TODO: Revise Success and Error messages
   async function handleSubmit(formData: FormData) {
     const result = await submitComponent(formData);
@@ -41,6 +39,9 @@ export default function ComponentCreator({ comps, templateComps }: { comps: Comp
       setMessage({ type: 'success', content: result.message });
     if (formRef.current) {
       formRef.current.reset();
+      setName('');
+      setHtml('');
+      setCss('');
     }
       startTransition(() => {
         router.refresh();
@@ -48,13 +49,6 @@ export default function ComponentCreator({ comps, templateComps }: { comps: Comp
     } else {
       setMessage({ type: 'error', content: result.message, error: result.error });
     }
-  }
-
-  const compTypes = [...new Set([...templateComps.map(d => d.comp_type), ...comps.map(d => d.comp_type)])]
-
-  function toCapitalize(str: string) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
   return (
@@ -76,8 +70,8 @@ export default function ComponentCreator({ comps, templateComps }: { comps: Comp
                 value={componentType}
               >
                 <option value="">Select Component Type</option>
-                {compTypes.map((d) => (
-                  <option key={d} value={d}>{toCapitalize(d)}</option>
+                {[...new Set(comps.map(({ comp_type }) => comp_type))].map((comp_type, id) => (
+                  <option key={id} value={comp_type}>{comp_type === 'Services' ? comp_type : comp_type.slice(0, -1)}</option>
                 ))}
               </select>
             </div>

@@ -12,7 +12,7 @@ export default function PageView({hero, services}: PagePreviewProps) {
   const combinedHTML = [hero?.html, services?.html]
     .filter(Boolean)
     .join('\n\n');
-// TODO: util copy/download functions
+// TODO: util out copy/download functions
   const copyBtn = () => {
     navigator.clipboard.writeText(activeTab === "css" ? combinedCSS : combinedHTML);
   }

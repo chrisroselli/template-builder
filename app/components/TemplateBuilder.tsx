@@ -3,7 +3,8 @@ import {Code} from 'lucide-react';
 import {CompRow, TemplateRow} from "@/app/types/types";
 import TemplatePreview from "@/app/components/TemplatePreview";
 import TemplateCodeView from "@/app/components/TemplateCodeView";
-// TODO: Root CSS variables color picker
+// TODO: Add Homepage components
+// TODO: :root CSS variables color picker
 
 export default function TemplateBuilder({ templates, comps }: { templates: TemplateRow[], comps: CompRow[] }) {
   const [selectedTemplate, setSelectedTemplate] = useState('');
@@ -65,7 +66,7 @@ export default function TemplateBuilder({ templates, comps }: { templates: Templ
                 value={selectedHeader}
               >
                 <option value="">Select Header</option>
-                {comps.map((d) => (  d.comp_type === 'header' &&
+                {comps.map((d) => (  d.comp_type === 'Headers' &&
                   <option key={d.id} value={d.label}>{d.name}</option>
                 ))}
               </select>
@@ -78,7 +79,7 @@ export default function TemplateBuilder({ templates, comps }: { templates: Templ
                 value={selectedFooter}
               >
                 <option value="">Select Footer</option>
-                {comps.map((d) => ( d.comp_type === 'footer' &&
+                {comps.map((d) => ( d.comp_type === 'Footers' &&
                   <option key={d.id} value={d.label}>{d.name}</option>
                 ))}
               </select>

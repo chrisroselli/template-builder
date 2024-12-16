@@ -3,16 +3,17 @@
 import {sql} from '@vercel/postgres';
 
 export async function submitComponent(formData: FormData) {
-  const type = formData.get('componentType') as string;
+  const compType = formData.get('componentType') as string;
   const name = formData.get('componentName') as string;
   const html = formData.get('html') as string;
   const css = formData.get('css') as string;
   const label = name.split(' ').join('_').toLowerCase();
+  const type = compType === 'Headers' || compType === 'Footers' ? 'temp' : 'comp';
 
   try {
     await sql`
-        INSERT INTO components (comp_type, html, css, name, label)
-        VALUES (${type}, ${html}, ${css}, ${name}, ${label})
+        INSERT INTO components (comp_type, html, css, name, label, type)
+        VALUES (${compType}, ${html}, ${css}, ${name}, ${label}, ${type})
     `;
     return { success: true, message: 'Component inserted successfully' };
   } catch (error) {

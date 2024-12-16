@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Code} from 'lucide-react';
 import {CompRow} from "@/app/types/types";
-import {PagePreview} from "@/app/components/Previews";
+import PagePreview from "@/app/components/PagePreview";
 import PageView from "@/app/components/PageView";
 
 export default function PageBuilder({ comps }: { comps: CompRow[] }) {
@@ -32,7 +32,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
                 value={selectedHero}
               >
                 <option value="">Select Hero</option>
-                {comps.map((d) => (d.comp_type === 'hero' &&
+                {comps.map((d) => (d.comp_type === 'Heros' &&
                   <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
@@ -45,13 +45,13 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
                 value={selectedServices}
               >
                 <option value="">Select Services</option>
-                {comps.map((d) => (d.comp_type === 'services' &&
+                {comps.map((d) => (d.comp_type === 'Services' &&
                   <option key={d.id} value={d.name}>{d.name}</option>
                 ))}
               </select>
             </div>
           </div>
-          {/*TODO: Fix it*/}
+          {/*TODO: Disable instead of hidden for all tabs*/}
           <div className="flex space-x-4 mb-6">
             <button
               disabled={selectedHero === ''}

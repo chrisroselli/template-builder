@@ -2,20 +2,14 @@ import React, {useState} from 'react';
 import ComponentView from './ComponentView';
 import {Code} from 'lucide-react';
 import {DeleteComponentButton} from "@/app/components/DeleteComponentButton";
-
-type ComponentType = 'headers' | 'hero' | 'services' | 'footers';
-
+import {CompRow} from "@/app/types/types";
+// TODO : Tab out template/page components
+// TODO : Use Borders/Template CSS for template components
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
-  const [activeTab, setActiveTab] = useState<ComponentType>('headers');
+  const [activeTab, setActiveTab] = useState('Headers');
   const [showCode, setShowCode] = useState<string | null>(null);
-//TODO: Refactor
-  const tabs: { id: ComponentType; label: string }[] = [
-    { id: 'headers', label: 'Headers' },
-    { id: 'hero', label: 'Heros' },
-    { id: 'services', label: 'Services' },
-    { id: 'footers', label: 'Footers' },
 
-  ];
+  const headerFix = `header{position:relative;}`;
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -25,17 +19,17 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
           
           <div className="border-b border-gray-200 mb-6">
             <nav className="flex space-x-8">
-              {tabs.map(({ id, label }) => (
+              {[...new Set(comps.map(({ comp_type }) => comp_type))].map((comp_type, id) => (
                 <button
                   key={id}
-                  onClick={() => setActiveTab(id)}
+                  onClick={() => setActiveTab(comp_type)}
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === id
+                    activeTab === comp_type
                       ? 'border-primary-dark text-primary-dark'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
-                  {label}
+                  {comp_type}
                 </button>
               ))}
             </nav>
@@ -66,7 +60,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                     </div>
                   ) : (
                     <div className="border rounded-lg overflow-hidden bg-white">
-                      <style>{item.css}</style>
+                      <style>{item.css}{headerFix}</style>
                       <div dangerouslySetInnerHTML={{__html: item.html }} />
                     </div>
                   )}
