@@ -40,7 +40,7 @@ export default function RootLayout({
       width={200}
       height={96}
     />
-      <p className="text-primary font-bold text-xl border-l-2 border-primary pl-4">Site Build Tools</p>
+      <p className="text-primary font-bold text-xl border-l-2 border-primary pl-3">Site Build Tools</p>
     </div>
       <div className="max-w-7xl mx-auto my-4">
     {children}
