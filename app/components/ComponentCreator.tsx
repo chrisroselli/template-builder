@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = useState('')
+  const [activeTab, setActiveTab] = useState<string>('html')
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [css, setCss] = useState('')
@@ -19,7 +20,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   async function handleSubmit(formData: FormData) {
     const result = await submitComponent(formData)
     if (result.success) {
-      toast.success('Component submitted successfully', {
+      toast.success(result.message, {
         style: {
           background: '#4a8332',
         },
@@ -35,9 +36,9 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
       startTransition(() => {
         router.refresh()
       })
-    } else {
-      toast.error('Component submission failed!')
-      console.log(result.message)
+    } else if (result.error) {
+      toast.error(result.message)
+      console.log(result.error)
     }
   }
 
@@ -49,18 +50,12 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             Create Component
           </h1>
           <form ref={formRef} action={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor="componentName"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Component Type
-              </label>
+            <div className="flex gap-4">
               <select
                 id="componentType"
                 name="componentType"
                 required
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="text-sm w-full border border-gray-300 rounded-lg p-1 h-9 basis-1/4"
                 onChange={(e) => setComponentType(e.target.value)}
                 value={componentType}
               >
@@ -75,57 +70,64 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                   ),
                 )}
               </select>
-            </div>
-            <div>
-              <label
-                htmlFor="componentName"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Component Name
-              </label>
               <input
                 id="componentName"
                 type="text"
                 name="componentName"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg p-2"
+                className="text-sm w-full border border-gray-300 rounded-lg p-2 h-9 basis-1/4"
                 placeholder="Component Name"
                 required
               />
             </div>
-            <div>
-              <label
-                htmlFor="html"
-                className="block text-sm font-medium text-gray-700 mb-2"
+            <div className="flex space-x-4 mb-2">
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium text-sm ${
+                  activeTab === 'html'
+                    ? 'border-b-2 border-primary-dark text-primary-dark'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => setActiveTab('html')}
               >
                 HTML
-              </label>
+              </button>
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium text-sm ${
+                  activeTab === 'css'
+                    ? 'border-b-2 border-primary-dark text-primary-dark'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => setActiveTab('css')}
+              >
+                CSS
+              </button>
+            </div>
+            <div className="text-sm">
               <textarea
                 id="html"
                 name="html"
                 required
                 value={html}
                 onChange={(e) => setHtml(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg p-2 font-mono text-sm"
+                className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
+                  activeTab === 'html' ? 'block' : 'hidden'
+                }`}
                 rows={10}
                 placeholder="HTML"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="css"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                CSS
-              </label>
+
               <textarea
                 id="css"
                 name="css"
                 required
                 value={css}
                 onChange={(e) => setCss(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg p-2 font-mono text-sm"
+                className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
+                  activeTab === 'css' ? 'block' : 'hidden'
+                }`}
                 rows={10}
                 placeholder="CSS"
               />
