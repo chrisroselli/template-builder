@@ -8,7 +8,7 @@ export default function PageView({ hero, services }: PagePreviewProps) {
   const [activeTab, setActiveTab] = useState<string>('html')
   const combinedCSS = [hero?.css, services?.css].filter(Boolean).join('\n\n')
   const combinedHTML = [hero?.html, services?.html].filter(Boolean).join('\n\n')
-  // TODO: util out copy/download functions
+
   const copyBtn = () => {
     navigator.clipboard.writeText(
       activeTab === 'css' ? combinedCSS : combinedHTML,

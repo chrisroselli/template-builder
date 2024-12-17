@@ -1,36 +1,41 @@
 'use client'
 
-import {useState, useTransition} from 'react';
-import {useRouter} from 'next/navigation';
-import {deleteComponent} from "@/app/actions/componentActions";
-import {LoaderCircle, Lock, Trash2} from "lucide-react";
+import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { deleteComponent } from '@/app/actions/componentActions'
+import { LoaderCircle, LockKeyhole, Trash2 } from 'lucide-react'
 
-export function DeleteComponentButton({ id, status }: { id: number, status: boolean }) {
-  const [isPending, startTransition] = useTransition();
-  const [isConfirming, setIsConfirming] = useState(false);
-  const router = useRouter();
+export function DeleteComponentButton({
+  id,
+  status,
+}: {
+  id: number
+  status: boolean
+}) {
+  const [isPending, startTransition] = useTransition()
+  const [isConfirming, setIsConfirming] = useState(false)
+  const router = useRouter()
   const handleDelete = async () => {
     if (!isConfirming) {
-      setIsConfirming(true);
-      return;
+      setIsConfirming(true)
+      return
     }
 
     startTransition(async () => {
-      const result = await deleteComponent(id);
+      const result = await deleteComponent(id)
       if (result.success) {
-        router.refresh(); // Refresh the page to update the component list
+        router.refresh() // Refresh the page to update the component list
       } else {
-        alert(result.message);
-        console.error(result.error);
+        alert(result.message)
+        console.error(result.error)
       }
-      setIsConfirming(false);
-    });
-  };
+      setIsConfirming(false)
+    })
+  }
 
   const handleCancel = () => {
-    setIsConfirming(false);
-  };
-
+    setIsConfirming(false)
+  }
 
   if (isConfirming) {
     return (
@@ -41,7 +46,11 @@ export function DeleteComponentButton({ id, status }: { id: number, status: bool
           className="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700 disabled:opacity-50"
           aria-label="Confirm deletion"
         >
-          {isPending ? <LoaderCircle className="w-4 h-4 animate-spin"/>  : 'Confirm'}
+          {isPending ? (
+            <LoaderCircle className="w-4 h-4 animate-spin" />
+          ) : (
+            'Confirm'
+          )}
         </button>
         <button
           onClick={handleCancel}
@@ -51,7 +60,7 @@ export function DeleteComponentButton({ id, status }: { id: number, status: bool
           Cancel
         </button>
       </div>
-    );
+    )
   }
 
   return (
@@ -61,7 +70,11 @@ export function DeleteComponentButton({ id, status }: { id: number, status: bool
       className="px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700 disabled:opacity-50"
       aria-label="Delete component"
     >
-      {status ? <Lock className="w-4 h-4"/> : <Trash2 className="w-4 h-4"/>}
+      {status ? (
+        <LockKeyhole className="w-4 h-4" />
+      ) : (
+        <Trash2 className="w-4 h-4" />
+      )}
     </button>
-  );
+  )
 }
