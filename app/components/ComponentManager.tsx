@@ -1,25 +1,46 @@
-import React, {useState} from 'react';
-import ComponentView from './ComponentView';
-import {Code} from 'lucide-react';
-import {DeleteComponentButton} from "@/app/components/DeleteComponentButton";
-import {CompRow} from "@/app/types/types";
-// TODO : Tab out template/page components
-// TODO : Use Borders/Template CSS for template components
-export default function ComponentManager({ comps }: { comps: CompRow[] }) {
-  const [activeTab, setActiveTab] = useState('Headers');
-  const [showCode, setShowCode] = useState<string | null>(null);
+import React, { useState } from 'react'
+import ComponentView from './ComponentView'
+import { Code } from 'lucide-react'
+import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
+import { CompRow } from '@/app/types/types'
 
-  const headerFix = `header{position:relative;}`;
+export default function ComponentManager({ comps }: { comps: CompRow[] }) {
+  const [activeTab, setActiveTab] = useState('Headers')
+  const [showCode, setShowCode] = useState<string | null>(null)
+
+  const customOrderTypes = ['Headers', 'Footers', 'Heros', 'Services']
+
+  function sortByCustomOrder(array: string[], customOrder: string[]): string[] {
+    return [...array].sort((a, b) => {
+      const indexA = customOrder.indexOf(a)
+      const indexB = customOrder.indexOf(b)
+
+      return (
+        (indexA === -1 ? Infinity : indexA) -
+        (indexB === -1 ? Infinity : indexB)
+      )
+    })
+  }
+
+  const dedupeCompTypes = [...new Set(comps.map(({ comp_type }) => comp_type))]
+  const orderedCompTypes: string[] = sortByCustomOrder(
+    dedupeCompTypes,
+    customOrderTypes,
+  )
+
+  const headerFix = `header{position:relative;}`
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-primary mb-6">Component Manager</h1>
-          
+          <h1 className="text-3xl font-bold text-primary mb-6">
+            Component Manager
+          </h1>
+
           <div className="border-b border-gray-200 mb-6">
             <nav className="flex space-x-8">
-              {[...new Set(comps.map(({ comp_type }) => comp_type))].map((comp_type, id) => (
+              {orderedCompTypes.map((comp_type, id) => (
                 <button
                   key={id}
                   onClick={() => setActiveTab(comp_type)}
@@ -39,29 +60,42 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
             {comps
               .filter((item) => item.comp_type === activeTab)
               .map((item) => (
-                <div key={item.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div
+                  key={item.id}
+                  className="bg-gray-50 rounded-lg p-6 border border-gray-200"
+                >
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {item.name}
+                    </h3>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => setShowCode(showCode === item.html ? null : item.html)}
+                        onClick={() =>
+                          setShowCode(showCode === item.html ? null : item.html)
+                        }
                         className="flex items-center px-3 py-1 bg-primary-dark text-white rounded hover:bg-primary-light"
                       >
-                        <Code className="w-4 h-4 mr-1"/>
+                        <Code className="w-4 h-4 mr-1" />
                         {showCode === item.html ? 'Hide Code' : 'View Code'}
                       </button>
-                      <DeleteComponentButton id={item.id} status={item.status} />
+                      <DeleteComponentButton
+                        id={item.id}
+                        status={item.status}
+                      />
                     </div>
                   </div>
 
                   {showCode === item.html ? (
                     <div className="mb-4">
-                      <ComponentView html={item.html} css={item.css}/>
+                      <ComponentView html={item.html} css={item.css} />
                     </div>
                   ) : (
                     <div className="border rounded-lg overflow-hidden bg-white">
-                      <style>{item.css}{headerFix}</style>
-                      <div dangerouslySetInnerHTML={{__html: item.html }} />
+                      <style>
+                        {item.css}
+                        {headerFix}
+                      </style>
+                      <div dangerouslySetInnerHTML={{ __html: item.html }} />
                     </div>
                   )}
                 </div>
@@ -70,5 +104,5 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

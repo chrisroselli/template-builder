@@ -1,25 +1,27 @@
-import React, {useState} from "react";
-import {Copy, Download} from "lucide-react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import {atomOneDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
-import {CodeViewProps} from "@/app/types/types";
+import React, { useState } from 'react'
+import { Copy, Download } from 'lucide-react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { CodeViewProps } from '@/app/types/types'
 
-export default function CodeView({html, css}: CodeViewProps) {
-  const [activeTab, setActiveTab] = useState<string>("css");
+export default function CodeView({ html, css }: CodeViewProps) {
+  const [activeTab, setActiveTab] = useState<string>('html')
 
   const copyBtn = () => {
-    navigator.clipboard.writeText(activeTab === "css" ? css : html);
+    navigator.clipboard.writeText(activeTab === 'css' ? css : html)
   }
   const downloadBtn = () => {
-    const blob = new Blob([activeTab === "css" ? css : html], {type: 'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = activeTab === "css" ? "styles.css" : "markup.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    const blob = new Blob([activeTab === 'css' ? css : html], {
+      type: 'text/plain',
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = activeTab === 'css' ? 'styles.css' : 'markup.html'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
   return (
@@ -28,19 +30,23 @@ export default function CodeView({html, css}: CodeViewProps) {
         <div className="flex justify-end space-x-4 mb-2">
           <button
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === "css" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
+              activeTab === 'html'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
             }`}
-            onClick={() => setActiveTab("css")}
+            onClick={() => setActiveTab('html')}
           >
-            CSS
+            HTML
           </button>
           <button
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === "html" ? "border-b-2 border-primary-dark text-primary-dark" : "text-gray-500"
+              activeTab === 'css'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
             }`}
-            onClick={() => setActiveTab("html")}
+            onClick={() => setActiveTab('css')}
           >
-            HTML
+            CSS
           </button>
         </div>
         <div className="flex justify-end space-x-4 mb-2">
@@ -48,30 +54,38 @@ export default function CodeView({html, css}: CodeViewProps) {
             onClick={copyBtn}
             className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
           >
-            <Copy className="w-4 h-4 mr-1"/>
+            <Copy className="w-4 h-4 mr-1" />
             Copy
           </button>
           <button
             onClick={downloadBtn}
             className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
           >
-            <Download className="w-4 h-4 mr-1"/>
+            <Download className="w-4 h-4 mr-1" />
             Download
           </button>
         </div>
       </div>
       <div className="text-sm">
-        {activeTab === "css" && (
-          <SyntaxHighlighter className="rounded-xl" language="css" style={atomOneDark}>
+        {activeTab === 'css' && (
+          <SyntaxHighlighter
+            className="rounded-xl"
+            language="css"
+            style={atomOneDark}
+          >
             {css}
           </SyntaxHighlighter>
         )}
-        {activeTab === "html" && (
-          <SyntaxHighlighter className="rounded-xl" language="htmlbars" style={atomOneDark}>
+        {activeTab === 'html' && (
+          <SyntaxHighlighter
+            className="rounded-xl"
+            language="htmlbars"
+            style={atomOneDark}
+          >
             {html}
           </SyntaxHighlighter>
         )}
       </div>
     </div>
-  );
+  )
 }
