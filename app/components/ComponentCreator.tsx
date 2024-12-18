@@ -5,7 +5,7 @@ import type { CompRow } from '../types/types'
 import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+// TODO:
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = useState('')
@@ -115,7 +115,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
                   activeTab === 'html' ? 'block' : 'hidden'
                 }`}
-                rows={10}
+                rows={40}
                 placeholder="HTML"
               />
 
@@ -128,7 +128,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
                   activeTab === 'css' ? 'block' : 'hidden'
                 }`}
-                rows={10}
+                rows={40}
                 placeholder="CSS"
               />
             </div>
