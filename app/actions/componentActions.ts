@@ -1,6 +1,7 @@
 'use server'
 
 import { sql } from '@vercel/postgres'
+import { revalidatePath } from 'next/cache'
 
 export async function submitComponent(formData: FormData) {
   const compType = formData.get('componentType') as string
@@ -16,6 +17,7 @@ export async function submitComponent(formData: FormData) {
         INSERT INTO components (comp_type, html, css, name, label, type)
         VALUES (${compType}, ${html}, ${css}, ${name}, ${label}, ${type})
     `
+    revalidatePath('/')
     return { success: true, message: 'Component submitted successfully' }
   } catch (error) {
     console.error('Failed to insert component:', error)
@@ -33,6 +35,7 @@ export async function deleteComponent(id: number) {
       DELETE FROM components
       WHERE id = ${id}
     `
+    revalidatePath('/')
     if (result.rowCount === 0) {
       return { success: false, message: 'Component not found' }
     }
