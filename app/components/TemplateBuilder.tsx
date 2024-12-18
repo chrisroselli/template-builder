@@ -4,7 +4,7 @@ import { CompRow, TemplateRow } from '@/app/types/types'
 import TemplatePreview from '@/app/components/TemplatePreview'
 import TemplateCodeView from '@/app/components/TemplateCodeView'
 // TODO: Add Homepage components
-// TODO: :root CSS variables color picker
+// TODO: :root CSS variables color picker/{{css color variable}}
 
 export default function TemplateBuilder({
   templates,
@@ -16,6 +16,8 @@ export default function TemplateBuilder({
   const [selectedTemplate, setSelectedTemplate] = useState('')
   const [selectedHeader, setSelectedHeader] = useState('')
   const [selectedFooter, setSelectedFooter] = useState('')
+  const [selectedHero, setSelectedHero] = useState('')
+  const [selectedServices, setSelectedServices] = useState('')
   const [showPreview, setShowPreview] = useState(true)
 
   const findTemplate = (selection: TemplateRow[], selectedItem: string) => {
@@ -35,14 +37,39 @@ export default function TemplateBuilder({
   if (header === undefined) {
     throw new Error('Header component not found')
   }
+
+  const hero = findComp(comps, selectedHero)?.html ?? ''
+  if (hero === undefined) {
+    throw new Error('Hero component not found')
+  }
+
+  const services = findComp(comps, selectedServices)?.html ?? ''
+  if (services === undefined) {
+    throw new Error('Services component not found')
+  }
+
   const footer = findComp(comps, selectedFooter)?.html ?? ''
   if (footer === undefined) {
     throw new Error('Footer component not found')
   }
 
-  const combinedCSS = [
+  const combinedTemplateCss = [
     findComp(comps, selectedHeader)?.css,
     findComp(comps, selectedFooter)?.css,
+  ]
+    .filter(Boolean)
+    .join('\n\n')
+
+  const combinedHomepageHtml = [
+    findComp(comps, selectedHero)?.html,
+    findComp(comps, selectedServices)?.html,
+  ]
+    .filter(Boolean)
+    .join('\n\n')
+
+  const combinedHomepageCss = [
+    findComp(comps, selectedHero)?.css,
+    findComp(comps, selectedServices)?.css,
   ]
     .filter(Boolean)
     .join('\n\n')
@@ -51,10 +78,7 @@ export default function TemplateBuilder({
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <h1 className="text-3xl font-bold text-primary mb-6">
-            {' '}
-            Template Builder
-          </h1>
+          <div className="text-lg font-semibold mb-4">Template Components</div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -114,11 +138,56 @@ export default function TemplateBuilder({
               </select>
             </div>
           </div>
+          <div className="text-lg font-semibold mb-4">Homepage Components</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Hero
+              </label>
+              <select
+                className="w-full border border-gray-300 rounded-lg p-2"
+                onChange={(e) => setSelectedHero(e.target.value)}
+                value={selectedHero}
+              >
+                <option value="">Select Hero</option>
+                {comps.map(
+                  (d) =>
+                    d.comp_type === 'Heros' && (
+                      <option key={d.id} value={d.label}>
+                        {d.name}
+                      </option>
+                    ),
+                )}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Services
+              </label>
+              <select
+                className="w-full border border-gray-300 rounded-lg p-2"
+                onChange={(e) => setSelectedServices(e.target.value)}
+                value={selectedServices}
+              >
+                <option value="">Select Services</option>
+                {comps.map(
+                  (d) =>
+                    d.comp_type === 'Services' && (
+                      <option key={d.id} value={d.label}>
+                        {d.name}
+                      </option>
+                    ),
+                )}
+              </select>
+            </div>
+          </div>
           <div className="flex space-x-4 mb-6">
             <button
               disabled={
                 selectedTemplate === '' ||
                 selectedHeader === '' ||
+                selectedHero === '' ||
+                selectedServices === '' ||
                 selectedFooter === ''
               }
               onClick={() => setShowPreview(!showPreview)}
@@ -130,18 +199,30 @@ export default function TemplateBuilder({
           </div>
           {selectedTemplate !== '' &&
             selectedHeader !== '' &&
+            selectedHero !== '' &&
+            selectedServices !== '' &&
             selectedFooter !== '' &&
             (showPreview ? (
               <TemplatePreview
                 template={template}
-                css={combinedCSS}
-                data={{ header: header, footer: footer }}
+                combinedTemplateCss={combinedTemplateCss}
+                combinedHomepageCss={combinedHomepageCss}
+                data={{
+                  header: header,
+                  combinedHomepageHtml: combinedHomepageHtml,
+                  footer: footer,
+                }}
               />
             ) : (
               <TemplateCodeView
                 template={template}
-                css={combinedCSS}
-                data={{ header: header, footer: footer }}
+                combinedTemplateCss={combinedTemplateCss}
+                combinedHomepageCss={combinedHomepageCss}
+                data={{
+                  header: header,
+                  combinedHomepageHtml: combinedHomepageHtml,
+                  footer: footer,
+                }}
               />
             ))}
         </div>
