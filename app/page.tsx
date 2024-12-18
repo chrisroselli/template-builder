@@ -1,7 +1,7 @@
 import App from '@/app/App'
 import { sql } from '@vercel/postgres'
 import { CompRow, TemplateRow } from '@/app/types/types'
-
+// TODO: Locate storage set up
 export default async function Home() {
   const [compRows, templatesRows] = await Promise.all([
     sql<CompRow>`SELECT * FROM components`,

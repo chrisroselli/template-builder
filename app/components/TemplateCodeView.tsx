@@ -4,7 +4,7 @@ import { replacePlaceholders } from '@/app/utils/templateReplacer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Copy, Download } from 'lucide-react'
-// TODO: Add homepage CSS code tab
+
 export default function TemplateCodeView({
   template,
   data,

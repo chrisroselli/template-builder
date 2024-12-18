@@ -1,10 +1,12 @@
+'use client'
+
 import { useState } from 'react'
 import { Code } from 'lucide-react'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import TemplatePreview from '@/app/components/TemplatePreview'
 import TemplateCodeView from '@/app/components/TemplateCodeView'
-// TODO: Add Homepage components
-// TODO: :root CSS variables color picker/{{css color variable}}
+import ComponentSelection from '@/app/components/ComponentSelection'
+import { useComponentSelection } from '@/app/hooks/useComponentSelection'
 
 export default function TemplateBuilder({
   templates,
@@ -13,183 +15,80 @@ export default function TemplateBuilder({
   templates: TemplateRow[]
   comps: CompRow[]
 }) {
-  const [selectedTemplate, setSelectedTemplate] = useState('')
-  const [selectedHeader, setSelectedHeader] = useState('')
-  const [selectedFooter, setSelectedFooter] = useState('')
-  const [selectedHero, setSelectedHero] = useState('')
-  const [selectedServices, setSelectedServices] = useState('')
   const [showPreview, setShowPreview] = useState(true)
+  const {
+    selectedTemplate,
+    setSelectedTemplate,
+    selectedHeader,
+    setSelectedHeader,
+    selectedFooter,
+    setSelectedFooter,
+    selectedHero,
+    setSelectedHero,
+    selectedServices,
+    setSelectedServices,
+    template,
+    header,
+    footer,
+    combinedTemplateCss,
+    combinedHomepageHtml,
+    combinedHomepageCss,
+  } = useComponentSelection(templates, comps)
 
-  const findTemplate = (selection: TemplateRow[], selectedItem: string) => {
-    return selection.find((item) => item.label === selectedItem)
-  }
-
-  const findComp = (selection: CompRow[], selectedItem: string) => {
-    return selection.find((item) => item.label === selectedItem)
-  }
-
-  const template = findTemplate(templates, selectedTemplate)?.borders ?? ''
-  if (template === undefined) {
-    throw new Error('Template component not found')
-  }
-
-  const header = findComp(comps, selectedHeader)?.html ?? ''
-  if (header === undefined) {
-    throw new Error('Header component not found')
-  }
-
-  const hero = findComp(comps, selectedHero)?.html ?? ''
-  if (hero === undefined) {
-    throw new Error('Hero component not found')
-  }
-
-  const services = findComp(comps, selectedServices)?.html ?? ''
-  if (services === undefined) {
-    throw new Error('Services component not found')
-  }
-
-  const footer = findComp(comps, selectedFooter)?.html ?? ''
-  if (footer === undefined) {
-    throw new Error('Footer component not found')
-  }
-
-  const combinedTemplateCss = [
-    findComp(comps, selectedHeader)?.css,
-    findComp(comps, selectedFooter)?.css,
-  ]
-    .filter(Boolean)
-    .join('\n\n')
-
-  const combinedHomepageHtml = [
-    findComp(comps, selectedHero)?.html,
-    findComp(comps, selectedServices)?.html,
-  ]
-    .filter(Boolean)
-    .join('\n\n')
-
-  const combinedHomepageCss = [
-    findComp(comps, selectedHero)?.css,
-    findComp(comps, selectedServices)?.css,
-  ]
-    .filter(Boolean)
-    .join('\n\n')
+  const isSelectionComplete =
+    selectedTemplate !== '' &&
+    selectedHeader !== '' &&
+    selectedHero !== '' &&
+    selectedServices !== '' &&
+    selectedFooter !== ''
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <div className="text-lg font-semibold mb-4">Template Components</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Template
-              </label>
-              <select
-                className="w-full border border-gray-300 rounded-lg p-2"
-                onChange={(e) => setSelectedTemplate(e.target.value)}
-                value={selectedTemplate}
-              >
-                <option value="">Select Template</option>
-                {templates.map((d) => (
-                  <option key={d.id} value={d.label}>
-                    {d.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Header
-              </label>
-              <select
-                className="w-full border border-gray-300 rounded-lg p-2"
-                onChange={(e) => setSelectedHeader(e.target.value)}
-                value={selectedHeader}
-              >
-                <option value="">Select Header</option>
-                {comps.map(
-                  (d) =>
-                    d.comp_type === 'Headers' && (
-                      <option key={d.id} value={d.label}>
-                        {d.name}
-                      </option>
-                    ),
-                )}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Footer
-              </label>
-              <select
-                className="w-full border border-gray-300 rounded-lg p-2"
-                onChange={(e) => setSelectedFooter(e.target.value)}
-                value={selectedFooter}
-              >
-                <option value="">Select Footer</option>
-                {comps.map(
-                  (d) =>
-                    d.comp_type === 'Footers' && (
-                      <option key={d.id} value={d.label}>
-                        {d.name}
-                      </option>
-                    ),
-                )}
-              </select>
-            </div>
-          </div>
-          <div className="text-lg font-semibold mb-4">Homepage Components</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hero
-              </label>
-              <select
-                className="w-full border border-gray-300 rounded-lg p-2"
-                onChange={(e) => setSelectedHero(e.target.value)}
-                value={selectedHero}
-              >
-                <option value="">Select Hero</option>
-                {comps.map(
-                  (d) =>
-                    d.comp_type === 'Heros' && (
-                      <option key={d.id} value={d.label}>
-                        {d.name}
-                      </option>
-                    ),
-                )}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Services
-              </label>
-              <select
-                className="w-full border border-gray-300 rounded-lg p-2"
-                onChange={(e) => setSelectedServices(e.target.value)}
-                value={selectedServices}
-              >
-                <option value="">Select Services</option>
-                {comps.map(
-                  (d) =>
-                    d.comp_type === 'Services' && (
-                      <option key={d.id} value={d.label}>
-                        {d.name}
-                      </option>
-                    ),
-                )}
-              </select>
-            </div>
-          </div>
+          <ComponentSelection
+            title="Template Components"
+            selections={[
+              {
+                label: 'Template',
+                value: selectedTemplate,
+                onChange: setSelectedTemplate,
+                options: templates,
+              },
+              {
+                label: 'Header',
+                value: selectedHeader,
+                onChange: setSelectedHeader,
+                options: comps.filter((d) => d.comp_type === 'Headers'),
+              },
+              {
+                label: 'Footer',
+                value: selectedFooter,
+                onChange: setSelectedFooter,
+                options: comps.filter((d) => d.comp_type === 'Footers'),
+              },
+            ]}
+          />
+          <ComponentSelection
+            title="Homepage Components"
+            selections={[
+              {
+                label: 'Hero',
+                value: selectedHero,
+                onChange: setSelectedHero,
+                options: comps.filter((d) => d.comp_type === 'Heros'),
+              },
+              {
+                label: 'Services',
+                value: selectedServices,
+                onChange: setSelectedServices,
+                options: comps.filter((d) => d.comp_type === 'Services'),
+              },
+            ]}
+          />
           <div className="flex space-x-4 mb-6">
             <button
-              disabled={
-                selectedTemplate === '' ||
-                selectedHeader === '' ||
-                selectedHero === '' ||
-                selectedServices === '' ||
-                selectedFooter === ''
-              }
+              disabled={!isSelectionComplete}
               onClick={() => setShowPreview(!showPreview)}
               className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light disabled:opacity-50"
             >
@@ -197,11 +96,7 @@ export default function TemplateBuilder({
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
           </div>
-          {selectedTemplate !== '' &&
-            selectedHeader !== '' &&
-            selectedHero !== '' &&
-            selectedServices !== '' &&
-            selectedFooter !== '' &&
+          {isSelectionComplete &&
             (showPreview ? (
               <TemplatePreview
                 template={template}

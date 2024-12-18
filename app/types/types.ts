@@ -53,3 +53,13 @@ export interface TemplateReplacerProps {
   combinedHomepageCss: string
   data: Record<string, string>
 }
+
+export interface ComponentSelectionProps {
+  title?: string
+  selections: {
+    label: string
+    value: string
+    onChange: (value: string) => void
+    options: { id: number; label: string; name: string }[]
+  }[]
+}
