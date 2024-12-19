@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TemplateReplacerProps } from '../types/types'
+import { TemplateCodeViewProps } from '../types/types'
 import { replacePlaceholders } from '@/app/utils/templateReplacer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
@@ -11,7 +11,7 @@ export default function TemplateCodeView({
   combinedTemplateCss,
   combinedHomepageHtml,
   combinedHomepageCss,
-}: TemplateReplacerProps) {
+}: TemplateCodeViewProps) {
   const [replacedHtml, setReplacedHtml] = useState(template)
   const [activeTab, setActiveTab] = useState<string>('borders')
 
@@ -141,11 +141,11 @@ export default function TemplateCodeView({
         {activeTab === 'homepage-css' && (
           <SyntaxHighlighter
             className="rounded-xl text-sm"
-            language="css"
+            language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
           >
-            {combinedHomepageCss}
+            {`<style>\n${combinedHomepageCss}\n</style>`}
           </SyntaxHighlighter>
         )}
       </div>

@@ -25,13 +25,6 @@ export interface Types {
   css?: string
 }
 
-export interface TemplatePreviewProps {
-  template: string
-  header: string
-  footer: string
-  css: string
-}
-
 export interface PagePreviewProps {
   hero: {
     html: string
@@ -47,10 +40,10 @@ export interface CodeViewProps {
   html: string
 }
 
-export interface TemplateReplacerProps {
+export interface TemplateCodeViewProps {
   template: string
   combinedTemplateCss: string
-  combinedHomepageHtml?: string
+  combinedHomepageHtml: string
   combinedHomepageCss: string
   data: Record<string, string>
 }

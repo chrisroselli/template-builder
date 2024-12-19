@@ -7,8 +7,7 @@ import TemplatePreview from '@/app/components/TemplatePreview'
 import TemplateCodeView from '@/app/components/TemplateCodeView'
 import ComponentSelection from '@/app/components/ComponentSelection'
 import { useComponentSelection } from '@/app/hooks/useComponentSelection'
-// TODO: Figure out <main>[[content]]</main>
-// TODO: Wrap homepage css in <style></style> for CMS
+
 export default function TemplateBuilder({
   templates,
   comps,
