@@ -9,7 +9,7 @@ export default function TemplatePreview({
   data,
 }: TemplateReplacerProps) {
   const [replacedHtml, setReplacedHtml] = useState(template)
-  console.log(combinedTemplateCss)
+
   useEffect(() => {
     const replaced = replacePlaceholders(template, data)
     setReplacedHtml(replaced)

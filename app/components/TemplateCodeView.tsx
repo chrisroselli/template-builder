@@ -9,11 +9,12 @@ export default function TemplateCodeView({
   template,
   data,
   combinedTemplateCss,
+  combinedHomepageHtml,
   combinedHomepageCss,
 }: TemplateReplacerProps) {
   const [replacedHtml, setReplacedHtml] = useState(template)
   const [activeTab, setActiveTab] = useState<string>('borders')
-  console.log(data)
+
   useEffect(() => {
     const replaced = replacePlaceholders(template, data)
     setReplacedHtml(replaced)
@@ -39,6 +40,10 @@ export default function TemplateCodeView({
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
   }
+  const templatePHP = replacedHtml.replace(
+    '{{combinedHomepageHtml}}',
+    '[[content]]',
+  )
 
   return (
     <div className="flex flex-col">
@@ -63,6 +68,16 @@ export default function TemplateCodeView({
             onClick={() => setActiveTab('css')}
           >
             Template CSS
+          </button>
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'homepage-html'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('homepage-html')}
+          >
+            Homepage HTML
           </button>
           <button
             className={`py-2 px-4 font-medium text-sm ${
@@ -100,7 +115,7 @@ export default function TemplateCodeView({
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
           >
-            {replacedHtml}
+            {templatePHP}
           </SyntaxHighlighter>
         )}
         {activeTab === 'css' && (
@@ -111,6 +126,16 @@ export default function TemplateCodeView({
             customStyle={{ padding: '1rem' }}
           >
             {combinedTemplateCss}
+          </SyntaxHighlighter>
+        )}
+        {activeTab === 'homepage-html' && (
+          <SyntaxHighlighter
+            className="rounded-xl text-sm"
+            language="htmlbars"
+            style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
+          >
+            {combinedHomepageHtml}
           </SyntaxHighlighter>
         )}
         {activeTab === 'homepage-css' && (

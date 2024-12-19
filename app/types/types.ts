@@ -50,6 +50,7 @@ export interface CodeViewProps {
 export interface TemplateReplacerProps {
   template: string
   combinedTemplateCss: string
+  combinedHomepageHtml?: string
   combinedHomepageCss: string
   data: Record<string, string>
 }

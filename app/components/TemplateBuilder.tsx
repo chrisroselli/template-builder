@@ -113,10 +113,10 @@ export default function TemplateBuilder({
               <TemplateCodeView
                 template={template}
                 combinedTemplateCss={combinedTemplateCss}
+                combinedHomepageHtml={combinedHomepageHtml}
                 combinedHomepageCss={combinedHomepageCss}
                 data={{
                   header: header,
-                  combinedHomepageHtml: combinedHomepageHtml,
                   footer: footer,
                 }}
               />

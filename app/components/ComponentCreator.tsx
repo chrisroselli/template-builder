@@ -4,8 +4,7 @@ import { Eye, Save } from 'lucide-react'
 import type { CompRow } from '../types/types'
 import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-// TODO:
+
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = useState('')
