@@ -3,7 +3,7 @@ import { TemplateCodeViewProps } from '../types/types'
 import { replacePlaceholders } from '@/app/utils/templateReplacer'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { Copy, Download } from 'lucide-react'
+import CopyBtn from '@/app/components/CopyBtn'
 
 export default function TemplateCodeView({
   template,
@@ -22,24 +22,16 @@ export default function TemplateCodeView({
 
   const copyBtn = () => {
     navigator.clipboard.writeText(
-      activeTab === 'css' ? combinedTemplateCss : replacedHtml,
+      activeTab === 'css'
+        ? combinedTemplateCss
+        : activeTab === 'homepage-css'
+          ? `<style>\n${combinedHomepageCss}\n</style>`
+          : activeTab === 'homepage-html'
+            ? combinedHomepageHtml
+            : templatePHP,
     )
   }
 
-  const downloadBtn = () => {
-    const blob = new Blob(
-      [activeTab === 'css' ? combinedTemplateCss : replacedHtml],
-      { type: 'text/plain' },
-    )
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = activeTab === 'css' ? 'styles.css' : 'markup.html'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
   const templatePHP = replacedHtml.replace(
     '{{combinedHomepageHtml}}',
     '[[content]]',
@@ -91,20 +83,18 @@ export default function TemplateCodeView({
           </button>
         </div>
         <div className="flex justify-end space-x-4 mb-2">
-          <button
-            onClick={copyBtn}
-            className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
-          >
-            <Copy className="w-4 h-4 mr-1" />
-            Copy
-          </button>
-          <button
-            onClick={downloadBtn}
-            className="flex items-center px-3 py-1 bg-primary-dark text-white rounded-md hover:bg-primary"
-          >
-            <Download className="w-4 h-4 mr-1" />
-            Download
-          </button>
+          <CopyBtn
+            copyBtn={copyBtn}
+            tabs={
+              activeTab === 'css'
+                ? 'Template CSS'
+                : activeTab === 'homepage-css'
+                  ? 'Homepage CSS'
+                  : activeTab === 'homepage-html'
+                    ? 'Homepage HTML'
+                    : 'Borders'
+            }
+          />
         </div>
       </div>
       <div className="text-sm">

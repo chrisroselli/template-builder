@@ -14,7 +14,6 @@ import { CompRow, TemplateRow } from '@/app/types/types'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-// TODO: Review copy btn and download btn
 // TODO: Add reset btns
 function App({
   templates,

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Code } from 'lucide-react'
 import { CompRow } from '@/app/types/types'
 import PagePreview from '@/app/components/PagePreview'
-import PageView from '@/app/components/PageView'
+import PageCodeView from '@/app/components/PageCodeView'
 import { usePageComponentSelection } from '@/app/hooks/usePageComponentSelection'
 import ComponentSelection from '@/app/components/ComponentSelection'
 
@@ -61,7 +61,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
                 services={services ?? { html: '', css: '' }}
               />
             ) : (
-              <PageView
+              <PageCodeView
                 hero={hero ?? { html: '', css: '' }}
                 services={services ?? { html: '', css: '' }}
               />
