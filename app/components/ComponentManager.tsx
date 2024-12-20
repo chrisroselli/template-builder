@@ -68,7 +68,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                     <h3 className="text-lg font-semibold text-gray-800">
                       {item.name}
                     </h3>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-1">
                       <button
                         onClick={() =>
                           setShowCode(showCode === item.html ? null : item.html)

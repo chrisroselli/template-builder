@@ -1,11 +1,18 @@
-import type {Config} from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
-    content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      animation: {
+        'spin-reverse': 'spin-reverse 300ms linear',
+      },
+      keyframes: {
+        'spin-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
+      },
       colors: {
         primary: {
           DEFAULT: '#48403e',
@@ -16,5 +23,5 @@ const config: Config = {
       },
     },
   },
-};
-export default config;
+}
+export default config

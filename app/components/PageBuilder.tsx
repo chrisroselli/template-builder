@@ -7,6 +7,7 @@ import PagePreview from '@/app/components/PagePreview'
 import PageCodeView from '@/app/components/PageCodeView'
 import { usePageComponentSelection } from '@/app/hooks/usePageComponentSelection'
 import ComponentSelection from '@/app/components/ComponentSelection'
+import ResetBtn from '@/app/components/ResetBtn'
 
 export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   const [showPreview, setShowPreview] = useState(true)
@@ -22,6 +23,13 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   } = usePageComponentSelection(comps)
 
   const isHeroSelected = selectedHero !== ''
+
+  const isSelection = selectedHero !== '' || selectedServices !== ''
+
+  const reset = () => {
+    setSelectedHero('')
+    setSelectedServices('')
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -44,7 +52,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
               },
             ]}
           />
-          <div className="flex space-x-4 mb-6">
+          <div className="flex space-x-1 mb-6">
             <button
               disabled={!isHeroSelected}
               onClick={() => setShowPreview(!showPreview)}
@@ -53,6 +61,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
               <Code className="w-4 h-4 mr-2" />
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
+            <ResetBtn reset={reset} disabled={!isSelection} />
           </div>
           {isHeroSelected &&
             (showPreview ? (

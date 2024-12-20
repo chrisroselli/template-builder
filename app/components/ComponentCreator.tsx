@@ -4,6 +4,7 @@ import { Eye, Save } from 'lucide-react'
 import type { CompRow } from '../types/types'
 import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
+import ResetBtn from '@/app/components/ResetBtn'
 
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
@@ -39,6 +40,17 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
       toast.error(result.message)
       console.log(result.error)
     }
+  }
+
+  const isSelection =
+    componentType !== '' || name !== '' || html !== '' || css !== ''
+
+  const reset = () => {
+    setActiveTab('html')
+    setComponentType('')
+    setName('')
+    setHtml('')
+    setCss('')
   }
 
   return (
@@ -131,7 +143,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 placeholder="CSS"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex space-x-1">
               <button
                 type="button"
                 disabled={
@@ -143,7 +155,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 onClick={() => setPreviewVisible(!previewVisible)}
                 className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
               >
-                <Eye className="w-4 h-4 mr-2" />
+                <Eye className="w-4 h-4" />
                 {previewVisible ? 'Hide Preview' : 'Show Preview'}
               </button>
               <button
@@ -157,9 +169,10 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 }
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:opacity-50 cursor-pointer"
               >
-                <Save className="w-4 h-4 mr-2" />
+                <Save className="w-4 h-4" />
                 {isPending ? 'Submitting...' : 'Submit Component'}
               </button>
+              <ResetBtn reset={reset} disabled={!isSelection} />
             </div>
           </form>
           {previewVisible && (

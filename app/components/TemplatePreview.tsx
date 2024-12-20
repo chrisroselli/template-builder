@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TemplateReplacerProps } from '../types/types'
+import { TemplatePreviewProps } from '../types/types'
 import { replacePlaceholders } from '../utils/templateReplacer'
 
 export default function TemplatePreview({
@@ -7,7 +7,7 @@ export default function TemplatePreview({
   combinedTemplateCss,
   combinedHomepageCss,
   data,
-}: TemplateReplacerProps) {
+}: TemplatePreviewProps) {
   const [replacedHtml, setReplacedHtml] = useState(template)
 
   useEffect(() => {

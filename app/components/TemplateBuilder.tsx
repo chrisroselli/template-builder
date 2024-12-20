@@ -7,6 +7,7 @@ import TemplatePreview from '@/app/components/TemplatePreview'
 import TemplateCodeView from '@/app/components/TemplateCodeView'
 import ComponentSelection from '@/app/components/ComponentSelection'
 import { useComponentSelection } from '@/app/hooks/useComponentSelection'
+import ResetBtn from '@/app/components/ResetBtn'
 
 export default function TemplateBuilder({
   templates,
@@ -42,6 +43,20 @@ export default function TemplateBuilder({
     selectedServices !== '' &&
     selectedFooter !== ''
 
+  const isSelection =
+    selectedTemplate !== '' ||
+    selectedHeader !== '' ||
+    selectedHero !== '' ||
+    selectedServices !== '' ||
+    selectedFooter !== ''
+
+  const reset = () => {
+    setSelectedTemplate('')
+    setSelectedHeader('')
+    setSelectedHero('')
+    setSelectedServices('')
+    setSelectedFooter('')
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -86,7 +101,7 @@ export default function TemplateBuilder({
               },
             ]}
           />
-          <div className="flex space-x-4 mb-6">
+          <div className="flex space-x-1 mb-6">
             <button
               disabled={!isSelectionComplete}
               onClick={() => setShowPreview(!showPreview)}
@@ -95,6 +110,7 @@ export default function TemplateBuilder({
               <Code className="w-4 h-4 mr-2" />
               {showPreview ? 'Show Code' : 'Show Preview'}
             </button>
+            <ResetBtn reset={reset} disabled={!isSelection} />
           </div>
           {isSelectionComplete &&
             (showPreview ? (

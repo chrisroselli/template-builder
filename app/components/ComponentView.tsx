@@ -49,6 +49,7 @@ export default function CodeView({ html, css }: CodeViewProps) {
             className="rounded-xl"
             language="css"
             style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
           >
             {css}
           </SyntaxHighlighter>
@@ -58,6 +59,7 @@ export default function CodeView({ html, css }: CodeViewProps) {
             className="rounded-xl"
             language="htmlbars"
             style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
           >
             {html}
           </SyntaxHighlighter>

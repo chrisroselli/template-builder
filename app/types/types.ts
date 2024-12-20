@@ -40,6 +40,13 @@ export interface CodeViewProps {
   html: string
 }
 
+export interface TemplatePreviewProps {
+  template: string
+  combinedTemplateCss: string
+  combinedHomepageCss: string
+  data: Record<string, string>
+}
+
 export interface TemplateCodeViewProps {
   template: string
   combinedTemplateCss: string
