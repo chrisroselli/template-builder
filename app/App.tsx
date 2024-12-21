@@ -1,20 +1,28 @@
 'use client'
-import { useState } from 'react'
+import React from 'react'
 import TemplateBuilder from './components/TemplateBuilder'
 import PageBuilder from './components/PageBuilder'
 import ComponentManager from './components/ComponentManager'
 import ComponentCreator from './components/ComponentCreator'
+import { usePersistedState } from './hooks/usePersistedState'
+import { CompRow, TemplateRow } from '@/app/types/types'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import {
   LayoutDashboard,
   PanelsTopLeft,
   PanelTop,
   PlusCircle,
 } from 'lucide-react'
-import { CompRow, TemplateRow } from '@/app/types/types'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-// TODO: Add reset btns
+interface Tab {
+  id: string
+  title: string
+  content: React.ReactNode
+  icon: React.ReactNode
+}
+
 function App({
   templates,
   comps,
@@ -22,77 +30,69 @@ function App({
   templates: TemplateRow[]
   comps: CompRow[]
 }) {
-  const [activeView, setActiveView] = useState<
-    'template' | 'page' | 'manager' | 'creator'
-  >('template')
+  const tabsData: Tab[] = [
+    {
+      id: 'tab1',
+      icon: <PanelsTopLeft className="w-4 h-4 mr-2" />,
+      title: 'Template Builder',
+      content: <TemplateBuilder templates={templates} comps={comps} />,
+    },
+    {
+      id: 'tab2',
+      icon: <PanelTop className="w-4 h-4 mr-2" />,
+      title: 'Page Builder',
+      content: <PageBuilder comps={comps} />,
+    },
+    {
+      id: 'tab3',
+      icon: <LayoutDashboard className="w-4 h-4 mr-2" />,
+      title: 'Component Manager',
+      content: <ComponentManager comps={comps} />,
+    },
+    {
+      id: 'tab4',
+      icon: <PlusCircle className="w-4 h-4 mr-2" />,
+      title: 'Add Component',
+      content: <ComponentCreator comps={comps} />,
+    },
+  ]
+  const [activeTab, setActiveTab, loading] = usePersistedState(
+    'activeTab',
+    tabsData[0].id,
+  )
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
-        <nav className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <div className="flex space-x-8">
-                  <button
-                    onClick={() => setActiveView('template')}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                      activeView === 'template'
-                        ? 'border-primary-dark text-gray-900'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                    }`}
-                  >
-                    <PanelsTopLeft className="w-4 h-4 mr-2" />
-                    Template Builder
-                  </button>
-                  <button
-                    onClick={() => setActiveView('page')}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                      activeView === 'page'
-                        ? 'border-primary-dark text-gray-900'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                    }`}
-                  >
-                    <PanelTop className="w-4 h-4 mr-2" />
-                    Page Builder
-                  </button>
-                  <button
-                    onClick={() => setActiveView('manager')}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                      activeView === 'manager'
-                        ? 'border-primary-dark text-gray-900'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                    }`}
-                  >
-                    <LayoutDashboard className="w-4 h-4 mr-2" />
-                    Component Manager
-                  </button>
-                  <button
-                    onClick={() => setActiveView('creator')}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                      activeView === 'creator'
-                        ? 'border-primary-dark text-gray-900'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                    }`}
-                  >
-                    <PlusCircle className="w-4 h-4 mr-2" />
-                    Create Component
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+      <div className="bg-gray-50 rounded-xl shadow-lg">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="flex flex-col space-x-4"
+        >
+          <TabsList className="bg-white rounded-xl">
+            {tabsData.map((tab) => (
+              <TabsTrigger
+                key={tab.id}
+                value={tab.id}
+                className={`inline-flex items-center mx-4 py-4 text-base font-semibold ${
+                  activeTab === tab.id ? 'text-primary-dark' : 'text-gray-500'
+                }`}
+              >
+                {tab.icon}
+                {tab.title}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-        {activeView === 'template' ? (
-          <TemplateBuilder templates={templates} comps={comps} />
-        ) : activeView === 'page' ? (
-          <PageBuilder comps={comps} />
-        ) : activeView === 'manager' ? (
-          <ComponentManager comps={comps} />
-        ) : (
-          <ComponentCreator comps={comps} />
-        )}
+          {tabsData.map((tab) => (
+            <TabsContent key={tab.id} value={tab.id} className="mt-4 p-4">
+              {tab.content}
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
       <ToastContainer
         position="top-right"

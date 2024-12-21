@@ -6,7 +6,7 @@ export default function ComponentSelection({
 }: ComponentSelectionProps) {
   return (
     <>
-      <div className="text-lg font-semibold mb-4">{title}</div>
+      <div className="text-base font-semibold text-primary mb-4">{title}</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {selections.map(({ label, value, onChange, options }) => (
           <div key={label}>
@@ -14,7 +14,7 @@ export default function ComponentSelection({
               {label}
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg p-2"
+              className="w-full border border-gray-300 rounded-lg p-2 text-sm font-medium text-gray-700"
               onChange={(e) => onChange(e.target.value)}
               value={value}
             >
