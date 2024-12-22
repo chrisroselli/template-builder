@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Code } from 'lucide-react'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import TemplatePreview from '@/app/components/TemplatePreview'

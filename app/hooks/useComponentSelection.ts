@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import {
   combineCSS,
@@ -6,16 +5,29 @@ import {
   findComp,
   findTemplate,
 } from '../utils/templateUtils'
+import { usePersistedState } from '@/app/hooks/usePersistedState'
 
 export const useComponentSelection = (
   templates: TemplateRow[],
   comps: CompRow[],
 ) => {
-  const [selectedTemplate, setSelectedTemplate] = useState('')
-  const [selectedHeader, setSelectedHeader] = useState('')
-  const [selectedFooter, setSelectedFooter] = useState('')
-  const [selectedHero, setSelectedHero] = useState('')
-  const [selectedServices, setSelectedServices] = useState('')
+  const [selectedTemplate, setSelectedTemplate] = usePersistedState(
+    'selectedTemplate',
+    '',
+  )
+  const [selectedHeader, setSelectedHeader] = usePersistedState(
+    'selectedHeader',
+    '',
+  )
+  const [selectedFooter, setSelectedFooter] = usePersistedState(
+    'selectedFooter',
+    '',
+  )
+  const [selectedHero, setSelectedHero] = usePersistedState('selectedHero', '')
+  const [selectedServices, setSelectedServices] = usePersistedState(
+    'selectedServices',
+    '',
+  )
 
   const template = findTemplate(templates, selectedTemplate)?.borders ?? ''
   const header = findComp(comps, selectedHeader)?.html ?? ''

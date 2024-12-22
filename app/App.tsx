@@ -3,7 +3,7 @@ import React from 'react'
 import TemplateBuilder from './components/TemplateBuilder'
 import PageBuilder from './components/PageBuilder'
 import ComponentManager from './components/ComponentManager'
-import ComponentCreator from './components/ComponentCreator'
+import ComponentCreator from './components/AddComponent'
 import { usePersistedState } from './hooks/usePersistedState'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import { ToastContainer } from 'react-toastify'
@@ -57,7 +57,7 @@ function App({
     },
   ]
   const [activeTab, setActiveTab, loading] = usePersistedState(
-    'activeTab',
+    'Home tabs activeTab',
     tabsData[0].id,
   )
   if (loading) {

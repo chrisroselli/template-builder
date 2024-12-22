@@ -15,7 +15,7 @@ export default function TemplatePreview({
     setReplacedHtml(replaced)
   }, [template, data])
 
-  const headerFix = `header{position:relative;}main{margin:2rem 0;}`
+  const headerFix = `header{position:relative;}`
 
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">

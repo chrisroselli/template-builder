@@ -30,7 +30,6 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
     setSelectedHero('')
     setSelectedServices('')
   }
-
   return (
     <>
       <div className="text-base font-semibold text-primary mb-4">

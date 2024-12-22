@@ -5,14 +5,22 @@ import type { CompRow } from '../types/types'
 import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
+import { usePersistedState } from '@/app/hooks/usePersistedState'
 
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
-  const [componentType, setComponentType] = useState('')
-  const [activeTab, setActiveTab] = useState<string>('html')
-  const [name, setName] = useState('')
-  const [html, setHtml] = useState('')
-  const [css, setCss] = useState('')
+  const [componentType, setComponentType] = usePersistedState(
+    'Component Manager activeTab',
+    '',
+  )
+  const [activeTab, setActiveTab] = usePersistedState(
+    'Add Component activeTab',
+    'html',
+  )
+  const [name, setName] = usePersistedState('Component Manager activeTab', '')
+  const [html, setHtml] = usePersistedState('Component Manager activeTab', '')
+  const [css, setCss] = usePersistedState('Component Manager activeTab', '')
+
   const [previewVisible, setPreviewVisible] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter()
