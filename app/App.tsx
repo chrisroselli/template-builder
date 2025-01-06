@@ -56,13 +56,10 @@ function App({
       content: <ComponentCreator comps={comps} />,
     },
   ]
-  const [activeTab, setActiveTab, loading] = usePersistedState(
+  const [activeTab, setActiveTab] = usePersistedState(
     'Home tabs activeTab',
     tabsData[0].id,
   )
-  if (loading) {
-    return <div>Loading...</div>
-  }
 
   return (
     <>

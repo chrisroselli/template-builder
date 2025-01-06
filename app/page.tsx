@@ -2,8 +2,8 @@ import App from '@/app/App'
 import { sql } from '@vercel/postgres'
 import { CompRow, TemplateRow } from '@/app/types/types'
 // TODO: Add suspense
-// TODO: Locate storage set up
-// TODO: Create local storage hook
+// TODO: Add locate storage to preview/code view btn components
+
 export default async function Home() {
   const [compRows, templatesRows] = await Promise.all([
     sql<CompRow>`SELECT * FROM components`,

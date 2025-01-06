@@ -10,7 +10,7 @@ import { usePersistedState } from '@/app/hooks/usePersistedState'
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
-    'Component Manager activeTab',
+    'Add Component activeTab',
     '',
   )
   const [activeTab, setActiveTab] = usePersistedState(
