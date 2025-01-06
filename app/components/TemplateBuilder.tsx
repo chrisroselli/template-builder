@@ -37,11 +37,9 @@ export default function TemplateBuilder({
   } = useComponentSelection(templates, comps)
 
   const isSelectionComplete =
-    selectedTemplate !== '' &&
-    selectedHeader !== '' &&
-    selectedHero !== '' &&
-    selectedServices !== '' &&
-    selectedFooter !== ''
+    selectedTemplate !== '' && selectedHeader !== '' && selectedFooter !== ''
+  // selectedHero !== '' &&
+  // selectedServices !== ''
 
   const isSelection =
     selectedTemplate !== '' ||
