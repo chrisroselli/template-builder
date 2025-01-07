@@ -16,7 +16,6 @@ import {
   PlusCircle,
 } from 'lucide-react'
 
-// TODO: Add suspense to Preview and Code View components
 interface Tab {
   id: string
   title: string
