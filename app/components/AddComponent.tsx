@@ -6,7 +6,7 @@ import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-
+// TODO: update hide/show preview
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
@@ -80,7 +80,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             {[...new Set(comps.map(({ comp_type }) => comp_type))].map(
               (comp_type, id) => (
                 <option key={id} value={comp_type}>
-                  {comp_type === 'Services'
+                  {comp_type === 'Services' || comp_type === 'Why Choose'
                     ? comp_type
                     : comp_type.slice(0, -1)}
                 </option>
