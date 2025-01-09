@@ -28,9 +28,12 @@ export default function TemplateBuilder({
     setSelectedHero,
     selectedServices,
     setSelectedServices,
+    selectedWhyChoose,
+    setSelectedWhyChoose,
     template,
     header,
     footer,
+    whyChoose,
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,
@@ -58,7 +61,6 @@ export default function TemplateBuilder({
   return (
     <>
       <ComponentSelection
-        title="Template Components"
         selections={[
           {
             label: 'Template',
@@ -81,7 +83,6 @@ export default function TemplateBuilder({
         ]}
       />
       <ComponentSelection
-        title="Homepage Components"
         selections={[
           {
             label: 'Hero',
@@ -94,6 +95,12 @@ export default function TemplateBuilder({
             value: selectedServices,
             onChange: setSelectedServices,
             options: comps.filter((d) => d.comp_type === 'Services'),
+          },
+          {
+            label: 'Why Choose',
+            value: selectedWhyChoose,
+            onChange: setSelectedWhyChoose,
+            options: comps.filter((d) => d.comp_type === 'Why Choose'),
           },
         ]}
       />
@@ -129,6 +136,7 @@ export default function TemplateBuilder({
             data={{
               header: header,
               footer: footer,
+              whyChoose: whyChoose,
             }}
           />
         ))}

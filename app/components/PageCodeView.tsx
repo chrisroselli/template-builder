@@ -4,11 +4,19 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import CopyBtn from '@/app/components/CopyBtn'
 
-export default function PageCodeView({ hero, services }: PagePreviewProps) {
+export default function PageCodeView({
+  hero,
+  services,
+  whyChoose,
+}: PagePreviewProps) {
   const [activeTab, setActiveTab] = useState<string>('html')
-  const combinedCSS = [hero?.css, services?.css].filter(Boolean).join('\n\n')
-  const combinedHTML = [hero?.html, services?.html].filter(Boolean).join('\n\n')
-
+  const combinedCSS = [hero?.css, services?.css, whyChoose?.css]
+    .filter(Boolean)
+    .join('\n\n')
+  const combinedHTML = [hero?.html, services?.html, whyChoose?.html]
+    .filter(Boolean)
+    .join('\n\n')
+  console.log(combinedHTML)
   const copyBtn = () => {
     navigator.clipboard.writeText(
       activeTab === 'css' ? combinedCSS : combinedHTML,

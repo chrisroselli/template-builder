@@ -28,12 +28,17 @@ export const useComponentSelection = (
     'selectedServices',
     '',
   )
+  const [selectedWhyChoose, setSelectedWhyChoose] = usePersistedState(
+    'selectedWhyChoose',
+    '',
+  )
 
   const template = findTemplate(templates, selectedTemplate)?.borders ?? ''
   const header = findComp(comps, selectedHeader)?.html ?? ''
   const hero = findComp(comps, selectedHero)?.html ?? ''
   const services = findComp(comps, selectedServices)?.html ?? ''
   const footer = findComp(comps, selectedFooter)?.html ?? ''
+  const whyChoose = findComp(comps, selectedWhyChoose)?.html ?? ''
 
   const combinedTemplateCss = combineCSS(
     findComp(comps, selectedHeader)?.css,
@@ -43,11 +48,13 @@ export const useComponentSelection = (
   const combinedHomepageHtml = combineHTML(
     findComp(comps, selectedHero)?.html,
     findComp(comps, selectedServices)?.html,
+    findComp(comps, selectedWhyChoose)?.html,
   )
 
   const combinedHomepageCss = combineCSS(
     findComp(comps, selectedHero)?.css,
     findComp(comps, selectedServices)?.css,
+    findComp(comps, selectedWhyChoose)?.css,
   )
 
   return {
@@ -66,6 +73,9 @@ export const useComponentSelection = (
     hero,
     services,
     footer,
+    whyChoose,
+    selectedWhyChoose,
+    setSelectedWhyChoose,
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,

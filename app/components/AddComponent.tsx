@@ -6,7 +6,7 @@ import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-// TODO: update hide/show preview
+// TODO: update hide/show preview and add local storage for HTML and CSS tabs
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
@@ -132,7 +132,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
               activeTab === 'html' ? 'block' : 'hidden'
             }`}
-            rows={40}
+            rows={30}
             placeholder="HTML"
           />
 

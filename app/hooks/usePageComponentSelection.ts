@@ -8,12 +8,18 @@ export const usePageComponentSelection = (comps: CompRow[]) => {
     'selectedServices',
     '',
   )
+  const [selectedWhyChoose, setSelectedWhyChoose] = usePersistedState(
+    'selectedWhyChoose',
+    '',
+  )
 
   const hero = findComp(comps, selectedHero)
   const services = findComp(comps, selectedServices)
+  const whyChoose = findComp(comps, selectedWhyChoose)
 
   const heroOptions = filterCompsByType(comps, 'Heros')
   const servicesOptions = filterCompsByType(comps, 'Services')
+  const whyChooseOptions = filterCompsByType(comps, 'Why Choose')
 
   return {
     selectedHero,
@@ -24,5 +30,9 @@ export const usePageComponentSelection = (comps: CompRow[]) => {
     services,
     heroOptions,
     servicesOptions,
+    selectedWhyChoose,
+    setSelectedWhyChoose,
+    whyChoose,
+    whyChooseOptions,
   }
 }

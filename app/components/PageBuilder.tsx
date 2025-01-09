@@ -8,7 +8,7 @@ import PageCodeView from '@/app/components/PageCodeView'
 import { usePageComponentSelection } from '@/app/hooks/usePageComponentSelection'
 import ComponentSelection from '@/app/components/ComponentSelection'
 import ResetBtn from '@/app/components/ResetBtn'
-
+//TODO: Refactor ComponentSelection
 export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   const [showPreview, setShowPreview] = useState(true)
   const {
@@ -20,6 +20,10 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
     services,
     heroOptions,
     servicesOptions,
+    selectedWhyChoose,
+    setSelectedWhyChoose,
+    whyChoose,
+    whyChooseOptions,
   } = usePageComponentSelection(comps)
 
   const isHeroSelected = selectedHero !== ''
@@ -29,6 +33,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   const reset = () => {
     setSelectedHero('')
     setSelectedServices('')
+    setSelectedWhyChoose('')
   }
   return (
     <>
@@ -49,6 +54,12 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
             onChange: setSelectedServices,
             options: servicesOptions,
           },
+          {
+            label: 'Why Choose',
+            value: selectedWhyChoose,
+            onChange: setSelectedWhyChoose,
+            options: whyChooseOptions,
+          },
         ]}
       />
       <div className="flex space-x-1 mb-6">
@@ -67,11 +78,13 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
           <PagePreview
             hero={hero ?? { html: '', css: '' }}
             services={services ?? { html: '', css: '' }}
+            whyChoose={whyChoose ?? { html: '', css: '' }}
           />
         ) : (
           <PageCodeView
             hero={hero ?? { html: '', css: '' }}
             services={services ?? { html: '', css: '' }}
+            whyChoose={whyChoose ?? { html: '', css: '' }}
           />
         ))}
     </>

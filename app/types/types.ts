@@ -34,6 +34,10 @@ export interface PagePreviewProps {
     html: string
     css: string
   }
+  whyChoose: {
+    html: string
+    css: string
+  }
 }
 export interface CodeViewProps {
   css: string
