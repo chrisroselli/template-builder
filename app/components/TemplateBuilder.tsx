@@ -8,7 +8,7 @@ import TemplateCodeView from '@/app/components/TemplateCodeView'
 import ComponentSelection from '@/app/components/ComponentSelection'
 import { useComponentSelection } from '@/app/hooks/useComponentSelection'
 import ResetBtn from '@/app/components/ResetBtn'
-
+//TODO: Separate local storage and state between TemplateBuilder and PageBuilder
 export default function TemplateBuilder({
   templates,
   comps,
@@ -56,6 +56,7 @@ export default function TemplateBuilder({
     setSelectedHeader('')
     setSelectedHero('')
     setSelectedServices('')
+    setSelectedWhyChoose('')
     setSelectedFooter('')
   }
   return (
