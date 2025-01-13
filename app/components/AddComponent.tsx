@@ -6,20 +6,20 @@ import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-// TODO: update hide/show preview and add local storage for HTML and CSS tabs
+
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
-    'Add Component activeTab',
+    'Add Component componentType',
     '',
   )
   const [activeTab, setActiveTab] = usePersistedState(
     'Add Component activeTab',
     'html',
   )
-  const [name, setName] = usePersistedState('Component Manager activeTab', '')
-  const [html, setHtml] = usePersistedState('Component Manager activeTab', '')
-  const [css, setCss] = usePersistedState('Component Manager activeTab', '')
+  const [name, setName] = usePersistedState('Add Component name', '')
+  const [html, setHtml] = usePersistedState('Add Component HTML', '')
+  const [css, setCss] = usePersistedState('Add Component CSS', '')
 
   const [previewVisible, setPreviewVisible] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
@@ -98,57 +98,61 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             required
           />
         </div>
-        <div className="flex space-x-4 mb-2">
-          <button
-            type="button"
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'html'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('html')}
-          >
-            HTML
-          </button>
-          <button
-            type="button"
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'css'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('css')}
-          >
-            CSS
-          </button>
-        </div>
-        <div className="text-sm">
-          <textarea
-            id="html"
-            name="html"
-            required
-            value={html}
-            onChange={(e) => setHtml(e.target.value)}
-            className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
-              activeTab === 'html' ? 'block' : 'hidden'
-            }`}
-            rows={30}
-            placeholder="HTML"
-          />
+        {!previewVisible && (
+          <>
+            <div className="flex space-x-4 mb-2">
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium text-sm ${
+                  activeTab === 'html'
+                    ? 'border-b-2 border-primary-dark text-primary-dark'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => setActiveTab('html')}
+              >
+                HTML
+              </button>
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium text-sm ${
+                  activeTab === 'css'
+                    ? 'border-b-2 border-primary-dark text-primary-dark'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => setActiveTab('css')}
+              >
+                CSS
+              </button>
+            </div>
+            <div className="text-sm">
+              <textarea
+                id="html"
+                name="html"
+                required
+                value={html}
+                onChange={(e) => setHtml(e.target.value)}
+                className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
+                  activeTab === 'html' ? 'block' : 'hidden'
+                }`}
+                rows={30}
+                placeholder="HTML"
+              />
 
-          <textarea
-            id="css"
-            name="css"
-            required
-            value={css}
-            onChange={(e) => setCss(e.target.value)}
-            className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
-              activeTab === 'css' ? 'block' : 'hidden'
-            }`}
-            rows={40}
-            placeholder="CSS"
-          />
-        </div>
+              <textarea
+                id="css"
+                name="css"
+                required
+                value={css}
+                onChange={(e) => setCss(e.target.value)}
+                className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
+                  activeTab === 'css' ? 'block' : 'hidden'
+                }`}
+                rows={30}
+                placeholder="CSS"
+              />
+            </div>
+          </>
+        )}
         <div className="flex space-x-1">
           <button
             type="button"
@@ -158,7 +162,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             onClick={() => setPreviewVisible(!previewVisible)}
             className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-4 h-4 mr-1" />
             {previewVisible ? 'Hide Preview' : 'Show Preview'}
           </button>
           <button
@@ -172,7 +176,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             }
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:opacity-50 cursor-pointer"
           >
-            <Save className="w-4 h-4" />
+            <Save className="w-4 h-4 mr-1" />
             {isPending ? 'Submitting...' : 'Submit Component'}
           </button>
           <ResetBtn reset={reset} disabled={!isSelection} />
