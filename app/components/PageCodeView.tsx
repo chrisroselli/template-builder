@@ -58,7 +58,7 @@ export default function PageCodeView({
       <div className="text-sm">
         {activeTab === 'css' && (
           <SyntaxHighlighter
-            className="rounded-xl"
+            className="rounded-xl h-[600px]"
             language="css"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -68,7 +68,7 @@ export default function PageCodeView({
         )}
         {activeTab === 'html' && (
           <SyntaxHighlighter
-            className="rounded-xl"
+            className="rounded-xl h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
