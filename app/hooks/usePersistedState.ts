@@ -10,7 +10,7 @@ export function usePersistedState<T>(
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const storedValue = localStorage.getItem(key)
+    const storedValue = sessionStorage.getItem(key)
     if (storedValue !== null) {
       setState(JSON.parse(storedValue))
     }
@@ -20,7 +20,7 @@ export function usePersistedState<T>(
   const setValue = (value: T | ((prev: T) => T)) => {
     const newValue = value instanceof Function ? value(state) : value
     setState(newValue)
-    localStorage.setItem(key, JSON.stringify(newValue))
+    sessionStorage.setItem(key, JSON.stringify(newValue))
   }
 
   return [state, setValue, loading]

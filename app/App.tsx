@@ -16,7 +16,6 @@ import {
   PlusCircle,
 } from 'lucide-react'
 
-//TODO: Add vertical scroll to codeview windows
 interface Tab {
   id: string
   title: string

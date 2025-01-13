@@ -16,7 +16,7 @@ export default function PageCodeView({
   const combinedHTML = [hero?.html, services?.html, whyChoose?.html]
     .filter(Boolean)
     .join('\n\n')
-  console.log(combinedHTML)
+
   const copyBtn = () => {
     navigator.clipboard.writeText(
       activeTab === 'css' ? combinedCSS : combinedHTML,
