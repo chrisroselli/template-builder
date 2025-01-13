@@ -23,13 +23,16 @@ export const useComponentSelection = (
     'selectedFooter',
     '',
   )
-  const [selectedHero, setSelectedHero] = usePersistedState('selectedHero', '')
+  const [selectedHero, setSelectedHero] = usePersistedState(
+    'selectedTemplateHero',
+    '',
+  )
   const [selectedServices, setSelectedServices] = usePersistedState(
-    'selectedServices',
+    'selectedTemplateServices',
     '',
   )
   const [selectedWhyChoose, setSelectedWhyChoose] = usePersistedState(
-    'selectedWhyChoose',
+    'selectedTemplateWhyChoose',
     '',
   )
 

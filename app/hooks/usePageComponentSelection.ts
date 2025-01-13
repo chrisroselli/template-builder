@@ -3,13 +3,16 @@ import { filterCompsByType, findComp } from '../utils/templateUtils'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
 
 export const usePageComponentSelection = (comps: CompRow[]) => {
-  const [selectedHero, setSelectedHero] = usePersistedState('selectedHero', '')
+  const [selectedHero, setSelectedHero] = usePersistedState(
+    'selectedPageHero',
+    '',
+  )
   const [selectedServices, setSelectedServices] = usePersistedState(
-    'selectedServices',
+    'selectedPageServices',
     '',
   )
   const [selectedWhyChoose, setSelectedWhyChoose] = usePersistedState(
-    'selectedWhyChoose',
+    'selectedPageWhyChoose',
     '',
   )
 
