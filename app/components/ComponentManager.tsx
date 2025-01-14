@@ -88,7 +88,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                   <ComponentView html={item.html} css={item.css} />
                 </div>
               ) : (
-                <div className="border rounded-lg overflow-hidden bg-white">
+                <div className="border rounded-md overflow-hidden bg-white">
                   <style>
                     {item.css}
                     {headerFix}

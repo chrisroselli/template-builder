@@ -15,16 +15,15 @@ export default function TemplatePreview({
     setReplacedHtml(replaced)
   }, [template, data])
 
-  const headerFix = `header{position:relative;}`
-
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
-      <style>
-        {combinedTemplateCss}
-        {combinedHomepageCss}
-        {headerFix}
-      </style>
-      <div dangerouslySetInnerHTML={{ __html: replacedHtml }} />
+      <div className="border rounded-md bg-white">
+        <iframe
+          srcDoc={`<style>${combinedTemplateCss}${combinedHomepageCss}</style>${replacedHtml}`}
+          className="w-full h-lvh"
+          title="Preview"
+        />
+      </div>
     </div>
   )
 }

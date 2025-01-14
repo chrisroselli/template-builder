@@ -185,9 +185,12 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
       {previewVisible && (
         <div className="mt-8">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Preview</h2>
-          <div className="border rounded-lg overflow-hidden">
-            <style>{css}</style>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+          <div className="border rounded-md overflow-hidden">
+            <iframe
+              srcDoc={`<style>${css}</style>${html}`}
+              className="w-full h-lvh"
+              title="Preview"
+            />
           </div>
         </div>
       )}

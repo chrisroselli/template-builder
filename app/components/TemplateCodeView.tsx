@@ -100,7 +100,7 @@ export default function TemplateCodeView({
       <div className="text-sm">
         {activeTab === 'borders' && (
           <SyntaxHighlighter
-            className="rounded-xl text-sm h-[600px]"
+            className="text-sm h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -110,7 +110,7 @@ export default function TemplateCodeView({
         )}
         {activeTab === 'css' && (
           <SyntaxHighlighter
-            className="rounded-xl text-sm h-[600px]"
+            className="text-sm h-[600px]"
             language="css"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -120,7 +120,7 @@ export default function TemplateCodeView({
         )}
         {activeTab === 'homepage-html' && (
           <SyntaxHighlighter
-            className="rounded-xl text-sm h-[600px]"
+            className="text-sm h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -130,7 +130,7 @@ export default function TemplateCodeView({
         )}
         {activeTab === 'homepage-css' && (
           <SyntaxHighlighter
-            className="rounded-xl text-sm h-[600px]"
+            className="text-sm h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
