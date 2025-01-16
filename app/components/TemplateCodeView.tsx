@@ -125,7 +125,7 @@ export default function TemplateCodeView({
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
           >
-            {combinedHomepageHtml}
+            {`<div id="homepage">\n${combinedHomepageHtml}\n</div>`}
           </SyntaxHighlighter>
         )}
         {activeTab === 'homepage-css' && (
