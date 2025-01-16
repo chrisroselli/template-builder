@@ -12,7 +12,7 @@ export default async function Home() {
   const comps = compRows.rows
 
   return (
-    <main className="container mx-auto p-4 rounded-xl">
+    <main className="mx-auto p-4 rounded-xl">
       <App templates={templates} comps={comps} />
     </main>
   )

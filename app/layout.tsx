@@ -26,12 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.treehouseinternetgroup.com/cms_core/th-tools/template-builder/utils/css/flexbox-grid.css"
-        />
-      </head>
+      <head></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary`}
       >
@@ -47,7 +42,7 @@ export default function RootLayout({
             Site Build Tools
           </p>
         </div>
-        <div className="max-w-7xl mx-auto my-4">{children}</div>
+        <div className="mx-auto my-4">{children}</div>
         <div className="w-full bg-primary h-24"></div>
       </body>
     </html>
