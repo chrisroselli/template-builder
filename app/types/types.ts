@@ -12,6 +12,7 @@ export interface CompRow {
   name: string
   html: string
   css: string
+  js: string
   label: string
   status: boolean
   type: string
@@ -29,19 +30,23 @@ export interface PagePreviewProps {
   hero: {
     html: string
     css: string
+    js: string
   }
   services: {
     html: string
     css: string
+    js: string
   }
   whyChoose: {
     html: string
     css: string
+    js: string
   }
 }
 export interface CodeViewProps {
   css: string
   html: string
+  js: string
 }
 
 export interface TemplatePreviewProps {
@@ -56,6 +61,7 @@ export interface TemplateCodeViewProps {
   combinedTemplateCss: string
   combinedHomepageHtml: string
   combinedHomepageCss: string
+  combinedHomepageJs: string
   data: Record<string, string>
 }
 

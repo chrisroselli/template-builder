@@ -8,14 +8,16 @@ export async function submitComponent(formData: FormData) {
   const name = formData.get('componentName') as string
   const html = formData.get('html') as string
   const css = formData.get('css') as string
+  const js = formData.get('js') as string
+
   const label = name.split(' ').join('_').toLowerCase()
   const type =
     compType === 'Headers' || compType === 'Footers' ? 'temp' : 'comp'
 
   try {
     await sql`
-        INSERT INTO components (comp_type, html, css, name, label, type)
-        VALUES (${compType}, ${html}, ${css}, ${name}, ${label}, ${type})
+        INSERT INTO components (comp_type, html, css, js, name, label, type)
+        VALUES (${compType}, ${html}, ${css}, ${js}, ${name}, ${label}, ${type})
     `
     revalidatePath('/')
     return { success: true, message: 'Component submitted successfully' }

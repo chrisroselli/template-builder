@@ -60,6 +60,12 @@ export const useComponentSelection = (
     findComp(comps, selectedWhyChoose)?.css,
   )
 
+  const combinedHomepageJs = combineCSS(
+    findComp(comps, selectedHero)?.js,
+    findComp(comps, selectedServices)?.js,
+    findComp(comps, selectedWhyChoose)?.js,
+  )
+
   return {
     selectedTemplate,
     setSelectedTemplate,
@@ -82,5 +88,6 @@ export const useComponentSelection = (
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,
+    combinedHomepageJs,
   }
 }

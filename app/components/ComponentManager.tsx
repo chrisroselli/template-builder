@@ -4,7 +4,7 @@ import { Code } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-
+// TODO: Hide JS tab if no JS
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
   const [showCode, setShowCode] = useState<string | null>(null)
   const [activeTab, setActiveTab] = usePersistedState(
@@ -12,7 +12,13 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     'Headers',
   )
 
-  const customOrderTypes = ['Headers', 'Footers', 'Heros', 'Services']
+  const customOrderTypes = [
+    'Headers',
+    'Footers',
+    'Heros',
+    'Services',
+    'Why Choose',
+  ]
 
   function sortByCustomOrder(array: string[], customOrder: string[]): string[] {
     return [...array].sort((a, b) => {
@@ -31,9 +37,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     dedupeCompTypes,
     customOrderTypes,
   )
-
   const headerFix = `header{position:relative;}`
-
   return (
     <>
       <div className="text-base font-semibold text-primary mb-4">
@@ -85,7 +89,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
 
               {showCode === item.html ? (
                 <div className="mb-4">
-                  <ComponentView html={item.html} css={item.css} />
+                  <ComponentView html={item.html} css={item.css} js={item.js} />
                 </div>
               ) : (
                 <div className="border rounded-md overflow-hidden bg-white">

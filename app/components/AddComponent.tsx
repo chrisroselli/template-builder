@@ -6,7 +6,8 @@ import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-
+// TODO: Uppercase comp name on submit
+// TODO: Disable submit button when showing preview
 export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
@@ -20,6 +21,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   const [name, setName] = usePersistedState('Add Component name', '')
   const [html, setHtml] = usePersistedState('Add Component HTML', '')
   const [css, setCss] = usePersistedState('Add Component CSS', '')
+  const [js, setJs] = usePersistedState('Add Component JS', '')
 
   const [previewVisible, setPreviewVisible] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
@@ -40,6 +42,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
         setName('')
         setHtml('')
         setCss('')
+        setJs('')
       }
       startTransition(() => {
         router.refresh()
@@ -51,7 +54,11 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
   }
 
   const isSelection =
-    componentType !== '' || name !== '' || html !== '' || css !== ''
+    componentType !== '' ||
+    name !== '' ||
+    html !== '' ||
+    css !== '' ||
+    js !== ''
 
   const reset = () => {
     setActiveTab('html')
@@ -59,6 +66,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
     setName('')
     setHtml('')
     setCss('')
+    setJs('')
   }
 
   return (
@@ -123,6 +131,17 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
               >
                 CSS
               </button>
+              <button
+                type="button"
+                className={`py-2 px-4 font-medium text-sm ${
+                  activeTab === 'js'
+                    ? 'border-b-2 border-primary-dark text-primary-dark'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => setActiveTab('js')}
+              >
+                JS (Optional)
+              </button>
             </div>
             <div className="text-sm">
               <textarea
@@ -149,6 +168,18 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
                 }`}
                 rows={30}
                 placeholder="CSS"
+              />
+
+              <textarea
+                id="js"
+                name="js"
+                value={js}
+                onChange={(e) => setJs(e.target.value)}
+                className={`bg-gray-700 text-white w-full border border-gray-300 rounded-lg p-2 font-mono text-sm ${
+                  activeTab === 'js' ? 'block' : 'hidden'
+                }`}
+                rows={30}
+                placeholder="JS"
               />
             </div>
           </>
@@ -187,7 +218,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
           <h2 className="text-lg font-medium text-gray-900 mb-4">Preview</h2>
           <div className="border rounded-md overflow-hidden">
             <iframe
-              srcDoc={`<style>${css}</style>${html}`}
+              srcDoc={`<style>${css}</style>${html}<script>${js}</script>`}
               className="w-full h-lvh"
               title="Preview"
             />

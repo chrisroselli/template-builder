@@ -37,6 +37,7 @@ export default function TemplateBuilder({
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,
+    combinedHomepageJs,
   } = useComponentSelection(templates, comps)
 
   const isSelectionComplete =
@@ -134,6 +135,7 @@ export default function TemplateBuilder({
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageHtml={combinedHomepageHtml}
             combinedHomepageCss={combinedHomepageCss}
+            combinedHomepageJs={combinedHomepageJs}
             data={{
               header: header,
               footer: footer,

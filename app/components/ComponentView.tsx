@@ -4,11 +4,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { CodeViewProps } from '@/app/types/types'
 
-export default function CodeView({ html, css }: CodeViewProps) {
+export default function CodeView({ html, css, js }: CodeViewProps) {
   const [activeTab, setActiveTab] = useState<string>('html')
 
   const copyBtn = () => {
-    navigator.clipboard.writeText(activeTab === 'css' ? css : html)
+    navigator.clipboard.writeText(
+      activeTab === 'css' ? css : activeTab === 'js' ? js : html,
+    )
   }
 
   return (
@@ -35,11 +37,23 @@ export default function CodeView({ html, css }: CodeViewProps) {
           >
             CSS
           </button>
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'js'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('js')}
+          >
+            JS
+          </button>
         </div>
         <div className="flex justify-end space-x-4 mb-2">
           <CopyBtn
             copyBtn={copyBtn}
-            tabs={activeTab === 'css' ? 'CSS' : 'HTML'}
+            tabs={
+              activeTab === 'css' ? 'CSS' : activeTab === 'js' ? 'JS' : 'HTML'
+            }
           />
         </div>
       </div>
@@ -62,6 +76,16 @@ export default function CodeView({ html, css }: CodeViewProps) {
             customStyle={{ padding: '1rem' }}
           >
             {html}
+          </SyntaxHighlighter>
+        )}
+        {activeTab === 'js' && (
+          <SyntaxHighlighter
+            className="rounded-xl h-[600px]"
+            language="javascript"
+            style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
+          >
+            {js}
           </SyntaxHighlighter>
         )}
       </div>

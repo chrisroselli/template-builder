@@ -16,10 +16,17 @@ export default function PageCodeView({
   const combinedHTML = [hero?.html, services?.html, whyChoose?.html]
     .filter(Boolean)
     .join('\n\n')
+  const combinedJs = [hero?.js, services?.js, whyChoose?.js]
+    .filter(Boolean)
+    .join('\n\n')
 
   const copyBtn = () => {
     navigator.clipboard.writeText(
-      activeTab === 'css' ? combinedCSS : combinedHTML,
+      activeTab === 'css'
+        ? combinedCSS
+        : activeTab === 'js'
+          ? combinedJs
+          : combinedHTML,
     )
   }
 
@@ -47,11 +54,23 @@ export default function PageCodeView({
           >
             CSS
           </button>
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'js'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('js')}
+          >
+            JS
+          </button>
         </div>
         <div className="flex justify-end space-x-4 mb-2">
           <CopyBtn
             copyBtn={copyBtn}
-            tabs={activeTab === 'css' ? 'CSS' : 'HTML'}
+            tabs={
+              activeTab === 'css' ? 'CSS' : activeTab === 'js' ? 'JS' : 'HTML'
+            }
           />
         </div>
       </div>
@@ -74,6 +93,16 @@ export default function PageCodeView({
             customStyle={{ padding: '1rem' }}
           >
             {combinedHTML}
+          </SyntaxHighlighter>
+        )}
+        {activeTab === 'js' && (
+          <SyntaxHighlighter
+            className="rounded-xl h-[600px]"
+            language="javascript"
+            style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
+          >
+            {combinedJs}
           </SyntaxHighlighter>
         )}
       </div>

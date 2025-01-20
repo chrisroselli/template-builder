@@ -11,6 +11,7 @@ export default function TemplateCodeView({
   combinedTemplateCss,
   combinedHomepageHtml,
   combinedHomepageCss,
+  combinedHomepageJs,
 }: TemplateCodeViewProps) {
   const [replacedHtml, setReplacedHtml] = useState(template)
   const [activeTab, setActiveTab] = useState<string>('borders')
@@ -81,6 +82,16 @@ export default function TemplateCodeView({
           >
             Homepage CSS
           </button>
+          <button
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'homepage-js'
+                ? 'border-b-2 border-primary-dark text-primary-dark'
+                : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('homepage-js')}
+          >
+            Homepage JS
+          </button>
         </div>
         <div className="flex justify-end space-x-4 mb-2">
           <CopyBtn
@@ -92,7 +103,9 @@ export default function TemplateCodeView({
                   ? 'Homepage CSS'
                   : activeTab === 'homepage-html'
                     ? 'Homepage HTML'
-                    : 'Borders'
+                    : activeTab === 'homepage-js'
+                      ? 'Homepage JS'
+                      : 'Borders'
             }
           />
         </div>
@@ -136,6 +149,16 @@ export default function TemplateCodeView({
             customStyle={{ padding: '1rem' }}
           >
             {`<style>\n${combinedHomepageCss}\n</style>`}
+          </SyntaxHighlighter>
+        )}
+        {activeTab === 'homepage-js' && (
+          <SyntaxHighlighter
+            className="text-sm h-[600px]"
+            language="htmlbars"
+            style={atomOneDark}
+            customStyle={{ padding: '1rem' }}
+          >
+            {`<script>\n${combinedHomepageJs}\n</script>`}
           </SyntaxHighlighter>
         )}
       </div>
