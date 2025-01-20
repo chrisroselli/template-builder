@@ -76,15 +76,15 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
       {isHeroSelected &&
         (showPreview ? (
           <PagePreview
-            hero={hero ?? { html: '', css: '' }}
-            services={services ?? { html: '', css: '' }}
-            whyChoose={whyChoose ?? { html: '', css: '' }}
+            hero={hero ?? { html: '', css: '', js: '' }}
+            services={services ?? { html: '', css: '', js: '' }}
+            whyChoose={whyChoose ?? { html: '', css: '', js: '' }}
           />
         ) : (
           <PageCodeView
-            hero={hero ?? { html: '', css: '' }}
-            services={services ?? { html: '', css: '' }}
-            whyChoose={whyChoose ?? { html: '', css: '' }}
+            hero={hero ?? { html: '', css: '', js: '' }}
+            services={services ?? { html: '', css: '', js: '' }}
+            whyChoose={whyChoose ?? { html: '', css: '', js: '' }}
           />
         ))}
     </>
