@@ -8,15 +8,43 @@ export default function PageCodeView({
   hero,
   services,
   whyChoose,
+  reviews,
+  beforeAfter,
+  textBlock,
+  videoBlock,
 }: PagePreviewProps) {
   const [activeTab, setActiveTab] = useState<string>('html')
-  const combinedCSS = [hero?.css, services?.css, whyChoose?.css]
+  const combinedCSS = [
+    hero?.css,
+    services?.css,
+    whyChoose?.css,
+    reviews?.css,
+    beforeAfter?.css,
+    textBlock?.css,
+    videoBlock?.css,
+  ]
     .filter(Boolean)
     .join('\n\n')
-  const combinedHTML = [hero?.html, services?.html, whyChoose?.html]
+  const combinedHTML = [
+    hero?.html,
+    services?.html,
+    whyChoose?.html,
+    reviews?.html,
+    beforeAfter?.html,
+    textBlock?.html,
+    videoBlock?.html,
+  ]
     .filter(Boolean)
     .join('\n\n')
-  const combinedJs = [hero?.js, services?.js, whyChoose?.js]
+  const combinedJs = [
+    hero?.js,
+    services?.js,
+    whyChoose?.js,
+    reviews?.js,
+    beforeAfter?.js,
+    textBlock?.js,
+    videoBlock?.js,
+  ]
     .filter(Boolean)
     .join('\n\n')
 

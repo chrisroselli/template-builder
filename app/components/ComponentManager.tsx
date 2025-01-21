@@ -18,6 +18,10 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     'Heros',
     'Services',
     'Why Choose',
+    'Reviews',
+    'Before & After',
+    'Text Block',
+    'Video Block',
   ]
 
   function sortByCustomOrder(array: string[], customOrder: string[]): string[] {

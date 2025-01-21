@@ -1,14 +1,13 @@
 import React, { useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, Save } from 'lucide-react'
-import type { CompRow } from '../types/types'
 import { submitComponent } from '@/app/actions/componentActions'
 import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
 // TODO: Uppercase comp name on submit
-// TODO: Disable submit button when showing preview
-export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
+
+export default function ComponentCreator() {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
     'Add Component componentType',
@@ -62,12 +61,24 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
 
   const reset = () => {
     setActiveTab('html')
+    setPreviewVisible(false)
     setComponentType('')
     setName('')
     setHtml('')
     setCss('')
     setJs('')
   }
+  const customOrderTypes = [
+    { key: 1, label: 'Headers' },
+    { key: 2, label: 'Footers' },
+    { key: 3, label: 'Heros' },
+    { key: 4, label: 'Services' },
+    { key: 5, label: 'Why Choose' },
+    { key: 6, label: 'Reviews' },
+    { key: 7, label: 'Before & After' },
+    { key: 8, label: 'Text Block' },
+    { key: 9, label: 'Video Block' },
+  ]
 
   return (
     <>
@@ -85,15 +96,13 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             value={componentType}
           >
             <option value="">Select Component Type</option>
-            {[...new Set(comps.map(({ comp_type }) => comp_type))].map(
-              (comp_type, id) => (
-                <option key={id} value={comp_type}>
-                  {comp_type === 'Services' || comp_type === 'Why Choose'
-                    ? comp_type
-                    : comp_type.slice(0, -1)}
+            {customOrderTypes
+              .map((comp_type) => comp_type)
+              .map((comp_type) => (
+                <option key={comp_type.key} value={comp_type.label}>
+                  {comp_type.label}
                 </option>
-              ),
-            )}
+              ))}
           </select>
           <input
             id="componentName"
@@ -200,6 +209,7 @@ export default function ComponentCreator({ comps }: { comps: CompRow[] }) {
             type="submit"
             disabled={
               isPending ||
+              previewVisible ||
               componentType === '' ||
               name === '' ||
               html === '' ||

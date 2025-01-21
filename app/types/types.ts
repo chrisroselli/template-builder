@@ -42,6 +42,26 @@ export interface PagePreviewProps {
     css: string
     js: string
   }
+  reviews: {
+    html: string
+    css: string
+    js: string
+  }
+  beforeAfter: {
+    html: string
+    css: string
+    js: string
+  }
+  textBlock: {
+    html: string
+    css: string
+    js: string
+  }
+  videoBlock: {
+    html: string
+    css: string
+    js: string
+  }
 }
 export interface CodeViewProps {
   css: string

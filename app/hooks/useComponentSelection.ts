@@ -23,16 +23,29 @@ export const useComponentSelection = (
     'selectedFooter',
     '',
   )
-  const [selectedHero, setSelectedHero] = usePersistedState(
-    'selectedTemplateHero',
-    '',
-  )
+  const [selectedHero, setSelectedHero] = usePersistedState('selectedHero', '')
   const [selectedServices, setSelectedServices] = usePersistedState(
-    'selectedTemplateServices',
+    'selectedServices',
     '',
   )
   const [selectedWhyChoose, setSelectedWhyChoose] = usePersistedState(
-    'selectedTemplateWhyChoose',
+    'selectedWhyChoose',
+    '',
+  )
+  const [selectedReviews, setSelectedReviews] = usePersistedState(
+    'selectedReviews',
+    '',
+  )
+  const [selectedBeforeAfter, setSelectedBeforeAfter] = usePersistedState(
+    'selectedBeforeAfter',
+    '',
+  )
+  const [selectedTextBlock, setSelectedTextBlock] = usePersistedState(
+    'selectedTextBlock',
+    '',
+  )
+  const [selectedVideoBlock, setSelectedVideoBlock] = usePersistedState(
+    'selectedVideoBlock',
     '',
   )
 
@@ -40,8 +53,12 @@ export const useComponentSelection = (
   const header = findComp(comps, selectedHeader)?.html ?? ''
   const hero = findComp(comps, selectedHero)?.html ?? ''
   const services = findComp(comps, selectedServices)?.html ?? ''
-  const footer = findComp(comps, selectedFooter)?.html ?? ''
   const whyChoose = findComp(comps, selectedWhyChoose)?.html ?? ''
+  const reviews = findComp(comps, selectedReviews)?.html ?? ''
+  const beforeAfter = findComp(comps, selectedBeforeAfter)?.html ?? ''
+  const textBlock = findComp(comps, selectedTextBlock)?.html ?? ''
+  const videoBlock = findComp(comps, selectedVideoBlock)?.html ?? ''
+  const footer = findComp(comps, selectedFooter)?.html ?? ''
 
   const combinedTemplateCss = combineCSS(
     findComp(comps, selectedHeader)?.css,
@@ -52,18 +69,30 @@ export const useComponentSelection = (
     findComp(comps, selectedHero)?.html,
     findComp(comps, selectedServices)?.html,
     findComp(comps, selectedWhyChoose)?.html,
+    findComp(comps, selectedReviews)?.html,
+    findComp(comps, selectedBeforeAfter)?.html,
+    findComp(comps, selectedTextBlock)?.html,
+    findComp(comps, selectedVideoBlock)?.html,
   )
 
   const combinedHomepageCss = combineCSS(
     findComp(comps, selectedHero)?.css,
     findComp(comps, selectedServices)?.css,
     findComp(comps, selectedWhyChoose)?.css,
+    findComp(comps, selectedReviews)?.css,
+    findComp(comps, selectedBeforeAfter)?.css,
+    findComp(comps, selectedTextBlock)?.css,
+    findComp(comps, selectedVideoBlock)?.css,
   )
 
   const combinedHomepageJs = combineCSS(
     findComp(comps, selectedHero)?.js,
     findComp(comps, selectedServices)?.js,
     findComp(comps, selectedWhyChoose)?.js,
+    findComp(comps, selectedReviews)?.js,
+    findComp(comps, selectedBeforeAfter)?.js,
+    findComp(comps, selectedTextBlock)?.js,
+    findComp(comps, selectedVideoBlock)?.js,
   )
 
   return {
@@ -77,14 +106,26 @@ export const useComponentSelection = (
     setSelectedHero,
     selectedServices,
     setSelectedServices,
+    selectedWhyChoose,
+    setSelectedWhyChoose,
+    selectedReviews,
+    setSelectedReviews,
+    selectedBeforeAfter,
+    setSelectedBeforeAfter,
+    selectedTextBlock,
+    setSelectedTextBlock,
+    selectedVideoBlock,
+    setSelectedVideoBlock,
     template,
     header,
     hero,
     services,
     footer,
     whyChoose,
-    selectedWhyChoose,
-    setSelectedWhyChoose,
+    reviews,
+    beforeAfter,
+    textBlock,
+    videoBlock,
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,

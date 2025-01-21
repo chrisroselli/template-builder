@@ -30,10 +30,24 @@ export default function TemplateBuilder({
     setSelectedServices,
     selectedWhyChoose,
     setSelectedWhyChoose,
+    selectedReviews,
+    setSelectedReviews,
+    selectedBeforeAfter,
+    setSelectedBeforeAfter,
+    selectedTextBlock,
+    setSelectedTextBlock,
+    selectedVideoBlock,
+    setSelectedVideoBlock,
     template,
     header,
     footer,
+    hero,
+    services,
     whyChoose,
+    reviews,
+    beforeAfter,
+    textBlock,
+    videoBlock,
     combinedTemplateCss,
     combinedHomepageHtml,
     combinedHomepageCss,
@@ -50,6 +64,11 @@ export default function TemplateBuilder({
     selectedHeader !== '' ||
     selectedHero !== '' ||
     selectedServices !== '' ||
+    selectedWhyChoose !== '' ||
+    selectedReviews !== '' ||
+    selectedBeforeAfter !== '' ||
+    selectedTextBlock !== '' ||
+    selectedVideoBlock !== '' ||
     selectedFooter !== ''
 
   const reset = () => {
@@ -58,8 +77,13 @@ export default function TemplateBuilder({
     setSelectedHero('')
     setSelectedServices('')
     setSelectedWhyChoose('')
+    setSelectedReviews('')
+    setSelectedBeforeAfter('')
+    setSelectedTextBlock('')
+    setSelectedVideoBlock('')
     setSelectedFooter('')
   }
+
   return (
     <>
       <ComponentSelection
@@ -84,6 +108,7 @@ export default function TemplateBuilder({
           },
         ]}
       />
+      <hr className="mb-6" />
       <ComponentSelection
         selections={[
           {
@@ -103,6 +128,30 @@ export default function TemplateBuilder({
             value: selectedWhyChoose,
             onChange: setSelectedWhyChoose,
             options: comps.filter((d) => d.comp_type === 'Why Choose'),
+          },
+          {
+            label: 'Reviews',
+            value: selectedReviews,
+            onChange: setSelectedReviews,
+            options: comps.filter((d) => d.comp_type === 'Reviews'),
+          },
+          {
+            label: 'Before & After',
+            value: selectedBeforeAfter,
+            onChange: setSelectedBeforeAfter,
+            options: comps.filter((d) => d.comp_type === 'Before & After'),
+          },
+          {
+            label: 'Text Block',
+            value: selectedTextBlock,
+            onChange: setSelectedTextBlock,
+            options: comps.filter((d) => d.comp_type === 'Text Block'),
+          },
+          {
+            label: 'Video Block',
+            value: selectedVideoBlock,
+            onChange: setSelectedVideoBlock,
+            options: comps.filter((d) => d.comp_type === 'Video Block'),
           },
         ]}
       />
@@ -139,7 +188,13 @@ export default function TemplateBuilder({
             data={{
               header: header,
               footer: footer,
+              hero: hero,
+              services: services,
               whyChoose: whyChoose,
+              reviews: reviews,
+              beforeAfter: beforeAfter,
+              textBlock: textBlock,
+              videoBlock: videoBlock,
             }}
           />
         ))}
