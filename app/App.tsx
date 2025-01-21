@@ -53,7 +53,7 @@ function App({
       id: 'tab4',
       icon: <PlusCircle className="w-4 h-4 mr-2" />,
       title: 'Add Component',
-      content: <ComponentCreator comps={comps} />,
+      content: <ComponentCreator />,
     },
   ]
   const [activeTab, setActiveTab] = usePersistedState(
