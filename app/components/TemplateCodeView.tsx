@@ -114,7 +114,7 @@ export default function TemplateCodeView({
         {activeTab === 'borders' && (
           <SyntaxHighlighter
             className="text-sm h-[600px]"
-            language="htmlbars"
+            language="php-template"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
           >
