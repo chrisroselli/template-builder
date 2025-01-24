@@ -64,9 +64,6 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
   }
   return (
     <>
-      <div className="text-base font-semibold text-primary mb-4">
-        Page Builder
-      </div>
       <ComponentSelection
         selections={[
           {

@@ -4,7 +4,7 @@ export default function ComponentSelection({
   selections,
 }: ComponentSelectionProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
       {selections.map(({ label, value, onChange, options }) => (
         <div key={label}>
           <label className="block text-sm font-semibold text-primary mb-2">
