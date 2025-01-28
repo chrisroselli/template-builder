@@ -37,16 +37,18 @@ export default function CodeView({ html, css, js }: CodeViewProps) {
           >
             CSS
           </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'js'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('js')}
-          >
-            JS
-          </button>
+          {js && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'js'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('js')}
+            >
+              JS
+            </button>
+          )}
         </div>
         <div className="flex justify-end space-x-4 mb-2">
           <CopyBtn

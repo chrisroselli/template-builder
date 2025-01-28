@@ -4,7 +4,7 @@ import { Code } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
-// TODO: Hide JS tab if no JS
+
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
   const [showCode, setShowCode] = useState<string | null>(null)
   const [activeTab, setActiveTab] = usePersistedState(
