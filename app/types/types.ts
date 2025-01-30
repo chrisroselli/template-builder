@@ -71,6 +71,7 @@ export interface CodeViewProps {
 
 export interface TemplatePreviewProps {
   template: string
+  templateCss: string
   combinedTemplateCss: string
   combinedHomepageCss: string
   data: Record<string, string>
@@ -78,6 +79,7 @@ export interface TemplatePreviewProps {
 
 export interface TemplateCodeViewProps {
   template: string
+  templateCss: string
   combinedTemplateCss: string
   combinedHomepageHtml: string
   combinedHomepageCss: string

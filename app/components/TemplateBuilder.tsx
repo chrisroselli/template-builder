@@ -39,6 +39,7 @@ export default function TemplateBuilder({
     selectedVideoBlock,
     setSelectedVideoBlock,
     template,
+    templateCss,
     header,
     footer,
     hero,
@@ -170,6 +171,7 @@ export default function TemplateBuilder({
         (showPreview ? (
           <TemplatePreview
             template={template}
+            templateCss={templateCss}
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageCss={combinedHomepageCss}
             data={{
@@ -181,6 +183,7 @@ export default function TemplateBuilder({
         ) : (
           <TemplateCodeView
             template={template}
+            templateCss={templateCss}
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageHtml={combinedHomepageHtml}
             combinedHomepageCss={combinedHomepageCss}

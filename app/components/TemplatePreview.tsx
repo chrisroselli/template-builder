@@ -4,6 +4,7 @@ import { replacePlaceholders } from '../utils/templateReplacer'
 
 export default function TemplatePreview({
   template,
+  templateCss,
   combinedTemplateCss,
   combinedHomepageCss,
   data,
@@ -19,7 +20,7 @@ export default function TemplatePreview({
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <div className="border rounded-md bg-white">
         <iframe
-          srcDoc={`<style>${combinedTemplateCss}${combinedHomepageCss}</style>${replacedHtml}`}
+          srcDoc={`<style>${templateCss}${combinedTemplateCss}${combinedHomepageCss}</style>${replacedHtml}`}
           className="w-full h-lvh"
           title="Preview"
         />
