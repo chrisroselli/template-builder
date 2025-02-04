@@ -42,8 +42,6 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
     videoBlockOptions,
   } = usePageComponentSelection(comps)
 
-  const isHeroSelected = selectedHero !== ''
-
   const isSelection =
     selectedHero !== '' ||
     selectedServices !== '' ||
@@ -112,7 +110,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
       />
       <div className="flex space-x-1 mb-6">
         <button
-          disabled={!isHeroSelected}
+          disabled={!isSelection}
           onClick={() => setShowPreview(!showPreview)}
           className="flex items-center px-4 py-2 bg-primary-dark text-white rounded-lg hover:bg-primary-light disabled:opacity-50"
         >
@@ -121,7 +119,7 @@ export default function PageBuilder({ comps }: { comps: CompRow[] }) {
         </button>
         <ResetBtn reset={reset} disabled={!isSelection} />
       </div>
-      {isHeroSelected &&
+      {isSelection &&
         (showPreview ? (
           <PagePreview
             hero={hero ?? { html: '', css: '', js: '' }}

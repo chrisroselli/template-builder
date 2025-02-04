@@ -65,26 +65,30 @@ export default function TemplateCodeView({
           >
             Template CSS
           </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'homepage-html'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('homepage-html')}
-          >
-            Homepage HTML
-          </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'homepage-css'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('homepage-css')}
-          >
-            Homepage CSS
-          </button>
+          {combinedHomepageHtml && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'homepage-html'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('homepage-html')}
+            >
+              Homepage HTML
+            </button>
+          )}
+          {combinedHomepageCss && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'homepage-css'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('homepage-css')}
+            >
+              Homepage CSS
+            </button>
+          )}
           {combinedHomepageJs && (
             <button
               className={`py-2 px-4 font-medium text-sm ${
