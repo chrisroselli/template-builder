@@ -62,7 +62,7 @@ export default function CodeView({ html, css, js }: CodeViewProps) {
       <div className="text-sm">
         {activeTab === 'css' && (
           <SyntaxHighlighter
-            className="rounded-xl h-[600px]"
+            className="text-sm h-[600px]"
             language="css"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -72,7 +72,7 @@ export default function CodeView({ html, css, js }: CodeViewProps) {
         )}
         {activeTab === 'html' && (
           <SyntaxHighlighter
-            className="rounded-xl h-[600px]"
+            className="text-sm h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -82,7 +82,7 @@ export default function CodeView({ html, css, js }: CodeViewProps) {
         )}
         {activeTab === 'js' && (
           <SyntaxHighlighter
-            className="rounded-xl h-[600px]"
+            className="text-sm h-[600px]"
             language="javascript"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
