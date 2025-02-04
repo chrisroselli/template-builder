@@ -16,11 +16,12 @@ export default function TemplatePreview({
     setReplacedHtml(replaced)
   }, [template, data])
 
+  const cssOverwrites = `#page-wrap {display: initial !important;}#content-wrap {width: 100% !important;max-width: initial !important;} #silo-sidebar,#siloBanner {display: none !important;}`
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <div className="border rounded-md bg-white">
         <iframe
-          srcDoc={`<style>${templateCss}${combinedTemplateCss}${combinedHomepageCss}</style>${replacedHtml}`}
+          srcDoc={`<style>${cssOverwrites}${templateCss}${combinedTemplateCss}${combinedHomepageCss}</style>${replacedHtml}`}
           className="w-full h-lvh"
           title="Preview"
         />
