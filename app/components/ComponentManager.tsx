@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import ComponentView from './ComponentView'
 import { Code } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
+import ComponentView from '@/app/components/ComponentView'
 
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
   const [showCode, setShowCode] = useState<string | null>(null)
@@ -41,7 +41,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     dedupeCompTypes,
     customOrderTypes,
   )
-  const headerFix = `header{position:relative;}`
+
   return (
     <>
       <div className="text-base font-semibold text-primary mb-4">
@@ -90,18 +90,18 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                   <DeleteComponentButton id={item.id} status={item.status} />
                 </div>
               </div>
-
+              {/*<CodeEditor item={item} />*/}
               {showCode === item.html ? (
                 <div className="mb-4">
                   <ComponentView html={item.html} css={item.css} js={item.js} />
                 </div>
               ) : (
                 <div className="border rounded-md overflow-hidden bg-white">
-                  <style>
-                    {item.css}
-                    {headerFix}
-                  </style>
-                  <div dangerouslySetInnerHTML={{ __html: item.html }} />
+                  <iframe
+                    srcDoc={`<style>${item.css}</style>${item.html}<script>${item.js}</script>`}
+                    className="w-full h-lvh"
+                    title="Preview"
+                  />
                 </div>
               )}
             </div>
