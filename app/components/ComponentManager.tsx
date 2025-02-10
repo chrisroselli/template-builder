@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Code } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
@@ -7,23 +7,11 @@ import ComponentView from '@/app/components/ComponentView'
 import ResizableIframe from './ResizableIframe'
 
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
   const [showCode, setShowCode] = useState<string | null>(null)
   const [activeTab, setActiveTab] = usePersistedState(
     'Component Manager activeTab',
     'Headers',
   )
-  const handleIframeLoad = () => {
-    if (iframeRef.current) {
-      const iframeDocument =
-        iframeRef.current.contentDocument ||
-        iframeRef.current.contentWindow?.document
-      if (iframeDocument) {
-        const newHeight = iframeDocument.body.scrollHeight
-        iframeRef.current.style.height = newHeight + 'px'
-      }
-    }
-  }
 
   const customOrderTypes = [
     'Headers',
