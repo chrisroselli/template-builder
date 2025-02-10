@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
-import ComponentView from './ComponentView'
+import React, { useRef, useState } from 'react'
 import { Code } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
+import ComponentView from '@/app/components/ComponentView'
+import ResizableIframe from './ResizableIframe'
 
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
+  const iframeRef = useRef<HTMLIFrameElement>(null)
   const [showCode, setShowCode] = useState<string | null>(null)
   const [activeTab, setActiveTab] = usePersistedState(
     'Component Manager activeTab',
     'Headers',
   )
+  const handleIframeLoad = () => {
+    if (iframeRef.current) {
+      const iframeDocument =
+        iframeRef.current.contentDocument ||
+        iframeRef.current.contentWindow?.document
+      if (iframeDocument) {
+        const newHeight = iframeDocument.body.scrollHeight
+        iframeRef.current.style.height = newHeight + 'px'
+      }
+    }
+  }
 
   const customOrderTypes = [
     'Headers',
@@ -41,7 +54,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     dedupeCompTypes,
     customOrderTypes,
   )
-  const headerFix = `header{position:relative;}`
+
   return (
     <>
       <div className="text-base font-semibold text-primary mb-4">
@@ -90,19 +103,12 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                   <DeleteComponentButton id={item.id} status={item.status} />
                 </div>
               </div>
-
               {showCode === item.html ? (
                 <div className="mb-4">
                   <ComponentView html={item.html} css={item.css} js={item.js} />
                 </div>
               ) : (
-                <div className="border rounded-md overflow-hidden bg-white">
-                  <style>
-                    {item.css}
-                    {headerFix}
-                  </style>
-                  <div dangerouslySetInnerHTML={{ __html: item.html }} />
-                </div>
+                <ResizableIframe html={item.html} css={item.css} js={item.js} />
               )}
             </div>
           ))}
