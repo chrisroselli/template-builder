@@ -174,6 +174,7 @@ export default function TemplateBuilder({
             templateCss={templateCss}
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageCss={combinedHomepageCss}
+            combinedHomepageJs={combinedHomepageJs}
             data={{
               header: header,
               combinedHomepageHtml: `<div id="homepage">\n${combinedHomepageHtml}\n</div>`,

@@ -19,6 +19,10 @@ export const combineHTML = (...htmlStrings: (string | undefined)[]) => {
   return htmlStrings.filter(Boolean).join('\n\n')
 }
 
+export const combineCode = (...codeStrings: (string | undefined)[]) => {
+  return codeStrings.filter(Boolean).join('\n\n')
+}
+
 export const filterCompsByType = (comps: CompRow[], type: string) => {
   return comps.filter((comp) => comp.comp_type === type)
 }

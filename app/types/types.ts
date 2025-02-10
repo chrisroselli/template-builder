@@ -74,6 +74,7 @@ export interface TemplatePreviewProps {
   templateCss: string
   combinedTemplateCss: string
   combinedHomepageCss: string
+  combinedHomepageJs: string
   data: Record<string, string>
 }
 

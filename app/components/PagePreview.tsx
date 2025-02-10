@@ -1,5 +1,7 @@
 import type { PagePreviewProps } from '@/app/types/types'
 import React from 'react'
+import ResizableIframe from '@/app/components/ResizableIframe'
+import { combineCode } from '@/app/utils/templateUtils'
 
 export default function PagePreview({
   hero,
@@ -10,13 +12,32 @@ export default function PagePreview({
   textBlock,
   videoBlock,
 }: PagePreviewProps) {
+  const components = [
+    hero,
+    services,
+    whyChoose,
+    reviews,
+    beforeAfter,
+    textBlock,
+    videoBlock,
+  ]
+
+  const combinedComponentHtml = combineCode(
+    ...components.map((component) => component.html),
+  )
+  const combinedComponentCss = combineCode(
+    ...components.map((component) => component.css),
+  )
+  const combinedComponentJs = combineCode(
+    ...components.map((component) => component.js),
+  )
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <div className="border rounded-md bg-white">
-        <iframe
-          srcDoc={`<style>${hero.css}${services.css}${whyChoose.css}${reviews.css}${beforeAfter.css}${textBlock.css}${videoBlock.css}</style>${hero.html}${services.html}${whyChoose.html} ${reviews.html} ${beforeAfter.html} ${textBlock.html} ${videoBlock.html}`}
-          className="w-full h-lvh"
-          title="Preview"
+        <ResizableIframe
+          html={combinedComponentHtml}
+          css={combinedComponentCss}
+          js={combinedComponentJs}
         />
       </div>
     </div>

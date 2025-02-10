@@ -21,7 +21,7 @@ export default function ResizableIframe({
         iframeRef.current.contentWindow?.document
       if (iframeDocument) {
         iframeRef.current.style.height =
-          iframeDocument.body.scrollHeight + 50 + 'px'
+          iframeDocument.body.scrollHeight + 20 + 'px'
       }
     }
   }

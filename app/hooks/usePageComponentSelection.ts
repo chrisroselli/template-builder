@@ -44,7 +44,7 @@ export const usePageComponentSelection = (comps: CompRow[]) => {
   const servicesOptions = filterCompsByType(comps, 'Services')
   const whyChooseOptions = filterCompsByType(comps, 'Why Choose')
   const reviewsOptions = filterCompsByType(comps, 'Reviews')
-  const beforeAfterOptions = filterCompsByType(comps, 'Before After')
+  const beforeAfterOptions = filterCompsByType(comps, 'Before & After')
   const textBlockOptions = filterCompsByType(comps, 'Text Block')
   const videoBlockOptions = filterCompsByType(comps, 'Video Block')
 
