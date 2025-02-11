@@ -3,7 +3,7 @@ import React from 'react'
 import TemplateBuilder from './components/TemplateBuilder'
 import PageBuilder from './components/PageBuilder'
 import ComponentManager from './components/ComponentManager'
-import ComponentCreator from './components/AddComponent'
+import AddComponent from './components/AddComponent'
 import { usePersistedState } from './hooks/usePersistedState'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import { ToastContainer } from 'react-toastify'
@@ -53,7 +53,7 @@ function App({
       id: 'tab4',
       icon: <PlusCircle className="w-4 h-4 mr-2" />,
       title: 'Add Component',
-      content: <ComponentCreator />,
+      content: <AddComponent />,
     },
   ]
   const [activeTab, setActiveTab] = usePersistedState(
