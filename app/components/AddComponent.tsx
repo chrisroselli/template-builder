@@ -7,7 +7,7 @@ import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
 // TODO: Uppercase comp name on submit
 
-export default function ComponentCreator() {
+export default function AddComponent() {
   const [isPending, startTransition] = useTransition()
   const [componentType, setComponentType] = usePersistedState(
     'Add Component componentType',
