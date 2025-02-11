@@ -57,7 +57,7 @@ export default function ResizableIframe({
       ref={iframeRef}
       onLoad={updateHeight}
       srcDoc={`<style>${css}</style>${html}<script>${js}</script>`}
-      className="w-full"
+      className="w-full border"
       title="Preview"
     />
   )
