@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Code, Monitor, Pencil, Save } from 'lucide-react'
+import { Code, Monitor, Pencil } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
 import ComponentView from '@/app/components/ComponentView'
 import ResizableIframe from './ResizableIframe'
 import { updateComponent } from '@/app/actions/componentActions'
-//TODO: Disable modal save button if no changes
+//TODO: Disable modal save button if no changes*
 //TODO: Add processing spinner and success/error handling to save button
 //TODO: Reset modal tab to html when modal is closed
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
@@ -49,7 +49,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     dedupeCompTypes,
     customOrderTypes,
   )
-  // State for modal editing
+
   const [editingComponent, setEditingComponent] = useState<CompRow | null>(null)
   const [formValues, setFormValues] = useState({
     name: '',
@@ -58,7 +58,6 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     js: '',
   })
 
-  // Open modal and populate form with component data
   const handleOpenEditModal = (component: CompRow) => {
     setEditingComponent(component)
     setFormValues({
@@ -71,6 +70,7 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
 
   const handleCloseModal = () => {
     setEditingComponent(null)
+    setModalActiveTab('html')
   }
 
   const handleInputChange = (
@@ -82,7 +82,6 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     })
   }
 
-  // Submit updated component data via updateComponent API call
   const handleModalSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!editingComponent) return
@@ -102,6 +101,17 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
       alert('Failed to update component: ' + response.message)
     }
   }
+
+  const disableModalSaveBtn = () => {
+    if (!editingComponent) return true
+    return (
+      formValues.name === editingComponent.name &&
+      formValues.html === editingComponent.html &&
+      formValues.css === editingComponent.css &&
+      formValues.js === editingComponent.js
+    )
+  }
+
   return (
     <>
       <div className="text-base font-semibold text-primary mb-4">
@@ -277,9 +287,10 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 bg-primary-dark text-white rounded hover:bg-primary-light"
+                  disabled={disableModalSaveBtn()}
+                  className="px-4 bg-primary-dark text-white rounded hover:bg-primary-light disabled:opacity-50"
                 >
-                  <Save className="w-6 h-6" />
+                  Save Changes
                 </button>
               </div>
             </form>
