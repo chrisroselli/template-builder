@@ -1,14 +1,16 @@
-import React, { useRef, useState, useTransition } from 'react'
+import React, { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Eye, Save } from 'lucide-react'
+import { Check, Eye, Loader2, Save } from 'lucide-react'
 import { submitComponent } from '@/app/actions/componentActions'
-import { toast } from 'react-toastify'
 import ResetBtn from '@/app/components/ResetBtn'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
+import confetti from 'canvas-confetti'
 // TODO: Uppercase comp name on submit
 
 export default function AddComponent() {
-  const [isPending, startTransition] = useTransition()
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'pending' | 'success'
+  >('idle')
   const [componentType, setComponentType] = usePersistedState(
     'Add Component componentType',
     '',
@@ -24,31 +26,46 @@ export default function AddComponent() {
 
   const [previewVisible, setPreviewVisible] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
   const router = useRouter()
 
+  const btnConfetti = ['#4a8332', '#48403e', '#5d9147', '#61534f']
   async function handleSubmit(formData: FormData) {
+    setSubmitStatus('pending')
     const result = await submitComponent(formData)
     if (result.success) {
-      toast.success(result.message, {
-        style: {
-          background: '#4a8332',
-        },
-      })
       console.log(result.message)
-      if (formRef.current) {
-        formRef.current.reset()
-        setComponentType('')
-        setName('')
-        setHtml('')
-        setCss('')
-        setJs('')
-      }
-      startTransition(() => {
-        router.refresh()
-      })
+      setTimeout(() => {
+        setSubmitStatus('success')
+        if (submitButtonRef.current) {
+          const rect = submitButtonRef.current.getBoundingClientRect()
+          confetti({
+            colors: btnConfetti,
+            particleCount: 150,
+            angle: 60,
+            spread: 55,
+            origin: {
+              x: (rect.left + rect.width / 2) / window.innerWidth,
+              y: (rect.top + rect.height / 2) / window.innerHeight,
+            },
+          })
+        }
+        setTimeout(() => {
+          setSubmitStatus('idle')
+          if (formRef.current) {
+            formRef.current.reset()
+            setComponentType('')
+            setName('')
+            setHtml('')
+            setCss('')
+            setJs('')
+          }
+        }, 1000)
+      }, 1000)
+      router.refresh()
     } else if (result.error) {
-      toast.error(result.message)
       console.log(result.error)
+      setSubmitStatus('idle')
     }
   }
 
@@ -206,19 +223,30 @@ export default function AddComponent() {
             {previewVisible ? 'Hide Preview' : 'Show Preview'}
           </button>
           <button
+            ref={submitButtonRef}
             type="submit"
             disabled={
-              isPending ||
               previewVisible ||
               componentType === '' ||
               name === '' ||
               html === '' ||
-              css === ''
+              css === '' ||
+              submitStatus === 'pending'
             }
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light disabled:opacity-50 cursor-pointer"
           >
-            <Save className="w-4 h-4 mr-1" />
-            {isPending ? 'Submitting...' : 'Submit Component'}
+            {submitStatus === 'pending' ? (
+              <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+            ) : submitStatus === 'success' ? (
+              <Check className="w-4 h-4 mr-1" />
+            ) : (
+              <Save className="w-4 h-4 mr-1" />
+            )}
+            {submitStatus === 'pending'
+              ? 'Submitting...'
+              : submitStatus === 'success'
+                ? 'Success'
+                : 'Submit Component'}
           </button>
           <ResetBtn reset={reset} disabled={!isSelection} />
         </div>

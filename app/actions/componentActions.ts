@@ -31,6 +31,39 @@ export async function submitComponent(formData: FormData) {
   }
 }
 
+export async function updateComponent(id: number, formData: FormData) {
+  const name = formData.get('componentName') as string
+  const html = formData.get('html') as string
+  const css = formData.get('css') as string
+  const js = formData.get('js') as string
+
+  const label = name.split(' ').join('_').toLowerCase()
+
+  try {
+    const result = await sql`
+      UPDATE components
+      SET html = ${html},
+          css = ${css},
+          js = ${js},
+          name = ${name},
+          label = ${label}
+      WHERE id = ${id}
+    `
+    revalidatePath('/')
+    if (result.rowCount === 0) {
+      return { success: false, message: 'Component not found' }
+    }
+    return { success: true, message: 'Component updated successfully' }
+  } catch (error) {
+    console.error('Failed to update component:', error)
+    return {
+      success: false,
+      message: 'Component update failed',
+      error: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
+
 export async function deleteComponent(id: number) {
   try {
     const result = await sql`

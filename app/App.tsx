@@ -1,13 +1,10 @@
 'use client'
 import React from 'react'
-// import TemplateBuilder from './components/TemplateBuilder'
 import PageBuilder from './components/PageBuilder'
 import ComponentManager from './components/ComponentManager'
 import AddComponent from './components/AddComponent'
 import { usePersistedState } from './hooks/usePersistedState'
 import { CompRow, TemplateRow } from '@/app/types/types'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { LayoutDashboard, PanelTop, PlusCircle } from 'lucide-react'
 
@@ -86,13 +83,6 @@ function App({
           ))}
         </Tabs>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        closeOnClick
-        theme="colored"
-      />
     </>
   )
 }
