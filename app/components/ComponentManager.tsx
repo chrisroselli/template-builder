@@ -2,13 +2,11 @@ import React, { useRef, useState } from 'react'
 import { Check, Code, Loader2, Monitor, Pencil, Save } from 'lucide-react'
 import { DeleteComponentButton } from '@/app/components/DeleteComponentButton'
 import { CompRow } from '@/app/types/types'
-import confetti from 'canvas-confetti'
 import { usePersistedState } from '@/app/hooks/usePersistedState'
 import ComponentView from '@/app/components/ComponentView'
 import ResizableIframe from './ResizableIframe'
 import { updateComponent } from '@/app/actions/componentActions'
 //TODO: Disable modal save button if no changes*
-//TODO: Add processing spinner and success/error handling to save button
 export default function ComponentManager({ comps }: { comps: CompRow[] }) {
   const submitButtonRef = useRef<HTMLButtonElement>(null)
   const [submitStatus, setSubmitStatus] = useState<
@@ -97,31 +95,16 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
     formData.append('css', formValues.css)
     formData.append('js', formValues.js)
 
-    const btnConfetti = ['#4a8332', '#48403e', '#5d9147', '#61534f']
-
     const result = await updateComponent(editingComponent.id, formData)
     if (result.success) {
       console.log(result.message)
       setTimeout(() => {
         setSubmitStatus('success')
-        if (submitButtonRef.current) {
-          const rect = submitButtonRef.current.getBoundingClientRect()
-          confetti({
-            colors: btnConfetti,
-            particleCount: 150,
-            angle: 60,
-            spread: 55,
-            origin: {
-              x: (rect.left + rect.width / 2) / window.innerWidth,
-              y: (rect.top + rect.height / 2) / window.innerHeight,
-            },
-          })
-        }
         setTimeout(() => {
           setSubmitStatus('idle')
           handleCloseModal()
-        }, 2000)
-      }, 2000)
+        }, 500)
+      }, 1000)
     } else if (result.error) {
       console.log(result.error)
       setSubmitStatus('idle')
@@ -314,8 +297,8 @@ export default function ComponentManager({ comps }: { comps: CompRow[] }) {
                 <button
                   ref={submitButtonRef}
                   type="submit"
-                  disabled={disableModalSaveBtn()}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:opacity-50 cursor-pointer"
+                  disabled={disableModalSaveBtn() || submitStatus === 'pending'}
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light disabled:opacity-50 cursor-pointer"
                 >
                   {submitStatus === 'pending' ? (
                     <Loader2 className="w-4 h-4 mr-1 animate-spin" />

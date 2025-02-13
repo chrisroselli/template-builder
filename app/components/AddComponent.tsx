@@ -35,14 +35,6 @@ export default function AddComponent() {
     const result = await submitComponent(formData)
     if (result.success) {
       console.log(result.message)
-      if (formRef.current) {
-        formRef.current.reset()
-        setComponentType('')
-        setName('')
-        setHtml('')
-        setCss('')
-        setJs('')
-      }
       setTimeout(() => {
         setSubmitStatus('success')
         if (submitButtonRef.current) {
@@ -58,8 +50,18 @@ export default function AddComponent() {
             },
           })
         }
-        setTimeout(() => setSubmitStatus('idle'), 2000)
-      }, 2000)
+        setTimeout(() => {
+          setSubmitStatus('idle')
+          if (formRef.current) {
+            formRef.current.reset()
+            setComponentType('')
+            setName('')
+            setHtml('')
+            setCss('')
+            setJs('')
+          }
+        }, 1000)
+      }, 1000)
       router.refresh()
     } else if (result.error) {
       console.log(result.error)
@@ -224,14 +226,14 @@ export default function AddComponent() {
             ref={submitButtonRef}
             type="submit"
             disabled={
-              submitStatus === 'pending' ||
               previewVisible ||
               componentType === '' ||
               name === '' ||
               html === '' ||
-              css === ''
+              css === '' ||
+              submitStatus === 'pending'
             }
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary-light disabled:opacity-50 cursor-pointer"
           >
             {submitStatus === 'pending' ? (
               <Loader2 className="w-4 h-4 mr-1 animate-spin" />
