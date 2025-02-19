@@ -108,8 +108,6 @@ export default function PageCodeView({
         {activeTab === 'html' && (
           <SyntaxHighlighter
             className="text-sm h-[600px]"
-            language="css"
-            className="text-sm h-[600px]"
             language="htmlbars"
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
@@ -119,8 +117,6 @@ export default function PageCodeView({
         )}
         {activeTab === 'css' && (
           <SyntaxHighlighter
-            className="text-sm h-[600px]"
-            language="htmlbars"
             className="text-sm h-[600px]"
             language="css"
             style={atomOneDark}
