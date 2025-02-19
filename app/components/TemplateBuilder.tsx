@@ -8,7 +8,8 @@ import TemplateCodeView from '@/app/components/TemplateCodeView'
 import ComponentSelection from '@/app/components/ComponentSelection'
 import { useComponentSelection } from '@/app/hooks/useComponentSelection'
 import ResetBtn from '@/app/components/ResetBtn'
-
+//TODO: hide codeview tabs when no data
+// TODO: Add script tag to Homepage JS codeview
 export default function TemplateBuilder({
   templates,
   comps,
@@ -39,6 +40,7 @@ export default function TemplateBuilder({
     selectedVideoBlock,
     setSelectedVideoBlock,
     template,
+    templateCss,
     header,
     footer,
     hero,
@@ -170,6 +172,7 @@ export default function TemplateBuilder({
         (showPreview ? (
           <TemplatePreview
             template={template}
+            templateCss={templateCss}
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageCss={combinedHomepageCss}
             combinedHomepageJs={combinedHomepageJs}
@@ -182,6 +185,7 @@ export default function TemplateBuilder({
         ) : (
           <TemplateCodeView
             template={template}
+            templateCss={templateCss}
             combinedTemplateCss={combinedTemplateCss}
             combinedHomepageHtml={combinedHomepageHtml}
             combinedHomepageCss={combinedHomepageCss}

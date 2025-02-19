@@ -7,6 +7,7 @@ import CopyBtn from '@/app/components/CopyBtn'
 
 export default function TemplateCodeView({
   template,
+  templateCss,
   data,
   combinedTemplateCss,
   combinedHomepageHtml,
@@ -24,12 +25,14 @@ export default function TemplateCodeView({
   const copyBtn = () => {
     navigator.clipboard.writeText(
       activeTab === 'css'
-        ? combinedTemplateCss
+        ? `${templateCss}${combinedTemplateCss}`
         : activeTab === 'homepage-css'
           ? `<style>\n${combinedHomepageCss}\n</style>`
-          : activeTab === 'homepage-html'
-            ? combinedHomepageHtml
-            : templatePHP,
+          : activeTab === 'homepage-js'
+            ? combinedHomepageJs
+            : activeTab === 'homepage-html'
+              ? combinedHomepageHtml
+              : templatePHP,
     )
   }
 
@@ -62,36 +65,42 @@ export default function TemplateCodeView({
           >
             Template CSS
           </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'homepage-html'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('homepage-html')}
-          >
-            Homepage HTML
-          </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'homepage-css'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('homepage-css')}
-          >
-            Homepage CSS
-          </button>
-          <button
-            className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'homepage-js'
-                ? 'border-b-2 border-primary-dark text-primary-dark'
-                : 'text-gray-500'
-            }`}
-            onClick={() => setActiveTab('homepage-js')}
-          >
-            Homepage JS
-          </button>
+          {combinedHomepageHtml && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'homepage-html'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('homepage-html')}
+            >
+              Homepage HTML
+            </button>
+          )}
+          {combinedHomepageCss && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'homepage-css'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('homepage-css')}
+            >
+              Homepage CSS
+            </button>
+          )}
+          {combinedHomepageJs && (
+            <button
+              className={`py-2 px-4 font-medium text-sm ${
+                activeTab === 'homepage-js'
+                  ? 'border-b-2 border-primary-dark text-primary-dark'
+                  : 'text-gray-500'
+              }`}
+              onClick={() => setActiveTab('homepage-js')}
+            >
+              Homepage JS
+            </button>
+          )}
         </div>
         <div className="flex justify-end space-x-4 mb-2">
           <CopyBtn
@@ -128,6 +137,7 @@ export default function TemplateCodeView({
             style={atomOneDark}
             customStyle={{ padding: '1rem' }}
           >
+            {templateCss}
             {combinedTemplateCss}
           </SyntaxHighlighter>
         )}

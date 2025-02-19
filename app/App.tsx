@@ -1,12 +1,18 @@
 'use client'
 import React from 'react'
+import TemplateBuilder from './components/TemplateBuilder'
 import PageBuilder from './components/PageBuilder'
 import ComponentManager from './components/ComponentManager'
 import AddComponent from './components/AddComponent'
 import { usePersistedState } from './hooks/usePersistedState'
 import { CompRow, TemplateRow } from '@/app/types/types'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
-import { LayoutDashboard, PanelTop, PlusCircle } from 'lucide-react'
+import {
+  LayoutDashboard,
+  PanelsTopLeft,
+  PanelTop,
+  PlusCircle,
+} from 'lucide-react'
 
 interface Tab {
   id: string
@@ -16,33 +22,33 @@ interface Tab {
 }
 
 function App({
-  // templates,
+  templates,
   comps,
 }: {
   templates: TemplateRow[]
   comps: CompRow[]
 }) {
   const tabsData: Tab[] = [
-    // {
-    //   id: 'tab1',
-    //   icon: <PanelsTopLeft className="w-4 h-4 mr-2" />,
-    //   title: 'Template Builder',
-    //   content: <TemplateBuilder templates={templates} comps={comps} />,
-    // },
     {
       id: 'tab1',
+      icon: <PanelsTopLeft className="w-4 h-4 mr-2" />,
+      title: 'Template Builder',
+      content: <TemplateBuilder templates={templates} comps={comps} />,
+    },
+    {
+      id: 'tab2',
       icon: <PanelTop className="w-4 h-4 mr-2" />,
       title: 'Page Builder',
       content: <PageBuilder comps={comps} />,
     },
     {
-      id: 'tab2',
+      id: 'tab3',
       icon: <LayoutDashboard className="w-4 h-4 mr-2" />,
       title: 'Component Manager',
       content: <ComponentManager comps={comps} />,
     },
     {
-      id: 'tab3',
+      id: 'tab4',
       icon: <PlusCircle className="w-4 h-4 mr-2" />,
       title: 'Add Component',
       content: <AddComponent />,

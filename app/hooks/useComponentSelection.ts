@@ -50,6 +50,8 @@ export const useComponentSelection = (
   )
 
   const template = findTemplate(templates, selectedTemplate)?.borders ?? ''
+  const templateCss =
+    findTemplate(templates, selectedTemplate)?.template_css ?? ''
   const header = findComp(comps, selectedHeader)?.html ?? ''
   const hero = findComp(comps, selectedHero)?.html ?? ''
   const services = findComp(comps, selectedServices)?.html ?? ''
@@ -117,6 +119,7 @@ export const useComponentSelection = (
     selectedVideoBlock,
     setSelectedVideoBlock,
     template,
+    templateCss,
     header,
     hero,
     services,
