@@ -9,6 +9,7 @@ import ComponentSelection from '@/app/components/ComponentSelection'
 import { useComponentSelection } from '@/app/hooks/useComponentSelection'
 import ResetBtn from '@/app/components/ResetBtn'
 //TODO: hide codeview tabs when no data
+// TODO: Add script tag to Homepage JS codeview
 export default function TemplateBuilder({
   templates,
   comps,
