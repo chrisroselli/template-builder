@@ -29,9 +29,9 @@ export default function TemplateCodeView({
         : activeTab === 'homepage-css'
           ? `<style>\n${combinedHomepageCss}\n</style>`
           : activeTab === 'homepage-js'
-            ? combinedHomepageJs
+            ? `<script>\n${combinedHomepageJs}\n</script>`
             : activeTab === 'homepage-html'
-              ? combinedHomepageHtml
+              ? `<div id="homepage">\n${combinedHomepageHtml}\n</div>`
               : templatePHP,
     )
   }

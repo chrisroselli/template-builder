@@ -25,7 +25,6 @@ export default function TemplatePreview({
     combinedTemplateCss,
     combinedHomepageCss,
   )
-  console.log(templateCss)
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 overflow-hidden">
       <div className="border rounded-md bg-white">
